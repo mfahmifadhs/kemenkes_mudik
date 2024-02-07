@@ -99,7 +99,7 @@
                     </div>
                     <div class="form-group row mt-2">
                         <div class="col-md-12">
-                            <label class="text-sm">
+                            <label class="text-sm text-danger">
                                 Mohon persiapkan dokumen pendukung antara lain :
                                 <li class="mx-4">Foto KTP</li>
                                 <li class="mx-4">Foto Kartu Keluarga</li>
