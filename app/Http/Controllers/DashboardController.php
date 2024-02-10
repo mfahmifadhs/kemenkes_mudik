@@ -25,6 +25,8 @@ class DashboardController extends Controller
             return redirect('/');
         }
 
+        $uker   = [];
+        $trayek = [];
         $role = Auth::user()->role_id;
         $user = $role == 4 ? 'user' : ($role == 3 ? 'roum' : 'admin');
         $rute = Trayek::get();
