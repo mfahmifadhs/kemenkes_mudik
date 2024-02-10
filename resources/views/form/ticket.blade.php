@@ -49,7 +49,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($book->detail as $row)
+                                @foreach ($detail as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td class="text-left">{{ $row->nama_peserta }}</td>

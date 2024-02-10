@@ -135,7 +135,8 @@ class FormController extends Controller
     public function ticket($id)
     {
         $book = Booking::where('id_booking', $id)->first();
-        return view('form.ticket', compact('book'));
+        $detail = Peserta::where('booking_id', $id)->get();
+        return view('form.ticket', compact('book', 'detail'));
     }
 
     public function check(Request $request)
