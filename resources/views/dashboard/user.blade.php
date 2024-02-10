@@ -59,7 +59,7 @@
                                             <td class="text-left">
                                                 <div class="row">
                                                     <div class="col-md-4">Kode Boking</div>
-                                                    <div class="col-md-7">: {{ $row->id_booking }}</div>
+                                                    <div class="col-md-7">: {{ $row->kode_booking }}</div>
                                                     <div class="col-md-4">Nama</div>
                                                     <div class="col-md-7">: {{ $row->nama_pegawai }}</div>
                                                     <div class="col-md-4">NIP/NIK</div>

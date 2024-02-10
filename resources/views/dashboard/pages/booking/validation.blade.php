@@ -17,7 +17,7 @@
         <div class="container">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h5 class="m-0"> Detail Boking <small>({{ $book->id_booking }})</small></h5>
+                    <h5 class="m-0"> Detail Boking <small>({{ $book->kode_booking }})</small></h5>
                 </div>
                 <div class="col-sm-6 text-right">
                     <a href="{{ route('dashboard') }}" class="btn btn-default border-dark">
@@ -38,7 +38,7 @@
                             <div class="col-md-10">
                                 <div class="row ml-3 my-2">
                                     <div class="col-md-2">Kode Boking</div>
-                                    <div class="col-md-9">: {{ $book->id_booking }}</div>
+                                    <div class="col-md-9">: {{ $book->kode_booking }}</div>
                                     <div class="col-md-2">Nama Pegawai</div>
                                     <div class="col-md-9">: {{ $book->nama_pegawai }}</div>
                                     <div class="col-md-2">NIK/NIP</div>

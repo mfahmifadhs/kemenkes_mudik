@@ -16,6 +16,7 @@ class Booking extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'kode_booking',
         'trayek_id',
         'tujuan_id',
         'uker_id',

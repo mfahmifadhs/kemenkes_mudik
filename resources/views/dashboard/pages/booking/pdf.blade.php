@@ -92,7 +92,7 @@
                         <td class="text-left">{{ $row->uker->nama_unit_kerja }}</td>
                         <td class="text-left">
                             {{ Carbon\Carbon::parse($subRow->created_at)->isoFormat('DD MMMM Y') }} <br>
-                            {{ $row->id_booking }}
+                            {{ $row->kode_booking }}
                         </td>
                         <td class="text-left">
                             {{ $subRow->nama_peserta }} <br>

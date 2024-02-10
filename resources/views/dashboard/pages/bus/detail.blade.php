@@ -22,7 +22,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
 
                     @foreach ($bus as $key => $row)
                     @php $bus = $row->id_bus; @endphp
@@ -148,7 +148,7 @@
                     </div>
                     @endforeach
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
                             <table id="table" class="table text-center">

@@ -57,12 +57,13 @@ class FormController extends Controller
 
     public function store(Request $request)
     {
-        $data    = json_decode($request->data);
-        $total   = str_pad(Booking::withTrashed()->count() + 1, 4, 0, STR_PAD_LEFT);
-        $id_book = Carbon::now()->format('ymdHis') . $total;
+        $data      = json_decode($request->data);
+        $total     = str_pad(Booking::withTrashed()->count() + 1, 4, 0, STR_PAD_LEFT);
+        $kode_book = Carbon::now()->format('ymdHis') . $total;
 
         $tambah  = new Booking();
-        $tambah->id_booking   = $id_book;
+        $tambah->id_booking   = $total;
+        $tambah->kode_booking = $kode_book;
         $tambah->trayek_id    = $request->rute;
         $tambah->tujuan_id    = $data->tujuan;
         $tambah->uker_id      = $data->uker;
@@ -80,7 +81,7 @@ class FormController extends Controller
 
             $detail = new Peserta();
             $detail->id_peserta   = $id_peserta;
-            $detail->booking_id   = $id_book;
+            $detail->booking_id   = $total;
             $detail->bus_id       = $request->bus[$key];
             $detail->kode_seat    = $seat_id;
             $detail->nama_peserta = $request->peserta[$key];
@@ -123,13 +124,13 @@ class FormController extends Controller
 
             $ktp->storeAs('public/files/foto_ktp', $fileKtp);
             $kk->storeAs('public/files/foto_kk', $fileKk);
-            Booking::where('id_booking', $id_book)->update([
+            Booking::where('id_booking', $total)->update([
                 'foto_ktp' => $fileKtp,
                 'foto_kk'  => $fileKk
             ]);
         }
 
-        return redirect()->route('form.tiket', $id_book)->with('success', 'Berhasil Registrasi');
+        return redirect()->route('form.tiket', $total)->with('success', 'Berhasil Registrasi');
     }
 
     public function ticket($id)

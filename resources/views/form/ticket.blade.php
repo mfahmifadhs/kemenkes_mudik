@@ -15,7 +15,7 @@
                         <p class="small m-3">
                         <div class="row small">
                             <div class="col-md-3">Kode Boking</div>
-                            <div class="col-md-8">: {{ $book->id_booking }}</div>
+                            <div class="col-md-8">: {{ $book->kode_booking }}</div>
                             <div class="col-md-3">Nama Pegawai</div>
                             <div class="col-md-8">: {{ $book->nama_pegawai }}</div>
                             <div class="col-md-3">NIP/NIK</div>
