@@ -105,7 +105,7 @@
                                             <i class="fas fa-bus fa-2x"></i>
                                             Bus {{ $subRow->id_bus }} <br>
                                             <span class="text-left text-xs">
-                                                @php $seat = $subRow->total_kursi - $subRow->detail->where('status', 'full')->count(); @endphp
+                                                @php $seat = $subRow->total_kursi - $subRow->detail->where('status', '!=', 'cancel')->count(); @endphp
                                                 @if ($seat == 0) <span class="text-danger">Penuh</span>
                                                 @else <span class="text-success">Tersedia <b>{{ $seat }}</b> seat</span> @endif
                                             </span>
