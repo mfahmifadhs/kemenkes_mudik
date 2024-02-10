@@ -28,9 +28,9 @@
     <div class="mt-16 flex items-center justify-center">
         <div class="grid grid-cols-1 md:grid-cols-1 gap-6 lg:gap-8" style="width: 100%;">
 
-            <a class="p-6 bg-grey dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20">
+            <a class="p-6 bg-white border border-dark via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20">
                 <div>
-                    <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white text-center">
+                    <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-black text-center">
                         <p>SELAMAT DATANG</p>
                     </h2>
 
@@ -38,22 +38,22 @@
                     <form id="form" action="{{ route('post.login') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label class="text-white text-left">Username</label>
-                            <input type="text" class="form-control rounded" name="username" required>
+                            <label class="text-black text-left">Username</label>
+                            <input type="text" class="form-control border-dark rounded" name="username" required>
                         </div>
                         <div class="form-group mt-3">
-                            <label class="text-white">Password</label>
+                            <label class="text-black">Password</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password" required>
-                                <div class="input-group-append">
-                                    <span class="input-group-text border-secondary h-100 rounded-0 bg-white border border-white">
+                                <input type="password" class="form-control border-dark" id="password" name="password" placeholder="Masukkan Password" required>
+                                <div class="input-group-append border border-dark">
+                                    <span class="input-group-text h-100 rounded-0 bg-white">
                                         <i class="fas fa-eye-slash" id="eye-icon-pass"></i>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group mt-5 text-right">
-                            <button type="submit" class="btn btn-secondary text-white border-white" onclick="confirmSubmit(event, 'Masuk', 'Pastikan data sudah terisi dengan benar')">
+                            <button type="submit" class="btn btn-default text-black border-dark" onclick="confirmSubmit(event, 'Masuk', 'Pastikan data sudah terisi dengan benar')">
                                 <i class="fa-solid fa-right-to-bracket"></i> Masuk
                             </button>
                         </div>

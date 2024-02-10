@@ -30,4 +30,8 @@ class Bus extends Model
     public function trayek() {
         return $this->belongsTo(Trayek::class, 'trayek_id');
     }
+
+    public function detail() {
+        return $this->hasMany(Peserta::class, 'bus_id');
+    }
 }

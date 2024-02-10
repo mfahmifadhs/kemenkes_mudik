@@ -24,6 +24,10 @@ class Trayek extends Model
         return $this->hasMany(Bus::class, 'trayek_id');
     }
 
+    public function book() {
+        return $this->hasMany(Booking::class, 'trayek_id');
+    }
+
     public function trayekDetail() {
         return $this->hasMany(TrayekDetail::class, 'trayek_id');
     }

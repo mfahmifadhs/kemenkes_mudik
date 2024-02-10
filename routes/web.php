@@ -40,9 +40,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('peserta', [BookingController::class, 'index'])->name('peserta');
     Route::get('peserta/cari', [BookingController::class, 'filter'])->name('peserta.filter');
 
+    Route::get('bus/{id}', [BusController::class, 'detail'])->name('bus.detail');
+
     // select
 
     Route::get('book/validation/{id}', [BookingController::class, 'validation'])->name('book.validation');
+    Route::get('book/pdf/{id}', [BookingController::class, 'pdf'])->name('book.pdf');
     Route::get('book/validation/true/{id}', [BookingController::class, 'storeValidation'])->name('book.true');
     Route::post('book/validation/false/{id}', [BookingController::class, 'storeValidation'])->name('book.false');
 

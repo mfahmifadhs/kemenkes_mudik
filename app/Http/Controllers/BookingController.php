@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PesertaExport;
 use App\Models\Booking;
 use App\Models\Peserta;
 use App\Models\Trayek;
@@ -9,6 +10,7 @@ use App\Models\TrayekDetail;
 use App\Models\UnitKerja;
 use App\Models\UnitUtama;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 
 class BookingController extends Controller
@@ -72,6 +74,12 @@ class BookingController extends Controller
         }
 
         $book = $res->get();
+
+        if ($request->downloadFile == 'pdf') {
+            return view('dashboard.pages.booking.pdf', compact('book', 'dataUker', 'dataUtama', 'dataTujuan', 'dataRute', 'uker', 'utama', 'rute', 'tujuan'));
+        } else if ($request->downloadFile == 'excel') {
+            return Excel::download(new PesertaExport, 'peserta.xlsx');
+        }
 
         return view('dashboard.pages.booking.show', compact('book', 'dataUker', 'dataUtama', 'dataTujuan', 'dataRute', 'uker', 'utama', 'rute', 'tujuan'));
     }

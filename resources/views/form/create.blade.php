@@ -1,18 +1,6 @@
 @extends('form.layout.app')
 
 @section('content')
-<style>
-    .seat-checkbox {
-        display: none;
-        /* Sembunyikan kotak centang */
-    }
-
-    .seat-checkbox:checked+label {
-        background-color: red;
-        /* Ubah warna latar belakang jika checkbox dicentang */
-    }
-</style>
-
 <div class="max-w-7xl mx-auto p-6 lg:p-8">
     <div class="flex justify-center mt-0">
         <div class="card w-75">
@@ -131,7 +119,8 @@
                                 @foreach ($bus as $key => $row)
                                 <li class="nav-item mr-2">
                                     <a class="btn btn-default border-secondary {{ $key == 0 ? 'active bg-info' : '' }} mx-2" data-toggle="pill" href="#bus-{{ $row->id_bus }}" role="tab" aria-selected="true">
-                                        <b>BUS {{ $row->id_bus }}</b>
+                                        <b>BUS {{ $row->id_bus }}</b><br>
+                                        <small class="text-success">Tersedia <b>{{ $row->total_kursi - $row->detail->where('status', '!=', 'cancel')->count() }}</b> seat</small>
                                     </a>
                                 </li>
                                 @endforeach

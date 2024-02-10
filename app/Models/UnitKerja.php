@@ -24,4 +24,8 @@ class UnitKerja extends Model
     public function unitUtama() {
         return $this->belongsTo(UnitUtama::class, 'unit_utama_id');
     }
+
+    public function book() {
+        return $this->hasMany(Booking::class, 'uker_id');
+    }
 }

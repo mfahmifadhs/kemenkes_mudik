@@ -34,59 +34,75 @@
                     <div class="card w-100">
                         <div class="card-header mt-2">
                             <div class="float-left">
-                                <label>Tabel Peserta</label>
+                                <label>Tabel Trayek</label>
                             </div>
                         </div>
 
                         <div class="card-header">
                             <div class="">
-                                <table id="table" class="table table-bordered text-center">
+                                <table class="table table-bordered text-center">
                                     <thead class="text-sm">
                                         <tr>
                                             <th style="width: 0%;">No</th>
-                                            <th style="width: 15%;">Tanggal</th>
-                                            <th style="width: 30%;">Pegawai</th>
-                                            <th style="width: 25%;">Rute</th>
-                                            <th style="width: 10%;">Tujuan</th>
-                                            <th style="width: 10%;">Aksi</th>
+                                            <th style="width: 10%;">Jurusan</th>
+                                            <th style="width: 50%;">Rute</th>
+                                            <th style="width: 10%;">Total Kursi</th>
+                                            <th style="width: 10%;">Total Tersedia</th>
+                                            <th style="width: 10%;">Total Dipesan</th>
+                                            <th style="width: 10%;">Total Terisi</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-sm">
-                                        @foreach($book as $row)
+                                        @foreach($trayek as $row)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ Carbon\Carbon::parse($row->created_at)->isoFormat('DD MMM Y | HH:mm:ss') }}</td>
-                                            <td class="text-left">
-                                                <div class="row">
-                                                    <div class="col-md-4">Kode Boking</div>
-                                                    <div class="col-md-7">: {{ $row->id_booking }}</div>
-                                                    <div class="col-md-4">Nama</div>
-                                                    <div class="col-md-7">: {{ $row->nama_pegawai }}</div>
-                                                    <div class="col-md-4">NIP/NIK</div>
-                                                    <div class="col-md-7">: {{ $row->nip_nik }}</div>
-                                                    <div class="col-md-4">No. Telp</div>
-                                                    <div class="col-md-7">: {{ $row->no_telp }}</div>
-                                                    <div class="col-md-4">Jumlah</div>
-                                                    <div class="col-md-7">: {{ $row->detail->count() }} orang</div>
-                                                    <div class="col-md-4">Unit Kerja</div>
-                                                    <div class="col-md-7">: {{ $row->uker->nama_unit_kerja }}</div>
-                                                </div>
-                                            </td>
-                                            <td class="text-left">
-                                                {{ $row->rute->jurusan }} <br>
-                                                {{ $row->rute->rute }}
-                                            </td>
-                                            <td>{{ strtoupper($row->tujuan->nama_kota) }}</td>
-                                            <td>
-                                                <a href="{{ route('book.validation', $row->id_booking) }}" class="btn btn-warning btn-xs border-dark text-xs">
-                                                    <i class="fa-solid fa-file-signature fa-1x"></i>
-                                                    <span class="text-xs">Validasi</span>
-                                                </a>
-                                            </td>
+                                            <td>{{ $row->jurusan }}</td>
+                                            <td class="text-left">{{ $row->rute }}</td>
+                                            <td>{{ $row->bus->sum('total_kursi') }}</td>
+                                            <td>{{ $row->bus->sum('total_kursi') - $row->book->flatMap->detail->where('status', '!=', 'cancel')->count() }}</td>
+                                            <td>{{ $row->book->flatMap->detail->where('status', 'book')->count() }}</td>
+                                            <td>{{ $row->book->flatMap->detail->where('status', 'full')->count() }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card w-100">
+                                <div class="card-header mt-2">
+                                    <div class="float-left">
+                                        <label>Rekap Unit Kerja</label>
+                                    </div>
+                                </div>
+
+                                <div class="card-header">
+                                    <div class="">
+                                        <table id="table" class="table table-bordered text-center">
+                                            <thead class="text-sm">
+                                                <tr>
+                                                    <th style="width: 0%;">No</th>
+                                                    <th style="width: 50%;">Nama Unit Kerja</th>
+                                                    <th style="width: 15%;">Total Dipesan</th>
+                                                    <th style="width: 15%;">Total Terisi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-sm">
+                                                @foreach($uker as $row)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td class="text-left">{{ $row->nama_unit_kerja }}</td>
+                                                    <td>{{ $row->book->flatMap->detail->where('status', 'book')->count() }}</td>
+                                                    <td>{{ $row->book->flatMap->detail->where('status', 'full')->count() }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

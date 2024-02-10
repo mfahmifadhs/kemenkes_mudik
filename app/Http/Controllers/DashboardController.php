@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
 use App\Models\Tamu;
 use App\Models\Trayek;
+use App\Models\UnitKerja;
 use Hash;
 use Auth;
 use Carbon\Carbon;
@@ -33,10 +34,12 @@ class DashboardController extends Controller
         if ($role == 4) {
             $book = $data->where('uker_id', Auth::user()->uker_id)->where('status', null)->get();
         } else {
-            $book = $data->get();
+            $uker   = UnitKerja::get();
+            $trayek = Trayek::get();
+            $book   = $data->get();
         }
 
-        return view('dashboard.' . $user, compact('user', 'rute', 'bus', 'book'));
+        return view('dashboard.' . $user, compact('user', 'rute', 'bus', 'book', 'trayek', 'uker'));
 
     }
 

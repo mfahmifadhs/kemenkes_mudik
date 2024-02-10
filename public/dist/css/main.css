@@ -812,3 +812,13 @@ video {
         padding: 2rem
     }
 }
+
+.seat-checkbox {
+    display: none;
+    /* Sembunyikan kotak centang */
+}
+
+.seat-checkbox:checked+label {
+    background-color: red;
+    /* Ubah warna latar belakang jika checkbox dicentang */
+}

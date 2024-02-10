@@ -133,7 +133,7 @@
                             </tbody>
                         </table>
                     </div>
-                    @if (!$book->status)
+                    @if (!$book->status && $book->uker_id == Auth::user()->uker_id && Auth::user()->role_id == 4)
                     <div class="card-footer text-right font-weight-bold">
                         <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#tolak">
                             <i class="fas fa-times-circle"></i> Tolak
