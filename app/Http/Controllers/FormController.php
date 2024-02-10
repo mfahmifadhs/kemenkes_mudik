@@ -144,13 +144,14 @@ class FormController extends Controller
     {
         $kode = $request->kode;
         $book = Booking::where('kode_booking', $kode)->orWhere('nip_nik', $kode)->first();
+        $note = $book ? $book->catatan : 'Tidak tidak ditemukan';
 
         if ($book && $book->status == 'true') {
             return redirect()->route('form.tiket', $book->id_booking)->with('success', 'Tiket ditemukan');
         } else if ($book && $book->status == null) {
             return redirect()->route('tiket.check')->with('pending', 'Sedang dalam proses Validasi');
         } else {
-            return redirect()->route('tiket.check')->with('failed', $book->catatan);
+            return redirect()->route('tiket.check')->with('failed', $note);
         }
     }
 
