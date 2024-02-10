@@ -32,7 +32,7 @@ class PesertaExport implements FromCollection, WithHeadings, WithMapping, WithSt
             ++$this->no,
             $data->id_peserta,
             $data->nama_unit_kerja,
-            '`'. $data->booking_id,
+            '`'. $data->kode_booking,
             $data->nama_peserta,
             $data->usia,
             '`'. $data->nik,
