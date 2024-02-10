@@ -143,7 +143,7 @@ class FormController extends Controller
     public function check(Request $request)
     {
         $kode = $request->kode;
-        $book = Booking::where('id_booking', $kode)->orWhere('nip_nik', $kode)->first();
+        $book = Booking::where('kode_booking', $kode)->orWhere('nip_nik', $kode)->first();
 
         if ($book && $book->status == 'true') {
             return redirect()->route('form.tiket', $book->id_booking)->with('success', 'Tiket ditemukan');
