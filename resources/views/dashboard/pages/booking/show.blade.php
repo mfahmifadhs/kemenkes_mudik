@@ -102,8 +102,8 @@
                                     <th style="width: 15%;">Unit Kerja</th>
                                     <th style="width: 27%;">Nama Pegawai</th>
                                     <th style="width: 23%;">Tujuan</th>
-                                    <th style="width: 10%;">Peserta</th>
-                                    <th style="width: 0%;">Aksi</th>
+                                    <th style="width: 5%;">Peserta</th>
+                                    <th style="width: 5%;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="text-sm">
@@ -145,8 +145,8 @@
                                         {{ $row->detail->count() }} orang
                                     </td>
                                     <td>
-                                        <a href="{{ route('book.validation', $row->id_booking) }}">
-                                            <i class="fas fa-file-export"></i>
+                                        <a href="{{ route('book.validation', $row->id_booking) }}" class="btn btn-default btn-small border-dark">
+                                            <i class="fas fa-info-circle"></i> Detail
                                         </a>
                                     </td>
                                 </tr>

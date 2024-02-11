@@ -2,15 +2,6 @@
 
 @section('content')
 
-@if (Session::has('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: '{{ Session::get("success") }}',
-    });
-</script>
-@endif
-
 
 <div class="content-wrapper">
     <div class="content-header">
@@ -22,12 +13,12 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('user.show') }}">Daftar Pengguna</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('user') }}">Daftar Pengguna</a></li>
                         <li class="breadcrumb-item active">Tambah Pengguna</li>
                     </ol>
                 </div>
                 <div class="col-sm-6 text-right mt-4">
-                    <a href="{{ route('user.show') }}" class="btn btn-default border-dark">
+                    <a href="{{ route('user') }}" class="btn btn-default border-dark">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                 </div>
@@ -54,27 +45,33 @@
                                     </select>
                                 </div>
                             </div>
-                            <label class="col-md-3 col-form-label">Pegawai</label>
+                            <label class="col-md-3 col-form-label">Unit Kerja*</label>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <select name="pegawai_id" class="form-control">
-                                        @foreach($pegawai as $row)
-                                        <option value="{{ $row->id_pegawai }}">{{ $row->nama_pegawai }}</option>
+                                    <select name="uker" class="form-control">
+                                        @foreach($uker as $row)
+                                        <option value="{{ $row->id_unit_kerja }}">{{ $row->nama_unit_kerja }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <label class="col-md-3 col-form-label">Username</label>
+                            <label class="col-md-3 col-form-label">Nama*</label>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <input type="username" class="form-control" name="username" placeholder="Masukkan Username" required>
+                                    <input type="text" class="form-control" name="name" placeholder="Nama pengguna" required>
+                                </div>
+                            </div>
+                            <label class="col-md-3 col-form-label">Username*</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="username" class="form-control" name="username" placeholder="Username" required>
                                 </div>
                             </div>
                             <label class="col-md-3 col-form-label">Password*</label>
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password" required>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text border-secondary">
                                                 <i class="fas fa-eye-slash" id="eye-icon-pass"></i>
@@ -109,6 +106,8 @@
 
 @section('js')
 <script>
+    $('select[name="uker"]').select2()
+
     function confirmSubmit(event) {
         event.preventDefault();
 

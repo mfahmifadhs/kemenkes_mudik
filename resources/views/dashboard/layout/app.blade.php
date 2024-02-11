@@ -20,6 +20,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('dist/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 
     <!-- Select2 -->
+    <!-- <link rel="stylesheet" href="{{ asset('dist/admin/plugins/select2/css/select2.css') }}"> -->
+
+    <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('dist/admin/plugins/select2/css/select2.min.css') }}">
     <!-- Sweet alert -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
@@ -50,8 +53,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="{{ route('peserta') }}" class="nav-link {{ Str::startsWith(request()->path(), 'tamu') ? 'active' : '' }}">Peserta</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('bus') }}" class="nav-link {{ Str::startsWith(request()->path(), 'user') ? 'active' : '' }}">Bus</a>
+                            <a href="{{ route('bus') }}" class="nav-link {{ Str::startsWith(request()->path(), 'bus') ? 'active' : '' }}">Bus</a>
                         </li>
+                        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                        <li class="nav-item">
+                            <a href="{{ route('user') }}" class="nav-link {{ Str::startsWith(request()->path(), 'user') ? 'active' : '' }}">Pengguna</a>
+                        </li>
+                        @endif
                 </div>
 
                 <!-- Right navbar links -->

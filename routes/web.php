@@ -34,13 +34,14 @@ Route::get('uker/select/{id}', [FormController::class, 'selectUker']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('bus', [BusController::class, 'Bus'])->name('bus');
+    Route::get('bus', [BusController::class, 'index'])->name('bus');
     Route::get('dashboard/waktu', [DashboardController::class, 'time'])->name('dashboard.time');
 
     Route::get('peserta', [BookingController::class, 'index'])->name('peserta');
     Route::get('peserta/cari', [BookingController::class, 'filter'])->name('peserta.filter');
 
     Route::get('bus/{id}', [BusController::class, 'detail'])->name('bus.detail');
+    Route::get('bus/export/{id}', [BusController::class, 'export'])->name('bus.export');
 
     // select
 
@@ -49,7 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('book/validation/true/{id}', [BookingController::class, 'storeValidation'])->name('book.true');
     Route::post('book/validation/false/{id}', [BookingController::class, 'storeValidation'])->name('book.false');
 
-    Route::get('user', [UserController::class, 'index'])->name('user.show');
+    Route::get('user', [UserController::class, 'index'])->name('user');
     Route::get('user/detail/{id}', [UserController::class, 'detail'])->name('user.detail');
     Route::get('user/tambah', [UserController::class, 'create'])->name('user.create');
     Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');

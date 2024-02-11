@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BusExport;
 use App\Models\Booking;
 use App\Models\Bus;
 use App\Models\Peserta;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use Auth;
 
@@ -13,16 +15,8 @@ class BusController extends Controller
 {
     public function index()
     {
-        $role = Auth::user()->role_id;
-        $data = Booking::orderBy('id_booking', 'DESC');
-
-        if ($role == 4) {
-            $book = $data->where('uker_id', Auth::user()->uker_id)->where('status', null)->get();
-        } else {
-            $book = $data->get();
-        }
-
-        return view('dashboard.pages.booking.show', compact('book'));
+        $bus = Bus::get();
+        return view('dashboard.pages.bus.show', compact('bus'));
     }
 
     public function detail($id)
@@ -39,6 +33,13 @@ class BusController extends Controller
         }
 
         return view('dashboard.pages.bus.detail', compact('seatCek', 'bus', 'peserta'));
+    }
+
+    public function export($id)
+    {
+        if ($id == 'excel') {
+            return Excel::download(new BusExport, 'bus.xlsx');
+        }
     }
 }
 

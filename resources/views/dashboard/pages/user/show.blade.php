@@ -46,10 +46,11 @@
                             <thead class="text-sm">
                                 <tr>
                                     <th>No</th>
-                                    <th>Role</th>
+                                    <th>Unit Kerja</th>
                                     <th>Nama</th>
                                     <th>Username</th>
                                     <th>Password</th>
+                                    <th>Role</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -58,10 +59,11 @@
                                 @foreach($user as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $row->role->role }}</td>
-                                    <td>{{ $row->pegawai?->nama_pegawai }}</td>
+                                    <td class="text-left">{{ $row->uker->nama_unit_kerja }}</td>
+                                    <td class="text-left">{{ $row->name }}</td>
                                     <td>{{ $row->username }}</td>
                                     <td>{{ $row->password_teks }}</td>
+                                    <td>{{ $row->role->role }}</td>
                                     <td>{{ $row->status }}</td>
                                     <td>
                                         <a href="{{ route('user.edit', $row->id) }}" class="btn btn-warning">

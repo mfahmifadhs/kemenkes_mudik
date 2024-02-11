@@ -2,16 +2,6 @@
 
 @section('content')
 
-@if (Session::has('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: '{{ Session::get("success") }}',
-    });
-</script>
-@endif
-
-
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container">
@@ -23,7 +13,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
                         @if(Auth::user()->role_id == 1)
-                        <li class="breadcrumb-item"><a href="{{ route('user.show') }}">Daftar Pengguna</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('user') }}">Daftar Pengguna</a></li>
                         @endif
                         <li class="breadcrumb-item active">Edit Pengguna</li>
                     </ol>
@@ -41,26 +31,47 @@
                         <label class="mt-3">Edit Pengguna</label>
                         <hr>
                         <div class="row">
-                            <label class="col-md-3 col-form-label">Pegawai</label>
+                            @if(Auth::user()->role_id == 1)
+                            <label class="col-md-3 col-form-label">Unit Kerja*</label>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <select name="pegawai_id" class="form-control">
-                                        @foreach($pegawai as $row)
-                                        <option value="{{ $row->id_pegawai }}" <?php echo $row->id_role == $user->role_id ? 'selected' : ''; ?>>
-                                            {{ $row->nama_pegawai }}
+                                    <select name="uker" class="form-control">
+                                        @foreach($uker as $row)
+                                        <option value="{{ $row->id_unit_kerja }}" <?php echo Auth::user()->uker_id == $row->id_unit_kerja ? 'selected' : ''; ?>>
+                                            {{ $row->nama_unit_kerja }}
                                         </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <label class="col-md-3 col-form-label">Username</label>
+                            @endif
+                            <label class="col-md-3 col-form-label">Nama*</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="name" placeholder="Nama pengguna" value="{{ $user->name }}" required>
+                                </div>
+                            </div>
+                            <label class="col-md-3 col-form-label">Username*</label>
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <input type="username" class="form-control" name="username" value="{{ $user->username }}" required>
                                 </div>
                             </div>
+                            <label class="col-md-3 col-form-label">Password*</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="{{ $user->password_teks }}" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text border-secondary">
+                                                <i class="fas fa-eye-slash" id="eye-icon-pass"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @if(Auth::user()->role_id == 1)
-                            <label class="col-md-3 col-form-label">Role</label>
+                            <label class="col-md-3 col-form-label">Role*</label>
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <select name="role_id" class="form-control" required>
@@ -72,7 +83,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <label class="col-md-3 col-form-label">Status</label>
+                            <label class="col-md-3 col-form-label">Status*</label>
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <select name="status" class="form-control">
@@ -112,18 +123,6 @@
                 input.style.borderColor = '';
             }
         });
-
-        var password = $("#password").val();
-        var conf_password = $("#conf-password").val();
-        if (password != conf_password) {
-            if (password != conf_password) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Konfirmasi password tidak sama!',
-                });
-                return false;
-            }
-        }
 
         if (isFormValid) {
             Swal.fire({

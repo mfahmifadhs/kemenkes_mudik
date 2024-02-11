@@ -18,7 +18,7 @@
     <div class="content">
         <div class="container">
             <center>
-                <div class="card w-50">
+                <div class="card w-100">
                     <div class="card-header">
                         <label class="mt-3 h4">PROFIL</label>
                         <hr>
@@ -29,10 +29,16 @@
                                     <input type="text" class="form-control" value="{{ $user->role->role }}" readonly>
                                 </div>
                             </div>
+                            <label class="col-md-3 col-form-label">Unit Kerja</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" value="{{ $user->uker->nama_unit_kerja }}" readonly>
+                                </div>
+                            </div>
                             <label class="col-md-3 col-form-label">Nama</label>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" value="{{ $user->pegawai?->nama_pegawai }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $user->name }}" readonly>
                                 </div>
                             </div>
                             <label class="col-md-3 col-form-label">Username</label>
@@ -44,7 +50,7 @@
                             <label class="col-md-3 col-form-label">Status</label>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" value="{{ $user->password_teks }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $user->status }}" readonly>
                                 </div>
                             </div>
                         </div>

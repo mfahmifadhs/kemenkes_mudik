@@ -9,9 +9,7 @@
 	box-sizing:border-box;
 	cursor:pointer;
 	display:block;
-	padding-top: 1vh;
-	height:5vh;
-	width: 100%;
+    height: calc(2.25rem + 2px);
 	user-select:none;
 	-webkit-user-select:none
 }
@@ -60,7 +58,7 @@
 	color:#999
 }
 .select2-container--default .select2-selection--single .select2-selection__arrow{
-	height:40px;
+    height: calc(2.25rem + 2px);
 	position:absolute;
 	top:1px;
 	right:1px;

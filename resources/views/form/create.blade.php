@@ -3,7 +3,7 @@
 @section('content')
 <div class="max-w-7xl mx-auto p-6 lg:p-8">
     <div class="flex justify-center mt-0">
-        <div class="card w-75">
+        <div class="card w-100">
             <div class="card-header">
                 <img src="{{ asset('dist/img/logo-kemenkes.png') }}" alt="kemenkes" width="200">
             </div>
@@ -138,30 +138,30 @@
                                 <div class="tab-pane fade {{ $active }}" id="bus-{{ $row->id_bus }}" role="tabpanel">
                                     <div class="row container text-center">
 
-                                        <div class="col-md-5 my-2">
+                                        <div class="col-md-5 col-5 my-2">
                                             <span class="border border-warning px-4 py-1">CO-DRIVER</span>
                                         </div>
-                                        <div class="col-md-2 my-2"></div>
-                                        <div class="col-md-5 my-2">
+                                        <div class="col-md-2 col-1 my-2"></div>
+                                        <div class="col-md-5 col-6 my-2">
                                             <span class="border border-warning px-5 py-1">DRIVER</span>
                                         </div>
 
-                                        <div class="col-md-5 my-2">
+                                        <div class="col-md-5 col-5 my-2">
                                             @for ($i = 1; $i <= $row->seat_kiri; $i++)
                                                 <div class="row">
                                                     <center>
                                                         @foreach (json_decode($row->kd_seat_kiri, true) as $kode)
                                                         @php $seatCode = $i . $kode . $bus; @endphp
                                                         @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
-                                                        <label class="col-md-4 bg-warning rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        <label class="col-md-4 col-4 bg-warning rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
                                                             {{ $i . $kode }}
                                                         </label>
                                                         @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
-                                                        <label class="col-md-4 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        <label class="col-md-4 col-4 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
                                                             {{ $i . $kode }}
                                                         </label>
                                                         @else
-                                                        <label class="col-md-4 btn btn-success border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        <label class="col-md-4 col-4 btn btn-success border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
                                                             <input name="seat[]" type="checkbox" class="seat-checkbox" id="seat{{ $i . $kode . $bus }}" value="{{ $bus.'-'.$i . $kode }}">
                                                             {{ $i . $kode }}
                                                         </label>
@@ -171,23 +171,23 @@
                                                 </div>
                                                 @endfor
                                         </div>
-                                        <div class="col-md-2 my-2"></div>
-                                        <div class="col-md-5 my-2">
+                                        <div class="col-md-2 col-1 my-2"></div>
+                                        <div class="col-md-5 col-6 my-2">
                                             @for ($i = 1; $i <= $row->seat_kiri; $i++)
                                                 <div class="row">
                                                     <center>
                                                         @foreach (json_decode($row->kd_seat_kanan, true) as $kode)
                                                         @php $seatCode = $i . $kode . $bus; @endphp
                                                         @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
-                                                        <label class="col-md-4 bg-warning rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        <label class="col-md-4 col-4 bg-warning rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
                                                             {{ $i . $kode }}
                                                         </label>
                                                         @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
-                                                        <label class="col-md-4 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        <label class="col-md-4 col-4 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
                                                             {{ $i . $kode }}
                                                         </label>
                                                         @else
-                                                        <label class="col-md-4 btn btn-success border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        <label class="col-md-4 col-4 btn btn-success border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
                                                             <input name="seat[]" type="checkbox" class="seat-checkbox" id="seat{{ $i . $kode . $bus }}" value="{{ $bus.'-'.$i . $kode }}">
                                                             {{ $i . $kode }}
                                                         </label>
@@ -199,21 +199,21 @@
                                         </div>
 
                                         @if ($row->total_kursi == 40)
-                                        <div class="col-md-5 my-2">
+                                        <div class="col-md-5 col-4 my-2">
                                             <label class="bg-secondary text-white rounded border border-dark m-2 p-2 w-75">
                                                 TOILET
                                             </label>
                                         </div>
 
-                                        <div class="col-md-2 my-2"></div>
+                                        <div class="col-md-2 col-1 my-2"></div>
 
-                                        <div class="col-md-5 my-2">
+                                        <div class="col-md-5 col-7 my-2">
                                             @for ($i = 1; $i <= $row->seat_belakang; $i++)
                                                 <div class="row">
                                                     <center>
                                                         @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
                                                         @php $kdSeat = 10 + $i - 1; @endphp
-                                                        <label class="col-md-3 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        <label class="col-md-3 col-3 bg-secondary text-white rounded border border-dark m-1 mt-2 p-2" for="seat{{ $i . $kode . $bus }}">
                                                             {{ $kdSeat . $kode }}
                                                         </label>
                                                         @endforeach
@@ -224,7 +224,7 @@
                                         @endif
 
                                         @if ($row->total_kursi == 37)
-                                        <div class="col-md-5 my-2 mt-5">
+                                        <div class="col-md-5 col-5 my-2 mt-5">
                                             @for ($i = 1; $i <= $row->seat_belakang; $i++)
                                                 <div class="row">
                                                     <center>
@@ -238,8 +238,8 @@
                                                 </div>
                                                 @endfor
                                         </div>
-                                        <div class="col-md-2 my-2"></div>
-                                        <div class="col-md-5 my-2">
+                                        <div class="col-md-2 col-1 my-2"></div>
+                                        <div class="col-md-5 col-6 my-2">
                                             <label class="bg-secondary text-white rounded border border-dark m-2 w-75" style="padding: 4vh;">
                                                 TOILET
                                             </label>
@@ -251,12 +251,12 @@
                             </div>
                             <div class="form-group pt-5">
                                 <div class="row">
-                                    <div class="col-md-6 text-left">
+                                    <div class="col-md-6 col-6 text-left">
                                         <a onclick="goBack()" class="btn btn-default border-dark text-dark">
                                             <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
                                         </a>
                                     </div>
-                                    <div class="col-md-6 text-right">
+                                    <div class="col-md-6 col-6 text-right">
                                         <button type="submit" class="btn btn-default border-dark text-dark">
                                             Selanjutnya <i class="fa-solid fa-square-caret-right"></i>
                                         </button>
@@ -316,7 +316,7 @@
                                 <div class="col-md-3 my-1">
                                     <input type="text" class="form-control form-control-sm text-center" name="bus[]" value="{{ explode('-', $row, 2)[0] }}" readonly>
                                 </div>
-                                <div class="col-md-3 my-1 text-right">Nomor Kursi</div>
+                                <div class="col-md-3 my-1">Nomor Kursi</div>
                                 <div class="col-md-3 my-1">
                                     <input type="text" class="form-control form-control-sm text-center" name="seat[]" value="{{ explode('-', $row, 2)[1] }}" readonly>
                                 </div>
@@ -324,9 +324,9 @@
                                 <div class="col-md-5 my-1">
                                     <input type="text" name="peserta[]" class="form-control form-control-sm" required>
                                 </div>
-                                <div class="col-md-1 col-form-label text-right">Usia</div>
+                                <div class="col-md-1 col-form-label">Usia</div>
                                 <div class="col-md-3 my-1">
-                                    <input type="number" name="usia_peserta[]" class="form-control form-control-sm text-center" required>
+                                    <input type="number" name="usia_peserta[]" class="form-control form-control-sm" required>
                                 </div>
                                 <div class="col-md-3 col-form-label">NIK</div>
                                 <div class="col-md-5 my-1">
@@ -351,12 +351,12 @@
             </div>
             <div class="form-group pt-5">
                 <div class="row">
-                    <div class="col-md-6 text-left">
+                    <div class="col-md-6 col-6 text-left">
                         <a href="javascript:void(0);" onclick="goBack()" class="btn btn-default border-dark text-dark">
                             <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
                         </a>
                     </div>
-                    <div class="col-md-6 text-right">
+                    <div class="col-md-6 col-6 text-right">
                         <button type="submit" class="btn btn-default border-dark text-dark" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
                             <i class="fa-solid fa-circle-check"></i> Selesai
                         </button>

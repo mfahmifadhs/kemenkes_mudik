@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Pegawai;
+use App\Models\UnitKerja;
 use Hash;
 use Auth;
 use Carbon\Carbon;
@@ -30,18 +31,17 @@ class UserController extends Controller
 
     public function create()
     {
-        $role    = Role::get();
-        $pegawai = Pegawai::get();
-        return view('dashboard.pages.user.create', compact('role', 'pegawai'));
+        $role = Role::get();
+        $uker = UnitKerja::get();
+        return view('dashboard.pages.user.create', compact('role', 'uker'));
     }
 
     public function detail($id)
     {
         $user    = User::where('id', $id)->first();
         $role    = Role::get();
-        $pegawai = Pegawai::get();
 
-        return view('dashboard.pages.user.detail', compact('id', 'user', 'role', 'pegawai'));
+        return view('dashboard.pages.user.detail', compact('id', 'user', 'role'));
     }
 
     public function store(Request $request)
@@ -51,36 +51,40 @@ class UserController extends Controller
 
         $tambah = new User();
         $tambah->id             = $idUser;
+        $tambah->uker_id        = $request->uker;
         $tambah->role_id        = $request->role_id;
-        $tambah->pegawai_id     = $request->pegawai_id;
+        $tambah->name           = $request->name;
         $tambah->username       = $request->username;
         $tambah->password       = Hash::make($request->password);
         $tambah->password_teks  = $request->password;
         $tambah->status         = 'aktif';
         $tambah->save();
 
-        return redirect()->route('user.show')->with('success', 'Berhasil Menambah Baru');
+        return redirect()->route('user')->with('success', 'Berhasil Menambah Baru');
     }
 
     public function edit($id)
     {
-        $user    = User::where('id', $id)->first();
-        $role    = Role::get();
-        $pegawai = Pegawai::get();
+        $user = User::where('id', $id)->first();
+        $role = Role::get();
+        $uker = UnitKerja::get();
 
-        return view('dashboard.pages.user.edit', compact('id', 'user', 'role', 'pegawai'));
+        return view('dashboard.pages.user.edit', compact('id', 'user', 'role', 'uker'));
     }
 
     public function update(Request $request, $id)
     {
         $user = User::where('id', $id)->first();
         User::where('id', $id)->update([
-            'role_id'    => $request->role_id ? $request->role_id : $user->role_id,
-            'pegawai_id' => $request->pegawai_id,
-            'username'   => $request->username,
-            'status'     => $request->status ? $request->status : $user->status
+            'role_id'       => $request->role_id ? $request->role_id : $user->role_id,
+            'uker_id'       => $request->uker ? $request->uker : $user->uker_id,
+            'name'          => $request->name,
+            'username'      => $request->username,
+            'password'      => Hash::make($request->password),
+            'password_teks' => $request->password,
+            'status'        => $request->status ? $request->status : $user->status
         ]);
 
-        return back()->with('success', 'Berhasil Menyimpan Perubahan');
+        return redirect()->route('user.edit', $id)->with('success', 'Berhasil Menyimpan Perubahan');
     }
 }
