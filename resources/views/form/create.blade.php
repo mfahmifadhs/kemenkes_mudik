@@ -98,7 +98,7 @@
                     <div class="form-group pt-2">
                         <div class="row">
                             <div class="col-md-12 text-right">
-                                <button type="submit" class="btn btn-default border-dark text-dark">
+                                <button type="submit" class="btn btn-default border-dark text-dark text-sm">
                                     Selanjutnya <i class="fa-solid fa-square-caret-right"></i>
                                 </button>
                             </div>
@@ -236,12 +236,12 @@
                             <div class="form-group pt-5">
                                 <div class="row">
                                     <div class="col-md-6 col-6 text-left">
-                                        <a onclick="goBack()" class="btn btn-default border-dark text-dark">
+                                        <a onclick="goBack()" class="btn btn-default border-dark text-dark text-sm">
                                             <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
                                         </a>
                                     </div>
                                     <div class="col-md-6 col-6 text-right">
-                                        <button type="submit" class="btn btn-default border-dark text-dark">
+                                        <button type="submit" class="btn btn-default border-dark text-dark text-sm">
                                             Selanjutnya <i class="fa-solid fa-square-caret-right"></i>
                                         </button>
                                     </div>
@@ -376,12 +376,12 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-6 text-left">
-                        <a href="javascript:void(0);" onclick="goBack()" class="btn btn-default border-dark text-dark">
+                        <a href="javascript:void(0);" onclick="goBack()" class="btn btn-default border-dark text-dark text-sm">
                             <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
                         </a>
                     </div>
                     <div class="col-md-6 col-6 text-right">
-                        <button type="submit" class="btn btn-default border-dark text-dark" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
+                        <button type="submit" class="btn btn-default border-dark text-dark text-sm" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
                             <i class="fa-solid fa-circle-check"></i> Selesai
                         </button>
                     </div>
