@@ -4,7 +4,7 @@
 
 <div class="max-w-7xl mx-auto p-6 lg:p-8">
     <div class="flex justify-center mt-0">
-        <div class="card w-100">
+        <div class="card col-md-6 col-12">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -64,12 +64,13 @@
                         <hr class="my-4">
                         <h5 class="my-2">Kebijakan</h5>
                         <p>
-                            <li class="small">Pendaftaran "Mudik Bersama Kemenkes" tidak dapat <b>Dibatalkan/Diubah</b></li>
-                            <li class="small">Hasil Pendaftaran akan di verifikasi dalam waktu 2x24 jam (hari kerja) oleh Biro Umum.</li>
+                            <li class="small">Peserta diharapkan menyimpan Kode Booking yang telah didapatkan</li>
+                            <li class="small">Pendaftaran "Mudik Bersama Kemenkes" tidak dapat Dibatalkan/diubah tanpa persetujuan panitia</li>
+                            <li class="small">Selanjutnya akan dilakukan verifikasi oleh PIC Mudik Bersama Kemenkes pada masing-masing Sekretariat Unit Utama atau Subbagian Administrasi Umum pada setiap unit eselon II bagi Unit Utama Sekretariat Jenderal</li>
+                            <li class="small">Kemudian akan dilakukan verifikasi akhir oleh Biro Umum</li>
                             <li class="small">
-                                Hasil verifikasi dapat di cek secara berkala di link berikut: <a href=""><u><b>Hasil Verifikasi</b></u></a>
+                                Verifikasi dapat dicek berkala di link berikut: <a href="{{ route('tiket.check') }}"><u>Hasil Verifikasi</u></a>
                             </li>
-                            <li class="small">Keputusan akhir Panitia tidak dapat diganggu gugat.</li>
                         </p>
                     </div>
                 </div>

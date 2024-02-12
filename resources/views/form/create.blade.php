@@ -334,41 +334,83 @@
                                 </div>
                                 <div class="col-md-4"></div>
 
-                                @for ($i = 1; $i < 4; $i++) <div class="col-md-3 col-form-label">
+                                @for ($i = 1; $i < 4; $i++)
+                                <div class="col-md-3 col-form-label">
                                     Sertifikat Vaksin {{ $i }}
+                                </div>
+                                <div class="col-md-5 my-1">
+                                    <div class="btn btn-default btn-sm btn-block btn-file border-dark w-100 p-1">
+                                        <input type="hidden" name="foto_vaksin_{{ $i }}[]" value="" class="image-atk w-100">
+                                        <input id="vaksin{{ $key.$i }}" type="file" name="foto_vaksin_{{ $i }}[]" class="image-atk w-100" accept=".jpg, .jpeg, .png">
+                                    </div>
+                                </div>
+                                <div class="col-md-4"></div>
+                                @endfor
                             </div>
-                            <div class="col-md-5 my-1">
-                                <div class="btn btn-default btn-sm btn-block btn-file border-dark w-100 p-1">
-                                    <input type="hidden" name="foto_vaksin_{{ $i }}[]" value="" class="image-atk w-100">
-                                    <input id="vaksin{{ $key.$i }}" type="file" name="foto_vaksin_{{ $i }}[]" class="image-atk w-100" accept=".jpg, .jpeg, .png">
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12 py-2">
+                                <p class="text-right text-primary underline ">
+                                    <a href="#" data-toggle="modal" data-target="#skModal">
+                                        Syarat dan ketentuan
+                                    </a>
+                                </p>
+
+                                <div class="modal fade" id="skModal" role="dialog" aria-labelledby="skLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="skLabel">Syarat dan Ketentuan</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-sm">
+                                                <p class="mb-2">Syarat dan Ketentuan Peserta Bus Mudik Kemenkes Tahun 2024:</p>
+                                                <ol type="1">
+                                                    <li>1. Peserta yang terdaftar adalah Aparatur Sipil Negara (PNS dan PPPK), Pegawai Pemerintah Non Pegawai Negeri, Pegawai Alih Daya, dan/atau Pegawai Bank Mitra di lingkungan Kantor Pusat Kementerian Kesehatan</li>
+                                                    <li>2. Peserta di luar pegawai Kantor Pusat Kementerian Kesehatan merupakan kerabat dalam satu Kartu Keluarga (KK) dan/atau satu alamat rumah yang sama dengan peserta pada point 1</li>
+                                                    <li>3. Peserta dalam kondisi sehat dan tidak memiliki riwayat atau sedang dalam masa penularan penyakit menular yang berpotensi terhadap penyebaran penyakit di dalam Bus.</li>
+                                                    <li>4. Obat-obatan pribadi merupakan tanggung jawab masing-masing peserta.</li>
+                                                    <li>5. Dokumen yang dilampirkan sebagai data pelengkap dalam formular ini adalah benar.</li>
+                                                    <li>6. Peserta tidak diperbolehkan untuk melakukan pemindahan nomor kursi tanpa persetujuan panitia.</li>
+                                                    <li>7. Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
+                                                    <li>8. Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
+                                                    <li>9. Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
+                                                </ol>
+                                                <p class="mt-4 text-justify">
+                                                    <label class="text-justify">
+                                                        <input id="skCheckbox" type="checkbox" name="sk" required>
+                                                        SAYA TELAH MEMBACA DAN MENGERTI SELURUH SYARAT DAN KETENTUAN PENGGUNAAN INI DAN KONSEKUENSINYA DAN DENGAN INI MENERIMA SETIAP HAK, KEWAJIBAN, DAN KETENTUAN YANG DIATUR DI DALAMNYA.
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4"></div>
-                            @endfor
+                            <div class="col-md-6 col-6 text-left">
+                                <a href="javascript:void(0);" onclick="goBack()" class="btn btn-default border-dark text-dark">
+                                    <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-6 text-right">
+                                <button type="submit" class="btn btn-default border-dark text-dark" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
+                                    <i class="fa-solid fa-circle-check"></i> Selesai
+                                </button>
+                            </div>
                         </div>
-                        @endforeach
                     </div>
+                </form>
             </div>
-            <div class="form-group pt-5">
-                <div class="row">
-                    <div class="col-md-6 col-6 text-left">
-                        <a href="javascript:void(0);" onclick="goBack()" class="btn btn-default border-dark text-dark">
-                            <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-6 text-right">
-                        <button type="submit" class="btn btn-default border-dark text-dark" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
-                            <i class="fa-solid fa-circle-check"></i> Selesai
-                        </button>
-                    </div>
-                </div>
-            </div>
-            </form>
+            @endif
         </div>
-        @endif
     </div>
 </div>
-</div>
+
 
 @section('js')
 
@@ -382,6 +424,14 @@
 </script>
 
 <script>
+    document.getElementById('skCheckbox').addEventListener('change', function() {
+        if (this.checked) {
+            $('#skModal').modal('hide');
+        }
+    });
+</script>
+
+<script>
     function confirmBook(event, title, text) {
         event.preventDefault(); // Mencegah perilaku link bawaan
 
@@ -389,6 +439,18 @@
         const form = document.getElementById('form');
         const inputs = form.querySelectorAll('select[required], input[required], textarea[required]');
         let isFormValid = true;
+
+        const skCheck = document.getElementById('skCheckbox');
+
+        if (!skCheck || !skCheck.checked) {
+            isFormValid = false;
+            Swal.fire({
+                title: 'Gagal',
+                text: 'Anda belum menyetujui Syarat dan Ketentuan',
+                icon: 'error',
+            });
+        }
+
 
         inputs.forEach(input => {
             if (input.hasAttribute('required') && input.value.trim() === '') {
