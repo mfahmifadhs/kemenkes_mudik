@@ -45,14 +45,14 @@
                     <div class="form-group row my-3">
                         <div class="col-md-3 col-form-label">NIP/NIK</div>
                         <div class="col-md-9">
-                            <input type="text" class="form-control border-dark" name="nip_nik">
+                            <input type="text" class="form-control border-dark number" name="nip_nik">
                         </div>
                     </div>
 
                     <div class="form-group row my-3">
                         <div class="col-md-3 col-form-label">No. Telepon</div>
                         <div class="col-md-9">
-                            <input type="text" class="form-control border-dark" name="no_telp">
+                            <input type="text" class="form-control border-dark number" name="no_telp">
                         </div>
                     </div>
 
