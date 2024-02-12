@@ -117,7 +117,7 @@
                         <div class="card-header">
                             <ul class="nav" id="tab" role="tablist">
                                 @foreach ($bus as $key => $row)
-                                <li class="nav-item mr-2">
+                                <li class="nav-item mr-2 my-2">
                                     <a class="btn btn-default btn-sm border-secondary {{ $key == 0 ? 'active bg-info' : '' }} mx-2" data-toggle="pill" href="#bus-{{ $row->id_bus }}" role="tab" aria-selected="true">
                                         <b>BUS {{ $row->id_bus }}</b><br>
                                         <small class="text-success">Tersedia <b>{{ $row->total_kursi - $row->detail->where('status', '!=', 'cancel')->count() }}</b> seat</small>
