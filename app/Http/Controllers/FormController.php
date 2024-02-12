@@ -177,7 +177,7 @@ class FormController extends Controller
 
     public function selectUker($id)
     {
-        $data = UnitKerja::where('unit_utama_id', $id)->get();
+        $data = UnitKerja::where('unit_utama_id', $id)->orderBy('nama_unit_kerja', 'ASC')->get();
         $response = array();
 
         $response[] = array(
