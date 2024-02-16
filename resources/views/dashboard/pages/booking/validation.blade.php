@@ -2,16 +2,6 @@
 
 @section('content')
 
-@if (Session::has('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: '{{ Session::get("success") }}',
-    });
-</script>
-@endif
-
-
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container">
@@ -147,8 +137,8 @@
 
                     @if ($book->status == 'true')
                     <div class="card-footer text-right font-weight-bold">
-                        <a id="download" class="btn btn-danger" data-url="{{ route('tiket.cetak', $book->id_booking) }}" target="_blank">
-                            <i class="fas fa-ticket"></i> E-Tiket
+                        <a id="download" class="btn btn-success btn-sm" data-url="{{ route('tiket.cetak', $book->id_booking) }}" target="_blank">
+                            <i class="fas fa-paper-plane"></i> <b>Kirm Email</b>
                         </a>
                     </div>
                     @endif
@@ -319,7 +309,7 @@
         const url = event.currentTarget.dataset.url;
 
         Swal.fire({
-            title: 'Sedang Download...',
+            title: 'Sedang Mengirim...',
             allowOutsideClick: true,
             showConfirmButton: false,
             timer: 9000,

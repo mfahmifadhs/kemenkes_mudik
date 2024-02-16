@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\PesertaExport;
+use App\Mail\SendEmail;
+use App\Mail\SendPdfMail;
 use App\Models\Booking;
 use App\Models\Peserta;
 use App\Models\Trayek;
@@ -12,6 +14,7 @@ use App\Models\UnitUtama;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Auth;
+use Illuminate\Support\Facades\Mail;
 use Mpdf\Mpdf;
 
 class BookingController extends Controller
@@ -117,18 +120,22 @@ class BookingController extends Controller
     public function ticket($id)
     {
         $book = Booking::where('id_booking', $id)->first();
+        // Mail::to('mfahmifadh@gmail.com')->send(new SendPdfMail($book));
 
+        // return response()->json(['message' => 'E-Ticket sent to email.']);
         $data = [
-            'book'      => $book->id_booking,
-            'kode_book' => $book->kode_booking,
-            'jurusan'   => $book->rute->jurusan,
-            'rute'      => $book->rute->rute,
-            'tujuan'    => $book->tujuan->nama_kota,
-            'peserta'   => $book->detail
+            'id'      => $book->id_booking,
+            'nama'    => $book->nama_pegawai,
+            'nip'     => $book->nip_nik,
+            'uker'    => $book->uker->nama_unit_kerja,
+            'peserta' => $book->detail->count(),
+            'tujuan'  => $book->tujuan->nama_kota,
+            'trayek'  => $book->rute->jurusan,
+            'rute'    => $book->rute->rute
         ];
 
-        $mpdf = new Mpdf();
-        $mpdf->WriteHTML(view('dashboard.pages.booking.ticket', $data)->render());
-        $mpdf->Output('e-ticket.pdf', 'D');
+        Mail::to('mfahmifadh@gmail.com')->send(new SendEmail($data));
+
+        return redirect()->route('book.validation', $book->id_booking)->withAlert('Email Terkirim', 'success');
     }
 }
