@@ -147,7 +147,7 @@
 
                     @if ($book->status == 'true')
                     <div class="card-footer text-right font-weight-bold">
-                        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#tolak">
+                        <a id="download" class="btn btn-danger" data-url="{{ route('tiket.cetak', $book->id_booking) }}" target="_blank">
                             <i class="fas fa-ticket"></i> E-Tiket
                         </a>
                     </div>
@@ -311,6 +311,24 @@
             }
         });
     }
+</script>
+
+<script>
+    document.getElementById('download').addEventListener('click', function(event) {
+        event.preventDefault();
+        const url = event.currentTarget.dataset.url;
+
+        Swal.fire({
+            title: 'Sedang Download...',
+            allowOutsideClick: true,
+            showConfirmButton: false,
+            timer: 9000,
+            onBeforeOpen: () => {
+                Swal.showLoading();
+                window.location.href = url;
+            },
+        });
+    });
 </script>
 @endsection
 @endsection

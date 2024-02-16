@@ -12,6 +12,7 @@ use App\Models\UnitUtama;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Auth;
+use Mpdf\Mpdf;
 
 class BookingController extends Controller
 {
@@ -111,5 +112,23 @@ class BookingController extends Controller
         }
 
         return redirect()->route('dashboard')->with('success', 'Berhasil Melakukan Validasi');
+    }
+
+    public function ticket($id)
+    {
+        $book = Booking::where('id_booking', $id)->first();
+
+        $data = [
+            'book'      => $book->id_booking,
+            'kode_book' => $book->kode_booking,
+            'jurusan'   => $book->rute->jurusan,
+            'rute'      => $book->rute->rute,
+            'tujuan'    => $book->tujuan->nama_kota,
+            'peserta'   => $book->detail
+        ];
+
+        $mpdf = new Mpdf();
+        $mpdf->WriteHTML(view('dashboard.pages.booking.ticket', $data)->render());
+        $mpdf->Output('e-ticket.pdf', 'D');
     }
 }

@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // select
 
+    Route::get('tiket/cetak/{id}', [BookingController::class, 'ticket'])->name('tiket.cetak');
     Route::get('book/validation/{id}', [BookingController::class, 'validation'])->name('book.validation');
     Route::get('book/pdf/{id}', [BookingController::class, 'pdf'])->name('book.pdf');
     Route::get('book/validation/true/{id}', [BookingController::class, 'storeValidation'])->name('book.true');

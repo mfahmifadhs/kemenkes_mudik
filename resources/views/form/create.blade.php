@@ -108,148 +108,211 @@
             </div>
             @elseif ($rute && $step == 1)
             <div id="bus" class="card-body">
+                @if (!$seatFull)
                 <form action="{{ route('form.create') }}" method="GET">
-                    @csrf
-                    <input type="hidden" name="step" value="2">
-                    <input type="hidden" name="rute" value="{{ $rute->id_trayek }}">
-                    <input type="hidden" name="data" value="{{ json_encode($data) }}">
-                    <div class="card card-primary card-outline card-tabs">
-                        <div class="card-header">
-                            <ul class="nav" id="tab" role="tablist">
-                                @foreach ($bus as $key => $row)
-                                <li class="nav-item mr-2 my-1">
-                                    <a class="btn btn-default btn-sm border-secondary {{ $key == 0 ? 'active bg-info' : '' }} mx-2" data-toggle="pill" href="#bus-{{ $row->id_bus }}" role="tab" aria-selected="true">
-                                        <b>BUS {{ $row->id_bus }}</b><br>
-                                        <small class="text-success">Tersedia <b>{{ $row->total_kursi - $row->detail->where('status', '!=', 'cancel')->count() }}</b> seat</small>
-                                    </a>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="tab-content" id="tabContent">
-                                <!-- Usulan Pengadaan -->
-                                @foreach ($bus as $key => $row)
-                                @php
-                                $active = $key == 0 ? 'show active' : '';
-                                $bus = $row->id_bus;
-                                @endphp
-                                <div class="tab-pane fade {{ $active }}" id="bus-{{ $row->id_bus }}" role="tabpanel">
-                                    <div class="row text-center">
-                                        <div class="col-md-5 col-5">
-                                            <span class="border border-dark px-2 py-1">CO-Driver</span>
-                                        </div>
-                                        <div class="col-md-2 col-2">&nbsp;</div>
-                                        <div class="col-md-5 col-5">
-                                            <span class="border border-dark px-2 py-1">Driver</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="row my-2">
-                                        <div class="col-md-5 col-5">
-                                            @for ($i = 1; $i <= $row->seat_kiri; $i++)
-                                                <div class="row text-center">
-                                                    @foreach (json_decode($row->kd_seat_kiri, true) as $kode)
-                                                    @php $seatCode = $i . $kode . $bus; @endphp
-                                                    @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
-                                                    <label class="col-md-5 col-5 bg-warning rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                        {{ $i . $kode }}
-                                                    </label>
-                                                    @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
-                                                    <label class="col-md-5 col-5 bg-secondary text-white rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                        {{ $i . $kode }}
-                                                    </label>
-                                                    @else
-                                                    <label class="col-md-5 col-5 btn btn-success border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                        <input name="seat[]" type="checkbox" class="seat-checkbox" id="seat{{ $i . $kode . $bus }}" value="{{ $bus.'-'.$i . $kode }}">
-                                                        {{ $i . $kode }}
-                                                    </label>
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                                @endfor
-                                        </div>
-                                        <div class="col-md-2 col-2"></div>
-                                        <div class="col-md-5 col-5">
-                                            @for ($i = 1; $i <= $row->seat_kanan; $i++)
-                                                <div class="row text-center">
-                                                    @foreach (json_decode($row->kd_seat_kanan, true) as $kode)
-                                                    @php $seatCode = $i . $kode . $bus; @endphp
-                                                    @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
-                                                    <label class="col-md-5 col-5 bg-warning rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                        {{ $i . $kode }}
-                                                    </label>
-                                                    @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
-                                                    <label class="col-md-5 col-5 bg-secondary text-white rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                        {{ $i . $kode }}
-                                                    </label>
-                                                    @else
-                                                    <label class="col-md-5 col-5 btn btn-success border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                        <input name="seat[]" type="checkbox" class="seat-checkbox" id="seat{{ $i . $kode . $bus }}" value="{{ $bus.'-'.$i . $kode }}">
-                                                        {{ $i . $kode }}
-                                                    </label>
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                                @endfor
-                                        </div>
-                                    </div>
-                                    @if ($row->total_kursi == 40)
-                                    <div class="col-md-12">
-                                        <div class="row text-center">
-                                            <label class="col-md-3 col-3 bg-secondary text-white rounded border border-dark mx-auto m-2 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                Toilet
-                                            </label>
-                                            @for ($i = 1; $i <= $row->seat_belakang; $i++)
-                                                @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
-                                                @php $kdSeat = 10 + $i - 1; @endphp
-                                                <label class="col-md-2 col-2 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                    {{ $kdSeat . $kode }}
-                                                </label>
-                                                @endforeach
-                                            @endfor
-                                        </div>
-                                    </div>
-                                    @endif
-                                    @if ($row->total_kursi == 37)
-                                    <div class="col-md-12">
-                                        <div class="row text-center">
-                                            @for ($i = 1; $i <= $row->seat_belakang; $i++)
-                                                @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
-                                                @php $kdSeat = 10 + $i - 1; @endphp
-                                                <label class="col-md-2 col-2 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                    {{ $kdSeat . $kode }}
-                                                </label>
-                                                @endforeach
-                                            @endfor
-                                            <div class="col-md-1 col-1"></div>
-                                            <label class="col-md-6 col-4 bg-secondary text-white rounded border border-dark mx-auto m-2 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                Toilet
-                                            </label>
-                                        </div>
-                                    </div>
-                                    @endif
-                                </div>
-                                @endforeach
-                            </div>
-                            <div class="form-group pt-5">
-                                <div class="row">
-                                    <div class="col-md-6 col-6 text-left">
-                                        <a onclick="goBack()" class="btn btn-default border-dark text-dark text-sm">
-                                            <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
+                    @else
+                    <form id="form" action="{{ route('form.store') }}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="seatFull" value="true">
+                        <input type="hidden" name="peserta" value="{{ implode(',', $peserta) }}">
+                        <input type="hidden" name="id_book" value="{{ $bookId }}">
+                        @endif
+                        @csrf
+                        <input type="hidden" name="step" value="2">
+                        <input type="hidden" name="rute" value="{{ $rute->id_trayek }}">
+                        <input type="hidden" name="data" value="{{ json_encode($data) }}">
+                        <div class="card card-primary card-outline card-tabs">
+                            <div class="card-header">
+                                <ul class="nav" id="tab" role="tablist">
+                                    @foreach ($bus as $key => $row)
+                                    <li class="nav-item mr-2 my-1">
+                                        <a class="btn btn-default btn-sm border-secondary {{ $key == 0 ? 'active bg-info' : '' }} mx-2" data-toggle="pill" href="#bus-{{ $row->id_bus }}" role="tab" aria-selected="true">
+                                            <b>BUS {{ $row->id_bus }}</b><br>
+                                            <small class="text-success">Tersedia <b>{{ $row->total_kursi - $row->detail->where('status', '!=', 'cancel')->count() }}</b> seat</small>
                                         </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="tab-content" id="tabContent">
+                                    <!-- Usulan Pengadaan -->
+                                    @foreach ($bus as $key => $row)
+                                    @php
+                                    $active = $key == 0 ? 'show active' : '';
+                                    $bus = $row->id_bus;
+                                    @endphp
+                                    <div class="tab-pane fade {{ $active }}" id="bus-{{ $row->id_bus }}" role="tabpanel">
+                                        <div class="row text-center">
+                                            <div class="col-md-5 col-5">
+                                                <span class="border border-dark px-2 py-1">CO-Driver</span>
+                                            </div>
+                                            <div class="col-md-2 col-2">&nbsp;</div>
+                                            <div class="col-md-5 col-5">
+                                                <span class="border border-dark px-2 py-1">Driver</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="row my-2">
+                                            <div class="col-md-5 col-5">
+                                                @for ($i = 1; $i <= $row->seat_kiri; $i++)
+                                                    <div class="row text-center">
+                                                        @foreach (json_decode($row->kd_seat_kiri, true) as $kode)
+                                                        @php $seatCode = $i . $kode . $bus; @endphp
+                                                        @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
+                                                        <label class="col-md-5 col-5 bg-warning rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
+                                                        <label class="col-md-5 col-5 bg-secondary text-white rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @else
+                                                        <label class="col-md-5 col-5 btn btn-success border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            <input name="seat[]" type="checkbox" class="seat-checkbox" id="seat{{ $i . $kode . $bus }}" value="{{ $bus.'-'.$i . $kode }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @endif
+                                                        @endforeach
+                                                    </div>
+                                                    @endfor
+                                            </div>
+                                            <div class="col-md-2 col-2"></div>
+                                            <div class="col-md-5 col-5">
+                                                @for ($i = 1; $i <= $row->seat_kanan; $i++)
+                                                    <div class="row text-center">
+                                                        @foreach (json_decode($row->kd_seat_kanan, true) as $kode)
+                                                        @php $seatCode = $i . $kode . $bus; @endphp
+                                                        @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
+                                                        <label class="col-md-5 col-5 bg-warning rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
+                                                        <label class="col-md-5 col-5 bg-secondary text-white rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @else
+                                                        <label class="col-md-5 col-5 btn btn-success border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            <input name="seat[]" type="checkbox" class="seat-checkbox" id="seat{{ $i . $kode . $bus }}" value="{{ $bus.'-'.$i . $kode }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @endif
+                                                        @endforeach
+                                                    </div>
+                                                    @endfor
+                                            </div>
+                                        </div>
+                                        @if ($row->total_kursi == 40)
+                                        <div class="col-md-12">
+                                            <div class="row text-center">
+                                                <label class="col-md-3 col-3 bg-secondary text-white rounded border border-dark mx-auto m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                    Toilet
+                                                </label>
+                                                @for ($i = 1; $i <= $row->seat_belakang; $i++)
+                                                    @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
+                                                    @php $kdSeat = 10 + $i - 1; @endphp
+                                                    <label class="col-md-2 col-2 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        {{ $kdSeat . $kode }}
+                                                    </label>
+                                                    @endforeach
+                                                    @endfor
+                                            </div>
+                                        </div>
+                                        @endif
+                                        @if ($row->total_kursi == 37)
+                                        <div class="col-md-12">
+                                            <div class="row text-center">
+                                                @for ($i = 1; $i <= $row->seat_belakang; $i++)
+                                                    @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
+                                                    @php $kdSeat = 10 + $i - 1; @endphp
+                                                    <label class="col-md-2 col-2 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        {{ $kdSeat . $kode }}
+                                                    </label>
+                                                    @endforeach
+                                                    @endfor
+                                                    <div class="col-md-1 col-1"></div>
+                                                    <label class="col-md-6 col-4 bg-secondary text-white rounded border border-dark mx-auto m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        Toilet
+                                                    </label>
+                                            </div>
+                                        </div>
+                                        @endif
                                     </div>
-                                    <div class="col-md-6 col-6 text-right">
-                                        <button type="submit" class="btn btn-default border-dark text-dark text-sm">
-                                            Selanjutnya <i class="fa-solid fa-square-caret-right"></i>
-                                        </button>
+                                    @endforeach
+                                </div>
+                                <div class="form-group pt-5">
+                                    <div class="row">
+                                        @if ($seatFull)
+                                        <div class="col-md-12 py-2">
+                                            <p class="text-right text-primary underline ">
+                                                <a href="#" data-toggle="modal" data-target="#skModal">
+                                                    Syarat dan ketentuan
+                                                </a>
+                                            </p>
+
+                                            <div class="modal fade" id="skModal" role="dialog" aria-labelledby="skLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="skLabel">Syarat dan Ketentuan</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body text-sm">
+                                                            <p class="mb-2">Syarat dan Ketentuan Peserta Bus Mudik Kemenkes Tahun 2024:</p>
+                                                            <ol type="1">
+                                                                <li>1. Peserta yang terdaftar adalah Aparatur Sipil Negara (PNS dan PPPK), Pegawai Pemerintah Non Pegawai Negeri, Pegawai Alih Daya, dan/atau Pegawai Bank Mitra di lingkungan Kantor Pusat Kementerian Kesehatan</li>
+                                                                <li>2. Peserta di luar pegawai Kantor Pusat Kementerian Kesehatan merupakan kerabat dalam satu Kartu Keluarga (KK) dan/atau satu alamat rumah yang sama dengan peserta pada point 1</li>
+                                                                <li>3. Peserta dalam kondisi sehat dan tidak memiliki riwayat atau sedang dalam masa penularan penyakit menular yang berpotensi terhadap penyebaran penyakit di dalam Bus.</li>
+                                                                <li>4. Obat-obatan pribadi merupakan tanggung jawab masing-masing peserta.</li>
+                                                                <li>5. Dokumen yang dilampirkan sebagai data pelengkap dalam formular ini adalah benar.</li>
+                                                                <li>6. Peserta tidak diperbolehkan untuk melakukan pemindahan nomor kursi tanpa persetujuan panitia.</li>
+                                                                <li>7. Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
+                                                                <li>8. Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
+                                                                <li>9. Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
+                                                            </ol>
+                                                            <p class="mt-4 text-justify">
+                                                                <label class="text-justify">
+                                                                    <input id="skCheckbox" type="checkbox" name="sk" required>
+                                                                    SAYA TELAH MEMBACA DAN MENGERTI SELURUH SYARAT DAN KETENTUAN PENGGUNAAN INI DAN KONSEKUENSINYA DAN DENGAN INI MENERIMA SETIAP HAK, KEWAJIBAN, DAN KETENTUAN YANG DIATUR DI DALAMNYA.
+                                                                </label>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
+
+                                        @if (!$seatFull)
+                                        <div class="col-md-6 col-6 text-left">
+                                            <a onclick="goBack()" class="btn btn-default border-dark text-dark text-sm">
+                                                <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 col-6 text-right">
+                                            <button type="submit" class="btn btn-default border-dark text-dark text-sm">
+                                                Selanjutnya <i class="fa-solid fa-square-caret-right"></i>
+                                            </button>
+                                        </div>
+                                        @else
+                                        <div class="col-md-6 col-6 text-left">
+                                            <a href="{{ route('form.create') }}" class="btn btn-default border-dark text-dark text-sm">
+                                                <i class="fa-solid fa-times-circle"></i> Batalkan
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 col-6 text-right">
+                                            <button type="submit" class="btn btn-default border-dark text-dark text-sm" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
+                                                <i class="fa-solid fa-circle-check"></i> Selesai
+                                            </button>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
             </div>
             @elseif ($step == 2)
             <div id="peserta" class="card-body">
@@ -434,6 +497,25 @@
             });
         }
 
+        const seatFull = '{{ $seatFull }}'
+        const peserta  = '{{ count($peserta) }}'
+        if (seatFull) {
+            var checkedCount = $('.seat-checkbox:checked').length;
+
+            if (checkedCount > peserta) {
+                $(this).prop('checked', false);
+                Swal.fire({
+                    text: "Anda hanya dapat memilih "+ peserta +" kursi.",
+                    icon: 'error',
+                });
+            } else if (checkedCount < peserta){
+                Swal.fire({
+                    text: "Anda harus memilih "+ peserta +" kursi.",
+                    icon: 'error',
+                });
+            }
+        }
+
 
         inputs.forEach(input => {
             if (input.hasAttribute('required') && input.value.trim() === '') {
@@ -553,7 +635,6 @@
     $(document).ready(function() {
         $('.seat-checkbox').change(function() {
             var checkedCount = $('.seat-checkbox:checked').length;
-            console.log(checkedCount)
             if (checkedCount > 5) {
                 $(this).prop('checked', false);
 

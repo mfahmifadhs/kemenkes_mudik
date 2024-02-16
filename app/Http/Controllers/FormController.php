@@ -19,6 +19,7 @@ class FormController extends Controller
     {
         $seatTotal = 0;
         $seatCek   = [];
+        $peserta   = $request->get('peserta', []);
         $rute   = $request->get('rute', '');
         $step   = $request->get('step', '');
         $seat   = $request->get('seat', '');
@@ -27,6 +28,8 @@ class FormController extends Controller
         $data   = [];
         $utama  = UnitUtama::orderBy('nama_unit_utama', 'ASC')->get();
         $trayek = Trayek::get();
+        $seatFull = $request->get('full', '');
+        $bookId   = $request->get('id_book', '');
 
         if ($rute) {
             $seatCek = Peserta::select(DB::RAW('concat(kode_seat, bus_id) as seat_booked'), 'status')->get();
@@ -52,11 +55,46 @@ class FormController extends Controller
             $data = json_decode($request->data);
         }
 
-        return view('form.create', compact('rute', 'utama', 'trayek', 'step', 'data', 'bus', 'seat', 'seatCek', 'seatTotal'));
+        return view('form.create', compact('rute', 'utama', 'trayek', 'step', 'data', 'bus', 'seat', 'seatCek', 'seatTotal', 'seatFull', 'peserta', 'bookId'));
     }
 
     public function store(Request $request)
     {
+        $seatCek = 0;
+        $bus  = $request->bus;
+        $seat = $request->seat;
+
+        if ($request->seatFull == 'true') {
+            $seatArr = array_map(function ($value) {
+                return substr($value, strpos($value, '-') + 1);
+            }, $seat);
+            $busArr = array_map(function ($value) {
+                return substr($value, 0,  strpos($value, '-'));
+            }, $seat);
+
+            $seatCek = Peserta::whereIn('bus_id', $busArr)->whereIn('kode_seat', $seatArr)->where('status', '!=', 'cancel')->count();
+            $id_book = $request->id_book;
+            if ($seatCek != 0) {
+                $peserta = Peserta::where('booking_id', $id_book)->pluck('id_peserta')->toArray();
+                $full = 'true';
+                $step = 1;
+                $rute = $request->rute;
+                return redirect()->route('form.create', compact('rute', 'step', 'full', 'peserta', 'id_book'))->with('failed', 'Bangku Penuh');
+            } else {
+                foreach ($seatArr as $i => $seat_id) {
+                    $pesertaArr = explode(',', $request->peserta);
+                    $pesertaId  = $pesertaArr[$i];
+
+                    Peserta::where('id_peserta', $pesertaId)->update([
+                        'bus_id'    => $busArr[$i],
+                        'kode_seat' => $seat_id
+                    ]);
+                }
+                return redirect()->route('form.tiket', $id_book)->with('success', 'Berhasil Registrasi');
+            }
+
+        }
+
         $data      = json_decode($request->data);
         $id_book   = str_pad(Booking::withTrashed()->count() + 1, 4, 0, STR_PAD_LEFT);
         $kode_book = Carbon::now()->format('ymdHis') . $id_book;
@@ -74,7 +112,7 @@ class FormController extends Controller
         $tambah->created_at   = Carbon::now();
         $tambah->save();
 
-        $seat = $request->seat;
+        $seatCek = Peserta::whereIn('bus_id', $bus)->whereIn('kode_seat', $seat)->where('status', '!=', 'cancel')->count();
         foreach ($seat as $key => $seat_id) {
             $total      = str_pad(Peserta::withTrashed()->count() + 1, 4, 0, STR_PAD_LEFT);
             $id_peserta = Carbon::now()->format('ymd') . $total;
@@ -83,7 +121,7 @@ class FormController extends Controller
             $detail->id_peserta   = $id_peserta;
             $detail->booking_id   = $id_book;
             $detail->bus_id       = $request->bus[$key];
-            $detail->kode_seat    = $seat_id;
+            $detail->kode_seat    = $seatCek ==  0 ? $seat_id : null;
             $detail->nama_peserta = $request->peserta[$key];
             $detail->nik          = $request->nik_peserta[$key];
             $detail->usia         = $request->usia_peserta[$key];
@@ -128,6 +166,14 @@ class FormController extends Controller
                 'foto_ktp' => $fileKtp,
                 'foto_kk'  => $fileKk
             ]);
+        }
+
+        if ($seatCek != 0) {
+            $peserta = Peserta::where('booking_id', $id_book)->pluck('id_peserta')->toArray();
+            $full = 'true';
+            $step = 1;
+            $rute = $request->rute;
+            return redirect()->route('form.create', compact('rute', 'step', 'full', 'data', 'peserta', 'id_book'))->with('failed', 'Bangku Penuh');
         }
 
         return redirect()->route('form.tiket', $id_book)->with('success', 'Berhasil Registrasi');

@@ -62,7 +62,7 @@
                             </table>
                         </p>
                         <hr class="my-4">
-                        <h5 class="my-2">Kebijakan</h5>
+                        <h5 class="my-2">Catatan</h5>
                         <p>
                             <li class="small">Peserta diharapkan menyimpan Kode Booking yang telah didapatkan</li>
                             <li class="small">Pendaftaran "Mudik Bersama Kemenkes" tidak dapat Dibatalkan/diubah tanpa persetujuan panitia</li>
