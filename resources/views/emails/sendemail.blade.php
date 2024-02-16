@@ -34,10 +34,10 @@
             <td>:</td>
             <td>{{ $data['tujuan'] }}</td>
         </tr>
-        <tr>
+        <tr style="text-transform: capitalize;">
             <td>Jurusan</td>
             <td>:</td>
-            <td>{{ strtolower(ucwords($data['trayek'])) }}</td>
+            <td>{{ strtolower($data['trayek']) }}</td>
         </tr>
         <tr>
             <td>Rute</td>
