@@ -37,7 +37,7 @@
         <tr>
             <td>Jurusan</td>
             <td>:</td>
-            <td>{{ strtolower(ucfirst($data['trayek'])) }}</td>
+            <td>{{ strtolower(ucwords($data['trayek'])) }}</td>
         </tr>
         <tr>
             <td>Rute</td>
