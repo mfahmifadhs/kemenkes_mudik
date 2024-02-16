@@ -32,12 +32,12 @@
         <tr>
             <td>Kota Tujuan</td>
             <td>:</td>
-            <td>{{ strtolower(ucfirst($data['tujuan'])) }}</td>
+            <td>{{ $data['tujuan'] }}</td>
         </tr>
         <tr>
             <td>Jurusan</td>
             <td>:</td>
-            <td>{{ $data['trayek'] }}</td>
+            <td>{{ strtolower(ucfirst($data['trayek'])) }}</td>
         </tr>
         <tr>
             <td>Rute</td>
