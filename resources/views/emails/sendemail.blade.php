@@ -46,8 +46,8 @@
         </tr>
     </table>
     <p>
-        Mohon klik link dibawah ini untuk melakukan <b>Verifikasi</b>: <br>
-        <a href="{{ route('form.tiket', $data['id']) }}" style="color: blue;"><i><u>
+        Mohon klik link dibawah ini untuk mencetak <b>Tiket</b>: <br>
+        <a href="{{ route('tiket', $data['id']) }}" style="color: blue;"><i><u>
             {{ encrypt('Link verifikasi data') }}
         </i></u></a>
     </p>

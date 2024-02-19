@@ -99,22 +99,18 @@
                                 <tr>
                                     <th style="width: 0%;">No</th>
                                     <th style="width: 5%;">Tanggal</th>
-                                    <th style="width: 15%;">Unit Kerja</th>
+                                    <th style="width: 12%;">Unit Kerja</th>
                                     <th style="width: 27%;">Nama Pegawai</th>
                                     <th style="width: 23%;">Tujuan</th>
                                     <th style="width: 5%;">Peserta</th>
-                                    <th style="width: 5%;">Aksi</th>
+                                    <th style="width: 8%;">Status</th>
+                                    <th style="width: 8%;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="text-sm">
                                 @foreach($book as $row)
                                 <tr>
-                                    <td>
-                                        {{ $loop->iteration }}
-                                        @if ($row->status == 'true') <i class="fas fa-check-circle text-success"></i>@endif
-                                        @if ($row->status == 'false') <i class="fas fa-times-circle text-danger"></i>@endif
-                                        @if ($row->status == null) <i class="fas fa-clock text-warning"></i>@endif
-                                    </td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $row->created_at }}</td>
                                     <td class="text-left">{{ $row->uker->nama_unit_kerja }}</td>
                                     <td class="text-left">
@@ -143,6 +139,24 @@
                                     </td>
                                     <td class="text-left align-middle text-center">
                                         {{ $row->detail->count() }} orang
+                                    </td>
+                                    <td class="text-left">
+                                        @if ($row->approval_uker)
+                                        @php $status = $row->approval_uker == 'true' ? 'text-success' : 'text-danger'; @endphp
+                                        <label class="mb-1 btn-xs border-dark text-xs {{ $status }}">
+                                            <span class="text-xs">
+                                                <i class="fas fa-check-circle"></i> Unit Kerja
+                                            </span>
+                                        </label>
+                                        @endif
+                                        @if ($row->approval_roum)
+                                        @php $status = $row->approval_uker == 'true' ? 'text-success' : 'text-danger'; @endphp
+                                        <label class="mb-1 btn-xs border-dark text-xs {{ $status }}">
+                                            <span class="text-xs">
+                                                <i class="fas fa-check-circle"></i> Biro Umum
+                                            </span>
+                                        </label>
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{ route('book.validation', $row->id_booking) }}" class="btn btn-default btn-small border-dark">

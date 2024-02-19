@@ -4,15 +4,16 @@
 
 <div class="max-w-7xl mx-auto p-6 lg:p-8">
     <div class="flex justify-center mt-0">
-        <div class="card col-md-6 col-12">
-            <div class="card-body">
+        <div class="card col-md-7 col-12">
+            <div class="card-body border border-dark">
                 <div class="row">
                     <div class="col-md-12">
                         <img src="{{ asset('dist/img/logo-kemenkes.png') }}" alt="kemenkes" width="150">
                         <p class="small mt-2 text-justify">
                             Terima kasih telah melakukan registrasi Mudik Bersama Kemenkes!
                         </p>
-                        <p class="small m-3">
+                    </div>
+                    <div class="col-md-9">
                         <div class="row small">
                             <div class="col-md-3 col-3">Kode Boking</div>
                             <div class="col-md-8 col-8">: {{ $book->kode_booking }}</div>
@@ -35,31 +36,49 @@
                             </div>
                         </div>
                         </p>
-                        <hr class="my-3">
+                    </div>
+                    <div class="col-md-3">
+                        @if (!$book->status)
+                        <i class="fas fa-history text-warning fa-6x" style="opacity: 0.4;"></i>
+                        @endif
+
+                        @if ($book->status == 'true')
+                        <i class="fas fa-check-circle text-success fa-6x" style="opacity: 0.4;"></i>
+                        @endif
+
+                        @if ($book->status == 'false')
+                        <i class="fas fa-times-circle text-danger fa-6x mb-2" style="opacity: 0.4;"></i><br>
+                        <span class="text-danger">{{ $book->catatan }}</span>
+                        @endif
+                    </div>
+                    <div class="col-md-12">
+                        <p class="small m-3">
+
+                            <hr class="my-3">
                         <h5 class="my-2">Detail Boking</h5>
                         <p class="table-responsive">
-                            <table class="table table-striped small text-center">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Peserta</th>
-                                        <th>NIK</th>
-                                        <th>Bus</th>
-                                        <th>Kode Kursi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($detail as $row)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td class="text-left">{{ $row->nama_peserta }}</td>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->bus_id }}</td>
-                                        <td>{{ $row->kode_seat }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                        <table class="table table-striped small text-center">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Peserta</th>
+                                    <th>NIK</th>
+                                    <th>Bus</th>
+                                    <th>Kode Kursi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($detail as $row)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td class="text-left">{{ $row->nama_peserta }}</td>
+                                    <td>{{ $row->nik }}</td>
+                                    <td>{{ $row->bus_id }}</td>
+                                    <td>{{ $row->kode_seat }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                         </p>
                         <hr class="my-4">
                         <h5 class="my-2">Catatan</h5>

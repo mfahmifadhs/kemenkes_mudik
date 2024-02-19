@@ -24,6 +24,7 @@ class Booking extends Model
         'nip_nik',
         'no_telp',
         'alamat',
+        'email',
         'foto_kk',
         'foto_ktp',
     ];

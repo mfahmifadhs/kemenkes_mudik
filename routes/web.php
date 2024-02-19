@@ -25,12 +25,13 @@ Route::get('keluar', [AuthController::class, 'keluar'])->name('keluar');
 Route::post('login', [AuthController::class, 'postLogin'])->name('post.login');
 
 Route::get('form/daftar', [FormController::class, 'create'])->name('form.create');
-Route::get('tiket/{id}', [FormController::class, 'ticket'])->name('form.tiket');
-Route::post('tiket/cek', [FormController::class, 'check'])->name('tiket.check.post');
 Route::post('form/daftar', [FormController::class, 'store'])->name('form.store');
 
 Route::get('tujuan/select/{id}', [FormController::class, 'selectDest']);
 Route::get('uker/select/{id}', [FormController::class, 'selectUker']);
+
+Route::get('form/konfirmasi/{id}', [FormController::class, 'confirm'])->name('form.confirm');
+Route::get('tiket/{id}', [FormController::class, 'ticket'])->name('tiket');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -45,7 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // select
 
-    Route::get('tiket/cetak/{id}', [BookingController::class, 'ticket'])->name('tiket.cetak');
+    Route::get('tiket/cetak/{id}', [BookingController::class, 'emailTicket'])->name('tiket.email');
     Route::get('book/validation/{id}', [BookingController::class, 'validation'])->name('book.validation');
     Route::get('book/pdf/{id}', [BookingController::class, 'pdf'])->name('book.pdf');
     Route::get('book/validation/true/{id}', [BookingController::class, 'storeValidation'])->name('book.true');

@@ -34,7 +34,7 @@ class DashboardController extends Controller
         $data = Booking::orderBy('id_booking', 'DESC');
 
         if ($role == 4) {
-            $book = $data->where('uker_id', Auth::user()->uker_id)->where('status', null)->get();
+            $book = $data->where('uker_id', Auth::user()->uker_id)->where('approval_uker', null)->get();
         } else {
             $uker   = UnitKerja::get();
             $trayek = Trayek::get();

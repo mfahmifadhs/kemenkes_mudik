@@ -30,6 +30,82 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-9">
+                    @if (Auth::user()->role_id == 2)
+                    <div class="card w-100">
+                        <div class="card-header mt-2">
+                            <div class="float-left">
+                                <label>Tabel Peserta</label>
+                            </div>
+                        </div>
+
+                        <div class="card-header">
+                            <div class="">
+                                <table id="table" class="table table-bordered text-center">
+                                    <thead class="text-sm">
+                                        <tr>
+                                            <th style="width: 0%;">No</th>
+                                            <th style="width: 15%;">Tanggal</th>
+                                            <th style="width: 30%;">Pegawai</th>
+                                            <th style="width: 25%;">Rute</th>
+                                            <th style="width: 10%;">Tujuan</th>
+                                            <th style="width: 10%;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-sm">
+                                        @foreach($book->where('approval_roum', null) as $row)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ Carbon\Carbon::parse($row->created_at)->isoFormat('DD MMM Y | HH:mm:ss') }}</td>
+                                            <td class="text-left">
+                                                <div class="row">
+                                                    <div class="col-md-4">Kode Boking</div>
+                                                    <div class="col-md-7">: {{ $row->kode_booking }}</div>
+                                                    <div class="col-md-4">Nama</div>
+                                                    <div class="col-md-7">: {{ $row->nama_pegawai }}</div>
+                                                    <div class="col-md-4">NIP/NIK</div>
+                                                    <div class="col-md-7">: {{ $row->nip_nik }}</div>
+                                                    <div class="col-md-4">No. Telp</div>
+                                                    <div class="col-md-7">: {{ $row->no_telp }}</div>
+                                                    <div class="col-md-4">Jumlah</div>
+                                                    <div class="col-md-7">: {{ $row->detail->count() }} orang</div>
+                                                    <div class="col-md-4">Unit Kerja</div>
+                                                    <div class="col-md-7">: {{ $row->uker->nama_unit_kerja }}</div>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">
+                                                {{ $row->rute->jurusan }} <br>
+                                                {{ $row->rute->rute }}
+                                            </td>
+                                            <td>{{ strtoupper($row->tujuan->nama_kota) }}</td>
+                                            <td>
+                                                @if ($row->approval_uker == true)
+                                                <label class="mb-1 btn-xs border-dark text-xs text-success">
+                                                    <span class="text-xs">
+                                                        <i class="fas fa-check-circle"></i> Unit Kerja
+                                                    </span>
+                                                </label>
+                                                @elseif ($row->approval_uker == false)
+                                                <label class="mb-1 btn-xs border-dark text-xs text-success">
+                                                    <span class="text-xs">
+                                                        <i class="fas fa-check-circle"></i> Unit Kerja
+                                                    </span>
+                                                </label>
+                                                @endif
+
+
+                                                <a href="{{ route('book.validation', $row->id_booking) }}" class="btn btn-warning btn-xs border-dark text-xs">
+                                                    <i class="fa-solid fa-file-signature fa-1x"></i>
+                                                    <span class="text-xs">Validasi</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
 
                     <div class="card w-100">
                         <div class="card-header mt-2">

@@ -30,10 +30,12 @@ class BookingController extends Controller
         $rute       = '';
         $tujuan     = '';
         $role = Auth::user()->role_id;
-        $data = Booking::orderBy('status', 'ASC');
+        $data = Booking::orderBy('approval_uker', 'ASC');
 
         if ($role == 4) {
-            $book = $data->where('uker_id', Auth::user()->uker_id)->where('status', '!=', null)->get();
+            $book = $data->where('uker_id', Auth::user()->uker_id)->where('approval_uker', '!=', null)->get();
+        } else if ($role == 2) {
+            $book = $data->where('approval_roum', '!=', null)->get();
         } else {
             $book = $data->get();
         }
@@ -97,10 +99,12 @@ class BookingController extends Controller
     public function storeValidation(Request $request, $id)
     {
         $catatan = $request->input('catatan', null);
-        $status  = $catatan ? 'false' : 'true';
+        $status  = $request->tolak == true ? 'false' : 'true';
 
+        $book = Booking::where('id_booking', $id)->first();
         Booking::where('id_booking', $id)->update([
-            'status'  => $status,
+            'approval_uker'  => $book->approval_uker ? $book->approval_uker : $status,
+            'approval_roum'  => $book->approval_uker ? $status : null,
             'catatan' => $catatan
         ]);
 
@@ -114,10 +118,28 @@ class BookingController extends Controller
             ]);
         }
 
-        return redirect()->route('dashboard')->with('success', 'Berhasil Melakukan Validasi');
+        $cekBook = Booking::where('id_booking', $id)->first();
+        if ($cekBook->approval_uker == 'true' && $cekBook->approval_roum == 'true') {
+            $book = Booking::where('id_booking', $id)->first();
+
+            $data = [
+                'id'      => $book->id_booking,
+                'nama'    => $book->nama_pegawai,
+                'nip'     => $book->nip_nik,
+                'uker'    => $book->uker->nama_unit_kerja,
+                'peserta' => $book->detail->count(),
+                'tujuan'  => $book->tujuan->nama_kota,
+                'trayek'  => $book->rute->jurusan,
+                'rute'    => $book->rute->rute
+            ];
+
+            Mail::to($book->email)->send(new SendEmail($data));
+        }
+
+        return redirect()->route('book.validation', $id)->with('success', 'Berhasil Melakukan Validasi');
     }
 
-    public function ticket($id)
+    public function emailTicket($id)
     {
         $book = Booking::where('id_booking', $id)->first();
         // Mail::to('mfahmifadh@gmail.com')->send(new SendPdfMail($book));
@@ -134,8 +156,8 @@ class BookingController extends Controller
             'rute'    => $book->rute->rute
         ];
 
-        Mail::to('mfahmifadh@gmail.com')->send(new SendEmail($data));
+        Mail::to($book->email)->send(new SendEmail($data));
 
-        return redirect()->route('book.validation', $book->id_booking)->withAlert('Email Terkirim', 'success');
+        return redirect()->route('book.validation', $book->id_booking)->with('success', 'Email Terkirim');
     }
 }

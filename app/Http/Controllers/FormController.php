@@ -12,6 +12,7 @@ use App\Models\UnitUtama;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
+use Mpdf\Mpdf;
 
 class FormController extends Controller
 {
@@ -42,6 +43,7 @@ class FormController extends Controller
                 'nip_nik' => $request->get('nip_nik'),
                 'no_telp' => $request->get('no_telp'),
                 'alamat'  => $request->get('alamat'),
+                'email'   => $request->get('email'),
                 'tujuan'  => $request->get('dest')
             ];
         }
@@ -90,7 +92,7 @@ class FormController extends Controller
                         'kode_seat' => $seat_id
                     ]);
                 }
-                return redirect()->route('form.tiket', $id_book)->with('success', 'Berhasil Registrasi');
+                return redirect()->route('form.confirm', $id_book)->with('success', 'Berhasil Registrasi');
             }
 
         }
@@ -109,6 +111,7 @@ class FormController extends Controller
         $tambah->nip_nik      = $data->nip_nik;
         $tambah->no_telp      = $data->no_telp;
         $tambah->alamat       = $data->alamat;
+        $tambah->email        = $data->email;
         $tambah->created_at   = Carbon::now();
         $tambah->save();
 
@@ -176,14 +179,33 @@ class FormController extends Controller
             return redirect()->route('form.create', compact('rute', 'step', 'full', 'data', 'peserta', 'id_book'))->with('failed', 'Bangku Penuh');
         }
 
-        return redirect()->route('form.tiket', $id_book)->with('success', 'Berhasil Registrasi');
+        return redirect()->route('form.confirm', $id_book)->with('success', 'Berhasil Registrasi');
+    }
+
+    public function confirm($id)
+    {
+        $book = Booking::where('id_booking', $id)->first();
+        $detail = Peserta::where('booking_id', $id)->get();
+        return view('form.confirm', compact('book', 'detail'));
     }
 
     public function ticket($id)
     {
         $book = Booking::where('id_booking', $id)->first();
-        $detail = Peserta::where('booking_id', $id)->get();
-        return view('form.ticket', compact('book', 'detail'));
+
+        $data = [
+            'book'      => $book->id_booking,
+            'kode_book' => $book->kode_booking,
+            'jurusan'   => $book->rute->jurusan,
+            'rute'      => $book->rute->rute,
+            'tujuan'    => $book->tujuan->nama_kota,
+            'peserta'   => $book->detail
+        ];
+
+        $mpdf = new Mpdf();
+        $mpdf->WriteHTML(view('dashboard.pages.booking.ticket', $data)->render());
+        $mpdf->Output('e-ticket.pdf', 'D');
+
     }
 
     public function check(Request $request)
@@ -193,7 +215,7 @@ class FormController extends Controller
         $note = $book ? $book->catatan : 'Tidak tidak ditemukan';
 
         if ($book && $book->status == 'true') {
-            return redirect()->route('form.tiket', $book->id_booking)->with('success', 'Tiket ditemukan');
+            return redirect()->route('form.confirm', $book->id_booking)->with('success', 'Tiket ditemukan');
         } else if ($book && $book->status == null) {
             return redirect()->route('tiket.check')->with('pending', 'Sedang dalam proses Validasi');
         } else {

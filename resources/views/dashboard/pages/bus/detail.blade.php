@@ -171,7 +171,7 @@
                                             @if ($row->status == 'book') <i class="fas fa-clock text-warning"></i> @endif
                                             @if ($row->status == 'full') <i class="fas fa-check-circle text-success"></i> @endif
                                         </td>
-                                        <td>{{ $row->booking_id  }}</td>
+                                        <td>{{ $row->booking->kode_booking  }}</td>
                                         <td class="text-left">{{ $row->nama_peserta }}</td>
                                         <td>{{ $row->usia }} tahun</td>
                                         <td>{{ $row->nik }}</td>

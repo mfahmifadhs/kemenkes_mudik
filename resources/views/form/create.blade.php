@@ -15,9 +15,9 @@
                     @csrf
                     <input type="hidden" name="step" value="1">
                     <div class="form-group row my-3">
-                        <div class="col-md-3 col-form-label">Unit Utama</div>
+                        <div class="col-md-3 col-form-label">Unit Utama*</div>
                         <div class="col-md-9">
-                            <select id="utamaSelect" name="utama" class="form-control border-dark">
+                            <select id="utamaSelect" name="utama" class="form-control border-dark" required>
                                 <option value="">-- Pilih Unit Utama --</option>
                                 @foreach($utama as $row)
                                 <option value="{{ $row->id_unit_utama }}">{{ $row->nama_unit_utama }}</option>
@@ -27,45 +27,55 @@
                     </div>
 
                     <div class="form-group row my-3">
-                        <div class="col-md-3 col-form-label">Unit Kerja</div>
+                        <div class="col-md-3 col-form-label">Unit Kerja*</div>
                         <div class="col-md-9">
-                            <select id="ukerSelect" name="uker" class="form-control border-dark">
+                            <select id="ukerSelect" name="uker" class="form-control border-dark" required>
                                 <option value="">-- Pilih Unit Kerja --</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group row my-3">
-                        <div class="col-md-3 col-form-label">Nama Lengkap</div>
+                        <div class="col-md-3 col-form-label">Nama Lengkap*</div>
                         <div class="col-md-9">
-                            <input type="text" class="form-control border-dark" name="nama">
+                            <input type="text" class="form-control border-dark" name="nama" required>
                         </div>
                     </div>
 
                     <div class="form-group row my-3">
-                        <div class="col-md-3 col-form-label">NIP/NIK</div>
+                        <div class="col-md-3 col-form-label">NIP/NIK*</div>
                         <div class="col-md-9">
-                            <input type="text" class="form-control border-dark number" name="nip_nik">
+                            <input type="text" class="form-control border-dark number" name="nip_nik" required>
                         </div>
                     </div>
 
                     <div class="form-group row my-3">
-                        <div class="col-md-3 col-form-label">No. Telepon</div>
+                        <div class="col-md-3 col-form-label">No. Telepon*</div>
                         <div class="col-md-9">
-                            <input type="text" class="form-control border-dark number" name="no_telp">
+                            <input type="text" class="form-control border-dark number" name="no_telp" required>
                         </div>
                     </div>
 
                     <div class="form-group row my-3">
-                        <div class="col-md-3 col-form-label">Alamat</div>
+                        <div class="col-md-3 col-form-label">Alamat*</div>
                         <div class="col-md-9">
-                            <textarea type="text" class="form-control border-dark" name="alamat"></textarea>
+                            <textarea type="text" class="form-control border-dark" name="alamat" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row my-3">
+                        <div class="col-md-3 col-form-label">Email*</div>
+                        <div class="col-md-9">
+                            <input type="email" class="form-control border-dark" name="email" placeholder="Email aktif" required>
+                            <small class="text-danger">
+                                Pastikan email diisi dengan benar, hasil verifikasi akan dikirim ke alamat email
+                            </small>
                         </div>
                     </div>
 
 
                     <div class="form-group row my-2">
-                        <div class="col-md-3 col-form-label">Rute Tujuan</div>
+                        <div class="col-md-3 col-form-label">Rute Tujuan*</div>
                         <div class="col-md-9">
                             <select id="ruteSelect" name="rute" class="form-control border-dark" required>
                                 <option value="">-- Pilih Rute --</option>
@@ -78,9 +88,9 @@
                         </div>
                     </div>
                     <div class="form-group row my-3">
-                        <div class="col-md-3 col-form-label">Kota Tujuan</div>
+                        <div class="col-md-3 col-form-label">Kota Tujuan*</div>
                         <div class="col-md-9">
-                            <select id="destSelect" name="dest" class="form-control border-dark">
+                            <select id="destSelect" name="dest" class="form-control border-dark" required>
                                 <option value="">-- Pilih Kota Tujuan --</option>
                             </select>
                         </div>

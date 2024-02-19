@@ -21,6 +21,35 @@
     <div class="content">
         <div class="container">
             <center>
+                <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">
+                    <div class="timeline-step">
+                        <div class="timeline-content">
+                            @if (!$book->approval_uker)
+                            <i class="fas fa-dot-circle fa-2x text-danger"></i>
+                            @else
+                            <i class="fas fa-dot-circle fa-2x text-success"></i>
+                            @endif
+
+                            <p class="text-muted mb-0 mb-lg-0 mt-2">
+                                Verifikasi
+                                {{ Auth::user()->uker->nama_unit_kerja }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-content">
+                            @if (!$book->approval_roum)
+                            <i class="fas fa-dot-circle fa-2x text-danger"></i>
+                            @else
+                            <i class="fas fa-dot-circle fa-2x text-success"></i>
+                            @endif
+
+                            <p class="text-muted mb-0 mb-lg-0 mt-2">
+                                Verifikasi Biro Umum
+                            </p>
+                        </div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-body text-left text-sm">
                         <label>Rincian Pegawai</label>
@@ -58,15 +87,15 @@
                                 </div>
                             </div>
                             <div class="col-md-2 text-center">
-                                @if (!$book->status)
+                                @if (!$book->approval_uker || !$book->approval_roum)
                                 <i class="fas fa-history text-warning fa-6x" style="opacity: 0.4;"></i>
                                 @endif
 
-                                @if ($book->status == 'true')
+                                @if ($book->approval_uker == 'true' && $book->approval_roum == 'true')
                                 <i class="fas fa-check-circle text-success fa-6x" style="opacity: 0.4;"></i>
                                 @endif
 
-                                @if ($book->status == 'false')
+                                @if ($book->approval_uker == 'false' || $book->approval_roum == 'false')
                                 <i class="fas fa-times-circle text-danger fa-6x mb-2" style="opacity: 0.4;"></i><br>
                                 <span class="text-danger">{{ $book->catatan }}</span>
                                 @endif
@@ -123,7 +152,7 @@
                             </tbody>
                         </table>
                     </div>
-                    @if (!$book->status && $book->uker_id == Auth::user()->uker_id && Auth::user()->role_id == 4)
+                    @if (!$book->status && $book->uker_id == Auth::user()->uker_id && Auth::user()->role_id == 4 && !$book->approval_uker)
                     <div class="card-footer text-right font-weight-bold">
                         <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#tolak">
                             <i class="fas fa-times-circle"></i> Tolak
@@ -134,10 +163,27 @@
                     </div>
                     @endif
 
-
                     @if ($book->status == 'true')
                     <div class="card-footer text-right font-weight-bold">
                         <a id="download" class="btn btn-success btn-sm" data-url="{{ route('tiket.cetak', $book->id_booking) }}" target="_blank">
+                            <i class="fas fa-paper-plane"></i> <b>Kirm Email</b>
+                        </a>
+                    </div>
+                    @endif
+                    @if (!$book->status && $book->uker_id == Auth::user()->uker_id && Auth::user()->role_id == 2 && !$book->approval_roum)
+                    <div class="card-footer text-right font-weight-bold">
+                        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#tolak">
+                            <i class="fas fa-times-circle"></i> Tolak
+                        </a>
+                        <a href="{{ route('book.true', $book->id_booking) }}" class="btn btn-success" onclick="confirmTrue(event)">
+                            <i class="fas fa-check-circle"></i> Setuju
+                        </a>
+                    </div>
+                    @endif
+
+                    @if ($book->approval_roum == 'true')
+                    <div class="card-footer text-right font-weight-bold">
+                        <a id="download" class="btn btn-success btn-sm" data-url="{{ route('tiket.email', $book->id_booking) }}" target="_blank">
                             <i class="fas fa-paper-plane"></i> <b>Kirm Email</b>
                         </a>
                     </div>
@@ -160,6 +206,7 @@
             </div>
             <form action="{{ route('book.false', $book->id_booking) }}" method="POST">
                 @csrf
+                <input type="hidden" name="tolak" value="true">
                 <div class="modal-body">
                     <p>Alasan Penolakkan Peserta</p>
                     <textarea name="catatan" class="form-control" cols="10" rows="5" required></textarea>
