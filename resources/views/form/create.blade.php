@@ -135,9 +135,7 @@
                                 <input type="hidden" name="step" value="2">
                                 <input type="hidden" name="rute" value="{{ $rute->id_trayek }}">
                                 <input type="hidden" name="data" value="{{ json_encode($data) }}">
-                                <div class="card card-primary card-outline card-tabs">
-                                    <div class="card-header">
-                                        <ul class="nav" id="tab" role="tablist">
+                                        <ul class="nav mb-4" id="tab" role="tablist">
                                             @foreach ($bus as $key => $row)
                                             <li class="nav-item mr-2 my-1">
                                                 <a class="btn btn-default btn-sm border-secondary {{ $key == 0 ? 'active bg-info' : '' }} mx-2" data-toggle="pill" href="#bus-{{ $row->id_bus }}" role="tab" aria-selected="true">
@@ -147,9 +145,7 @@
                                             </li>
                                             @endforeach
                                         </ul>
-                                    </div>
 
-                                    <div class="card-body">
                                         <div class="tab-content" id="tabContent">
                                             <!-- Usulan Pengadaan -->
                                             @foreach ($bus as $key => $row)
@@ -325,8 +321,6 @@
                                                 @endif
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
                             </form>
                     </div>
                     @elseif ($step == 2)
