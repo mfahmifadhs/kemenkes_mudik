@@ -108,8 +108,8 @@
                     <div class="form-group pt-2">
                         <div class="row">
                             <div class="col-md-12 text-right">
-                                <button type="submit" class="btn btn-default border-dark text-dark text-sm">
-                                    Selanjutnya <i class="fa-solid fa-square-caret-right"></i>
+                                <button type="submit" id="submitBtn" class="btn btn-default border-dark text-dark text-sm">
+                                    <span id="buttonText">Selanjutnya </span><i id="buttonIcon" class="fa fa-square-caret-right"></i>
                                 </button>
                             </div>
                         </div>
@@ -302,8 +302,8 @@
                                             </a>
                                         </div>
                                         <div class="col-md-6 col-6 text-right">
-                                            <button type="submit" class="btn btn-default border-dark text-dark text-sm">
-                                                Selanjutnya <i class="fa-solid fa-square-caret-right"></i>
+                                            <button type="submit" id="submitBtn" class="btn btn-default border-dark text-dark text-sm">
+                                                <span id="buttonText">Selanjutnya </span><i id="buttonIcon" class="fa fa-square-caret-right"></i>
                                             </button>
                                         </div>
                                         @else
@@ -313,8 +313,8 @@
                                             </a>
                                         </div>
                                         <div class="col-md-6 col-6 text-right">
-                                            <button type="submit" class="btn btn-default border-dark text-dark text-sm" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
-                                                <i class="fa-solid fa-circle-check"></i> Selesai
+                                            <button type="submit" id="submitBtn" class="btn btn-default border-dark text-dark text-sm" onclick="confirmBook(event, 'Selesa', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
+                                                <span id="buttonText">Selesai </span><i id="buttonIcon" class="fa-solid fa-circle-check"></i>
                                             </button>
                                         </div>
                                         @endif
@@ -454,8 +454,8 @@
                         </a>
                     </div>
                     <div class="col-md-6 col-6 text-right">
-                        <button type="submit" class="btn btn-default border-dark text-dark text-sm" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
-                            <i class="fa-solid fa-circle-check"></i> Selesai
+                        <button type="submit" id="submitBtn" class="btn btn-default border-dark text-dark text-sm" onclick="confirmBook(event, 'Selesa', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
+                            <span id="buttonText">Selesai </span><i id="buttonIcon" class="fa-solid fa-circle-check"></i>
                         </button>
                     </div>
                 </div>
@@ -469,6 +469,9 @@
 
 
 @section('js')
+<script>
+
+</script>
 
 <script>
     $(function() {
@@ -508,19 +511,19 @@
         }
 
         const seatFull = '{{ $seatFull }}'
-        const peserta  = '{{ count($peserta) }}'
+        const peserta = '{{ count($peserta) }}'
         if (seatFull) {
             var checkedCount = $('.seat-checkbox:checked').length;
 
             if (checkedCount > peserta) {
                 $(this).prop('checked', false);
                 Swal.fire({
-                    text: "Anda hanya dapat memilih "+ peserta +" kursi.",
+                    text: "Anda hanya dapat memilih " + peserta + " kursi.",
                     icon: 'error',
                 });
-            } else if (checkedCount < peserta){
+            } else if (checkedCount < peserta) {
                 Swal.fire({
-                    text: "Anda harus memilih "+ peserta +" kursi.",
+                    text: "Anda harus memilih " + peserta + " kursi.",
                     icon: 'error',
                 });
             }
@@ -617,8 +620,23 @@
                 cancelButtonText: 'Batal',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Mengirim formulir jika dikonfirmasi
+                    // Menambahkan spinner saat tombol diklik
+                    document.getElementById('submitBtn').addEventListener('click', function() {
+                        document.getElementById('buttonText').style.display = 'none';
+                        document.getElementById('buttonIcon').className = 'fa fa-spinner fa-spin';
+                        document.getElementById('loadingIndicator').style.display = 'inline-block';
+                    });
+
+                    // Melakukan submit form
                     form.submit();
+
+                    // Simulasi proses (Anda dapat menyesuaikan ini dengan pengiriman data atau proses lainnya)
+                    setTimeout(function() {
+                        // Mengembalikan tampilan setelah selesai proses
+                        document.getElementById('buttonText').style.display = 'inline';
+                        document.getElementById('buttonIcon').className = 'fa fa-square-caret-right';
+                        document.getElementById('loadingIndicator').style.display = 'none';
+                    }, 2000);
                 }
             });
         }

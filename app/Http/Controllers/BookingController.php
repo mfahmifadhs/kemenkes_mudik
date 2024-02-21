@@ -6,6 +6,7 @@ use App\Exports\PesertaExport;
 use App\Mail\SendEmail;
 use App\Mail\SendPdfMail;
 use App\Models\Booking;
+use App\Models\Bus;
 use App\Models\Peserta;
 use App\Models\Trayek;
 use App\Models\TrayekDetail;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Mpdf\Mpdf;
 
 class BookingController extends Controller
@@ -29,6 +31,7 @@ class BookingController extends Controller
         $utama      = '';
         $rute       = '';
         $tujuan     = '';
+        $status     = '';
         $role = Auth::user()->role_id;
         $data = Booking::orderBy('approval_uker', 'ASC');
 
@@ -40,7 +43,7 @@ class BookingController extends Controller
             $book = $data->get();
         }
 
-        return view('dashboard.pages.booking.show', compact('book', 'dataUker', 'dataUtama', 'dataTujuan', 'dataRute', 'uker', 'utama', 'rute', 'tujuan'));
+        return view('dashboard.pages.booking.show', compact('book', 'dataUker', 'dataUtama', 'dataTujuan', 'dataRute', 'uker', 'utama', 'rute', 'tujuan', 'status'));
     }
 
     public function filter(Request $request)
@@ -53,9 +56,10 @@ class BookingController extends Controller
         $uker       = $request->get('uker');
         $rute       = $request->get('rute');
         $tujuan     = $request->get('tujuan');
+        $status     = $request->get('status');
         $data       = Booking::orderBy('id_booking', 'ASC')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id');
 
-        if ($utama || $uker || $rute || $tujuan) {
+        if ($utama || $uker || $rute || $tujuan || $status) {
             if ($utama) {
                 $res      = $data->where('unit_utama_id', $utama);
                 $dataUker = UnitKerja::where('unit_utama_id', $utama)->get();
@@ -75,6 +79,21 @@ class BookingController extends Controller
             if ($tujuan && $rute) {
                 $res        = $data->where('tujuan_id', $tujuan);
             }
+
+            if ($status) {
+                if ($status == 'verif_uker') {
+                    $res = $data->where('approval_uker', null);
+                } else if ($status == 'verif_roum') {
+                    $res = $data->where('approval_roum', null)
+                           ->where('approval_uker', 'true');
+                } else if ($status == 'succeed') {
+                    $res = $data->where('approval_uker', 'true')
+                           ->where('approval_roum', 'true');
+                } else if ($status == 'rejected') {
+                    $res = $data->where('approval_uker', 'false')
+                           ->orWhere('approval_roum', 'false');
+                }
+            }
         } else {
             $res    = $data;
         }
@@ -87,7 +106,7 @@ class BookingController extends Controller
             return Excel::download(new PesertaExport, 'peserta.xlsx');
         }
 
-        return view('dashboard.pages.booking.show', compact('book', 'dataUker', 'dataUtama', 'dataTujuan', 'dataRute', 'uker', 'utama', 'rute', 'tujuan'));
+        return view('dashboard.pages.booking.show', compact('book', 'dataUker', 'dataUtama', 'dataTujuan', 'dataRute', 'uker', 'utama', 'rute', 'tujuan', 'status'));
     }
 
     public function validation($id)
@@ -139,12 +158,51 @@ class BookingController extends Controller
         return redirect()->route('book.validation', $id)->with('success', 'Berhasil Melakukan Validasi');
     }
 
+    public function edit($id)
+    {
+        $book   = Booking::where('id_booking', $id)->first();
+        $utama  = UnitUtama::get();
+        $uker   = UnitKerja::get();
+        $rute   = Trayek::get();
+        $bus    = Bus::get();
+        $tujuan = TrayekDetail::where('trayek_id', $book->trayek_id)->get();
+        return view('dashboard.pages.booking.edit', compact('book', 'utama', 'uker', 'rute', 'tujuan', 'bus'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $peserta = Peserta::where('id_peserta', $id)->first();
+
+        for ($i = 1; $i < 4; $i++) {
+            $fotoName = "foto_vaksin_$i";
+
+            if ($request->$fotoName) {
+                $file      = $request->file('foto_vaksin_' . $i);
+                $filename  = 'vaksin'. $i .'_' . now()->timestamp . '_' . $file->getClientOriginalName();
+                $foto      = $file->storeAs('public/files/vaksin_'.$i, $filename);
+                $vaksin    = $filename;
+
+                if ($peserta->foto_vaksin_ + $i) {
+                    Storage::delete('public/files/vaksin_'.$i.'/' . $peserta->foto_vaksin_ + $i);
+                }
+
+                $fotoVaksin = 'foto_vaksin_'.$i;
+                Peserta::where('id_peserta', $id)->update([$fotoVaksin => $vaksin]);
+            }
+        }
+
+        return back()->with('success', 'Berhasil Menyimpan Perubahan');
+    }
+
+    public function delete($id)
+    {
+
+    }
+
     public function emailTicket($id)
     {
         $book = Booking::where('id_booking', $id)->first();
-        // Mail::to('mfahmifadh@gmail.com')->send(new SendPdfMail($book));
 
-        // return response()->json(['message' => 'E-Ticket sent to email.']);
         $data = [
             'id'      => $book->id_booking,
             'nama'    => $book->nama_pegawai,

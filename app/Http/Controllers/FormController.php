@@ -214,9 +214,9 @@ class FormController extends Controller
         $book = Booking::where('kode_booking', $kode)->orWhere('nip_nik', $kode)->first();
         $note = $book ? $book->catatan : 'Tidak tidak ditemukan';
 
-        if ($book && $book->status == 'true') {
+        if ($book && $book->approval_uker == 'true' && $book->approval_roum == 'true') {
             return redirect()->route('form.confirm', $book->id_booking)->with('success', 'Tiket ditemukan');
-        } else if ($book && $book->status == null) {
+        } else if ($book && $book->approval_uker == null || $book->approval_roum) {
             return redirect()->route('tiket.check')->with('pending', 'Sedang dalam proses Validasi');
         } else {
             return redirect()->route('tiket.check')->with('failed', $note);

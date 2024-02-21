@@ -39,7 +39,7 @@
                     <form id="form" action="{{ route('peserta.filter') }}" method="GET">
                         @csrf
                         <div class="row">
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <label class="col-form-label text-xs">Unit Utama</label>
                                 <select name="utama" class="form-control form-control-sm" onchange="this.form.submit()">
                                     <option value="">Seluruh Unit Utama</option>
@@ -84,9 +84,21 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <label class="col-form-label text-xs">Bus</label>
-                                <select name="tanggal" class="form-control form-control-sm" onchange="this.form.submit()">
-                                    <option value="">Seluruh Bus</option>
+                                <label class="col-form-label text-xs">Status</label>
+                                <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+                                    <option value="">Seluruh Status</option>
+                                    <option value="verif_uker" <?php echo $status == 'verif_uker' ? 'selected' : ''; ?>>
+                                        Verifikasi Unit Kerja
+                                    </option>
+                                    <option value="verif_roum" <?php echo $status == 'verif_roum' ? 'selected' : ''; ?>>
+                                        Verifikasi Biro Umum
+                                    </option>
+                                    <option value="succeed" <?php echo $status == 'succeed' ? 'selected' : ''; ?>>
+                                        Selesai Verifikasi
+                                    </option>
+                                    <option value="rejected" <?php echo $status == 'rejected' ? 'selected' : ''; ?>>
+                                        Tidak Disetujui
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -141,27 +153,51 @@
                                         {{ $row->detail->count() }} orang
                                     </td>
                                     <td class="text-left">
-                                        @if ($row->approval_uker)
-                                        @php $status = $row->approval_uker == 'true' ? 'text-success' : 'text-danger'; @endphp
+                                        @if ($row->approval_uker || !$row->approval_uker)
+                                        @php $status = !$row->approval_uker ? 'text-warning' : ($row->approval_uker == 'true' ? 'text-success' : 'text-danger'); @endphp
                                         <label class="mb-1 btn-xs border-dark text-xs {{ $status }}">
                                             <span class="text-xs">
-                                                <i class="fas fa-check-circle"></i> Unit Kerja
+                                                @if (!$row->approval_uker)
+                                                <i class="fas fa-clock"></i>
+                                                @elseif ($row->approval_uker == 'true')
+                                                <i class="fas fa-check-circle"></i>
+                                                @elseif ($row->approval_uker == 'false')
+                                                <i class="fas fa-times-circle"></i>
+                                                @endif
+                                                Unit Kerja
                                             </span>
                                         </label>
                                         @endif
-                                        @if ($row->approval_roum)
-                                        @php $status = $row->approval_uker == 'true' ? 'text-success' : 'text-danger'; @endphp
-                                        <label class="mb-1 btn-xs border-dark text-xs {{ $status }}">
+                                        @if ($row->approval_roum || !$row->approval_roum)
+                                        @php $status = !$row->approval_roum ? 'text-warning' : ($row->approval_roum == 'true' ? 'text-success' : 'text-danger'); @endphp
+                                        <label class="mb-1 btn-xs border-dark text-xs {{ $row->approval_uker == 'false' ? 'text-danger' : $status }}">
                                             <span class="text-xs">
-                                                <i class="fas fa-check-circle"></i> Biro Umum
+                                                @if (!$row->approval_roum && !$row->approval_uker)
+                                                <i class="fas fa-clock"></i>
+                                                @elseif ($row->approval_roum == 'true')
+                                                <i class="fas fa-check-circle"></i>
+                                                @elseif ($row->approval_roum == 'false' || $row->approval_uker == 'false')
+                                                <i class="fas fa-times-circle"></i>
+                                                @endif
+                                                Biro Umum
                                             </span>
+                                        </label>
+                                        @endif
+                                        @if ($row->catatan)
+                                        <label class="mb-1 btn-xs border-dark text-danger" style="font-size: 9px;">
+                                            {{ $row->catatan }}
                                         </label>
                                         @endif
                                     </td>
-                                    <td>
+                                    <td class="text-left">
                                         <a href="{{ route('book.validation', $row->id_booking) }}" class="btn btn-default btn-small border-dark">
                                             <i class="fas fa-info-circle"></i> Detail
                                         </a>
+                                        @if (Auth::user()->role_id == 1)
+                                        <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

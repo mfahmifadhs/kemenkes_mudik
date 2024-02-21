@@ -49,9 +49,9 @@
     </table>
     <hr>
     <p>Detail Pesanan</p>
-    <table class="table table-bordered table-striped" style="width: 100%;">
+    <table style="width: 100%;">
         <thead>
-            <tr>
+            <tr style="border: 1px solid #000;">
                 <th>No</th>
                 <th>Nama Peserta</th>
                 <th>Usia</th>
@@ -62,7 +62,7 @@
         </thead>
         <tbody>
             @foreach($peserta as $index => $peserta)
-            <tr>
+            <tr style="border: 1px solid #000;">
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $peserta->nama_peserta }}</td>
                 <td>{{ $peserta->usia }}</td>

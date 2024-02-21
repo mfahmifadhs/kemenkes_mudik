@@ -1,60 +1,133 @@
 @extends('app')
-
 @section('content')
-<div class="max-w-7xl mx-auto p-6 lg:p-8">
-    <div class="flex justify-center">
-        <a href="{{ route('login') }}">
-            <img src="{{ asset('dist/img/logo-kemenkes.png') }}" alt="kemenkes" width="1000">
-            <h1 class="text-center fa-2x" style="color: #2bbecf;"><b>Mudik Bersama Kemenkes</b></h1>
-        </a>
-    </div>
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
 
-    <div class="mt-3 flex items-center justify-center">
-        <div class="grid grid-cols-1 md:grid-cols-1 gap-6 lg:gap-8 mx-2" style="width: 75%;">
+            <div class="col-lg-12 col-12">
+                <div class="text-center mb-5 pb-2">
+                    <a href="{{ route('login') }}">
+                        <h1 class="text-white">Mudik Bersama Kemenkes</h1>
+                    </a>
 
-            <a href="{{ route('form.create') }}" class="scale-100 p-6 dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-info-500" style="background-color: #2bbecf;">
-                <div class="text-center">
-                    <h2 class="mt-2 text-xl font-semibold text-gray-900 dark:text-white">
-                        <i class="fa-solid fa-bus fa-2x"></i>
-                        <p>Daftar</p>
-                        <small>Form Registrasi Mudik Bersama Kemenkes</small>
-                    </h2>
+                    <p class="text-white">Mudik bersama Kemenkes ke 10 kota.</p>
+
+                    <a href="{{ route('form.create') }}" class="btn custom-btn smoothscroll mt-3">Daftar Sekarang</a>
                 </div>
-            </a>
-            <a href="{{ route('tiket.check') }}" class="text-center text-primary"><u>Cek Pendaftaran</u></a>
-        </div>
-    </div>
-</div>
-@endsection
 
+                <div class="owl-carousel owl-theme">
+                    <div class="owl-carousel-info-wrap item">
+                        <div class="custom-block custom-block-overlay owl-carousel-info">
+                            <a href="" class="custom-block-image-wrap">
+                                <img src="{{ asset('dist/img/kota/solo.jpg') }}" class="custom-block-image img-fluid" alt="">
+                            </a>
 
-<!-- MAPPING KURSI BUS -->
+                            <div class="custom-block-info custom-block-overlay-info">
+                                <h5 class="mb-1">
+                                    <a href="listing-page.html">
+                                        Solo
+                                    </a>
+                                </h5>
 
-<!-- @php
-$jumlahSeat = 38;
-$seatKiri = ['A', 'B'];
-$seatKanan = ['C', 'D'];
-@endphp
+                                <p class="badge mb-0">1 Perjalanan</p>
+                            </div>
+                        </div>
+                    </div>
 
-<div class="row">
-    <div class="col-md-5">
-        @for ($i = 1; $i <= $jumlahSeat; $i++) <div class="row">
-            @foreach ($seatKiri as $kode)
-            <div class="col-md-6">
-                {{ $i . $kode }}
+                    <div class="owl-carousel-info-wrap item">
+                        <div class="custom-block custom-block-overlay owl-carousel-info">
+                            <a href="#" class="custom-block-image-wrap">
+                                <img src="{{ asset('dist/img/kota/palembang.jpg') }}" class="custom-block-image img-fluid" alt="">
+                            </a>
+
+                            <div class="custom-block-info custom-block-overlay-info">
+                                <h5 class="mb-1">
+                                    <a href="listing-page.html">
+                                        Palembang
+                                    </a>
+                                </h5>
+
+                                <p class="badge mb-0">1 Perjalanan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="owl-carousel-info-wrap item">
+                        <div class="custom-block custom-block-overlay owl-carousel-info">
+                            <a href="" class="custom-block-image-wrap">
+                                <img src="{{ asset('dist/img/kota/padang.jpg') }}" class="custom-block-image img-fluid" alt="">
+                            </a>
+
+                            <div class="custom-block-info custom-block-overlay-info">
+                                <h5 class="mb-1">
+                                    <a href="listing-page.html">
+                                        Padang
+                                    </a>
+                                </h5>
+
+                                <p class="badge mb-0">1 Perjalanan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="owl-carousel-info-wrap item">
+                        <div class="custom-block custom-block-overlay owl-carousel-info">
+                            <a href="" class="custom-block-image-wrap">
+                                <img src="{{ asset('dist/img/kota/purworejo.jpg') }}" class="custom-block-image img-fluid" alt="">
+                            </a>
+
+                            <div class="custom-block-info custom-block-overlay-info">
+                                <h5 class="mb-1">
+                                    <a href="listing-page.html">
+                                        Purworejo
+                                    </a>
+                                </h5>
+
+                                <p class="badge mb-0">2 Perjalanan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="owl-carousel-info-wrap item">
+                        <div class="custom-block custom-block-overlay owl-carousel-info">
+                            <a href="" class="custom-block-image-wrap">
+                                <img src="{{ asset('dist/img/kota/yogyakarta.jpg') }}" class="custom-block-image img-fluid" alt="">
+                            </a>
+
+                            <div class="custom-block-info custom-block-overlay-info">
+                                <h5 class="mb-1">
+                                    <a href="listing-page.html">
+                                        Yogyakarta
+                                    </a>
+                                </h5>
+
+                                <p class="badge mb-0">3 Perjalanan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="owl-carousel-info-wrap item">
+                        <div class="custom-block custom-block-overlay owl-carousel-info">
+                            <a href="" class="custom-block-image-wrap">
+                                <img src="{{ asset('dist/img/kota/surabaya.jpg') }}" class="custom-block-image img-fluid" alt="">
+                            </a>
+
+                            <div class="custom-block-info custom-block-overlay-info">
+                                <h5 class="mb-1">
+                                    <a href="listing-page.html">
+                                        Surabaya
+                                    </a>
+                                </h5>
+
+                                <p class="badge mb-0">2 Perjalanan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            @endforeach
-    </div>
-    @endfor
-</div>
-<div class="col-md-5">
-    @for ($i = 1; $i <= $jumlahSeat; $i++) <div class="row">
-        @foreach ($seatKanan as $kode)
-        <div class="col-md-6">
-            {{ $i . $kode }}
+
         </div>
-        @endforeach
-</div>
-@endfor
-</div>
-</div> -->
+    </div>
+</section>
+@endsection

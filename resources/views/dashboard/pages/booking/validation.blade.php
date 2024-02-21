@@ -29,10 +29,8 @@
                             @else
                             <i class="fas fa-dot-circle fa-2x text-success"></i>
                             @endif
-
                             <p class="text-muted mb-0 mb-lg-0 mt-2">
-                                Verifikasi
-                                {{ Auth::user()->uker->nama_unit_kerja }}
+                                Verifikasi Unit Kerja
                             </p>
                         </div>
                     </div>
@@ -87,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="col-md-2 text-center">
-                                @if (!$book->approval_uker || !$book->approval_roum)
+                                @if (!$book->approval_uker && !$book->approval_roum)
                                 <i class="fas fa-history text-warning fa-6x" style="opacity: 0.4;"></i>
                                 @endif
 
@@ -170,7 +168,7 @@
                         </a>
                     </div>
                     @endif
-                    @if (!$book->status && $book->uker_id == Auth::user()->uker_id && Auth::user()->role_id == 2 && !$book->approval_roum)
+                    @if (Auth::user()->role_id == 2 && !$book->approval_roum && $book->approval_uker == true)
                     <div class="card-footer text-right font-weight-bold">
                         <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#tolak">
                             <i class="fas fa-times-circle"></i> Tolak

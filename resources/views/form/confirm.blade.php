@@ -14,39 +14,62 @@
                         </p>
                     </div>
                     <div class="col-md-9">
-                        <div class="row small">
-                            <div class="col-md-3 col-3">Kode Boking</div>
-                            <div class="col-md-8 col-8">: {{ $book->kode_booking }}</div>
-                            <div class="col-md-3 col-3">Nama Pegawai</div>
-                            <div class="col-md-8 col-8">: {{ $book->nama_pegawai }}</div>
-                            <div class="col-md-3 col-3">NIP/NIK</div>
-                            <div class="col-md-8 col-8">: {{ $book->nip_nik }}</div>
-                            <div class="col-md-3 col-3">Unit Kerja</div>
-                            <div class="col-md-8 col-8">: {{ $book->uker->nama_unit_kerja }}</div>
-                            <div class="col-md-3 col-3">No. Telepon</div>
-                            <div class="col-md-8 col-8">: {{ $book->no_telp }}</div>
-                            <div class="col-md-3 col-3">Alamat</div>
-                            <div class="col-md-8 col-8">: {{ $book->alamat }}</div>
-                            <div class="col-md-3 col-3">Tujuan</div>
-                            <div class="col-md-8 col-8">: {{ $book->tujuan->nama_kota }}</div>
-                            <div class="col-md-3 col-3">Rute</div>
-                            <div class="col-md-8 col-8">:
-                                {{ $book->rute->jurusan }}
-                                <p style="margin-left: 0.9vh;"> {{ $book->rute->rute }}</p>
-                            </div>
-                        </div>
-                        </p>
+                        <table class="w-100 text-sm align-top">
+                            <tr>
+                                <td class="align-top" style="width: 23%;">Kode Boking</td>
+                                <td class="align-top" style="width: 2%;">:</td>
+                                <td>{{ $book->kode_booking }}</td>
+                            </tr>
+                            <tr>
+                                <td class="align-top" style="width: 23%;">Nama Pegawai</td>
+                                <td class="align-top" style="width: 2%;">:</td>
+                                <td>{{ $book->nama_pegawai }}</td>
+                            </tr>
+                            <tr>
+                                <td class="align-top" style="width: 23%;">NIP/NIK</td>
+                                <td class="align-top" style="width: 2%;">:</td>
+                                <td>{{ $book->nip_nik }}</td>
+                            </tr>
+                            <tr>
+                                <td class="align-top" style="width: 23%;">Unit Kerja</td>
+                                <td class="align-top" style="width: 2%;">:</td>
+                                <td>{{ $book->uker->nama_unit_kerja }}</td>
+                            </tr>
+                            <tr>
+                                <td class="align-top" style="width: 23%;">No. Telepon</td>
+                                <td class="align-top" style="width: 2%;">:</td>
+                                <td>{{ $book->no_telp }}</td>
+                            </tr>
+                            <tr>
+                                <td class="align-top" style="width: 23%;">Alamat</td>
+                                <td class="align-top" style="width: 2%;">:</td>
+                                <td>{{ $book->alamat }}</td>
+                            </tr>
+                            <tr>
+                                <td class="align-top" style="width: 23%;">Tujuan</td>
+                                <td class="align-top" style="width: 2%;">:</td>
+                                <td>{{ $book->tujuan->nama_kota }}</td>
+                            </tr>
+                            <tr>
+                                <td class="align-top" style="width: 23%;">Rute</td>
+                                <td class="align-top" style="width: 2%;">:</td>
+                                <td>
+                                    {{ $book->rute->jurusan }} <br>
+                                    {{ $book->rute->rute }}
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="col-md-3">
-                        @if (!$book->status)
+                    <div class="col-md-3 col-12 text-center my-3">
+                        @if (!$book->approval_uker || !$book->approval_roum)
                         <i class="fas fa-history text-warning fa-6x" style="opacity: 0.4;"></i>
                         @endif
 
-                        @if ($book->status == 'true')
+                        @if ($book->approval_uker == 'true' || $book->approval_roum == 'true')
                         <i class="fas fa-check-circle text-success fa-6x" style="opacity: 0.4;"></i>
                         @endif
 
-                        @if ($book->status == 'false')
+                        @if ($book->approval_uker == 'false' || $book->approval_roum == 'false')
                         <i class="fas fa-times-circle text-danger fa-6x mb-2" style="opacity: 0.4;"></i><br>
                         <span class="text-danger">{{ $book->catatan }}</span>
                         @endif

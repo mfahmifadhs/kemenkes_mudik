@@ -19,7 +19,7 @@
                     </h6>
 
                     <p class="mt-3 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                        <form id="form" action="{{ route('tiket.check.post') }}" method="POST">
+                        <form id="form" action="{{ route('form.confirm.check') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-lg text-center rounded border border-dark number" name="kode" required>

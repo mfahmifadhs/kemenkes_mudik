@@ -32,6 +32,7 @@ Route::get('uker/select/{id}', [FormController::class, 'selectUker']);
 
 Route::get('form/konfirmasi/{id}', [FormController::class, 'confirm'])->name('form.confirm');
 Route::get('tiket/{id}', [FormController::class, 'ticket'])->name('tiket');
+Route::post('form/konfirmasi/cek', [FormController::class, 'check'])->name('form.confirm.check');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -45,12 +46,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bus/export/{id}', [BusController::class, 'export'])->name('bus.export');
 
     // select
-
     Route::get('tiket/cetak/{id}', [BookingController::class, 'emailTicket'])->name('tiket.email');
     Route::get('book/validation/{id}', [BookingController::class, 'validation'])->name('book.validation');
     Route::get('book/pdf/{id}', [BookingController::class, 'pdf'])->name('book.pdf');
+    Route::get('book/edit/{id}', [BookingController::class, 'edit'])->name('book.edit');
     Route::get('book/validation/true/{id}', [BookingController::class, 'storeValidation'])->name('book.true');
     Route::post('book/validation/false/{id}', [BookingController::class, 'storeValidation'])->name('book.false');
+    Route::post('book/update/{id}', [BookingController::class, 'update'])->name('book.update');
 
     Route::get('user', [UserController::class, 'index'])->name('user');
     Route::get('user/detail/{id}', [UserController::class, 'detail'])->name('user.detail');
