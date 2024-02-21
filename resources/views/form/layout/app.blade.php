@@ -41,12 +41,26 @@
                     <img src="{{ asset('dist/img/logo-kemenkes.png') }}" class="logo-image img-fluid" alt="templatemo pod talk">
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> -->
             </div>
         </nav>
-
+        @if (Session::has('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '{{ Session::get("success") }}',
+            });
+        </script>
+        @elseif (Session::has('failed'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                text: '{{ Session::get("failed") }}',
+            });
+        </script>
+        @endif
 
         @yield('content')
     </main>

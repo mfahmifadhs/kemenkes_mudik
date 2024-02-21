@@ -140,7 +140,7 @@
                                             <li class="nav-item mr-2 my-1">
                                                 <a class="btn btn-default btn-sm border-secondary {{ $key == 0 ? 'active bg-info' : '' }} mx-2" data-toggle="pill" href="#bus-{{ $row->id_bus }}" role="tab" aria-selected="true">
                                                     <b>BUS {{ $row->id_bus }}</b><br>
-                                                    <small class="text-success">Tersedia <b>{{ $row->total_kursi - $row->detail->where('status', '!=', 'cancel')->count() }}</b> seat</small>
+                                                    <small class="text-success">Tersedia <b>{{ $row->total_kursi - $row->detail->where('kode_seat', '!=', null)->where('status', '!=', 'cancel')->count() }}</b> seat</small>
                                                 </a>
                                             </li>
                                             @endforeach
@@ -255,38 +255,39 @@
                                             <div class="row">
                                                 @if ($seatFull)
                                                 <div class="col-md-12 py-2">
-                                                    <p class="text-right text-primary underline ">
+                                                    <p class="text-right text-primary underline text-center">
                                                         <a href="#" data-toggle="modal" data-target="#skModal">
                                                             Syarat dan ketentuan
                                                         </a>
                                                     </p>
 
                                                     <div class="modal fade" id="skModal" role="dialog" aria-labelledby="skLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
+                                                        <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="skLabel">Syarat dan Ketentuan</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
+                                                                    <button type="button" class="close btn custom-btn smoothscroll" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
                                                                     </button>
                                                                 </div>
-                                                                <div class="modal-body text-sm">
+                                                                <div class="modal-body text-sm" style="text-align: left;">
                                                                     <p class="mb-2">Syarat dan Ketentuan Peserta Bus Mudik Kemenkes Tahun 2024:</p>
                                                                     <ol type="1">
-                                                                        <li>1. Peserta yang terdaftar adalah Aparatur Sipil Negara (PNS dan PPPK), Pegawai Pemerintah Non Pegawai Negeri, Pegawai Alih Daya, dan/atau Pegawai Bank Mitra di lingkungan Kantor Pusat Kementerian Kesehatan</li>
-                                                                        <li>2. Peserta di luar pegawai Kantor Pusat Kementerian Kesehatan merupakan kerabat dalam satu Kartu Keluarga (KK) dan/atau satu alamat rumah yang sama dengan peserta pada point 1</li>
-                                                                        <li>3. Peserta dalam kondisi sehat dan tidak memiliki riwayat atau sedang dalam masa penularan penyakit menular yang berpotensi terhadap penyebaran penyakit di dalam Bus.</li>
-                                                                        <li>4. Obat-obatan pribadi merupakan tanggung jawab masing-masing peserta.</li>
-                                                                        <li>5. Dokumen yang dilampirkan sebagai data pelengkap dalam formular ini adalah benar.</li>
-                                                                        <li>6. Peserta tidak diperbolehkan untuk melakukan pemindahan nomor kursi tanpa persetujuan panitia.</li>
-                                                                        <li>7. Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
-                                                                        <li>8. Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
-                                                                        <li>9. Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
+                                                                        <li>Peserta yang terdaftar adalah Aparatur Sipil Negara (PNS dan PPPK), Pegawai Pemerintah Non Pegawai Negeri, Pegawai Alih Daya, dan/atau Pegawai Bank Mitra di lingkungan Kantor Pusat Kementerian Kesehatan</li>
+                                                                        <li>Peserta di luar pegawai Kantor Pusat Kementerian Kesehatan merupakan kerabat dalam satu Kartu Keluarga (KK) dan/atau satu alamat rumah yang sama dengan peserta pada point 1</li>
+                                                                        <li>Peserta dalam kondisi sehat dan tidak memiliki riwayat atau sedang dalam masa penularan penyakit menular yang berpotensi terhadap penyebaran penyakit di dalam Bus.</li>
+                                                                        <li>Obat-obatan pribadi merupakan tanggung jawab masing-masing peserta.</li>
+                                                                        <li>Dokumen yang dilampirkan sebagai data pelengkap dalam formular ini adalah benar.</li>
+                                                                        <li>Peserta tidak diperbolehkan untuk melakukan pemindahan nomor kursi tanpa persetujuan panitia.</li>
+                                                                        <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
+                                                                        <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
+                                                                        <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
                                                                     </ol>
                                                                     <p class="mt-4 text-justify">
-                                                                        <label class="text-justify">
-                                                                            <input id="skCheckbox" type="checkbox" name="sk" required>
-                                                                            SAYA TELAH MEMBACA DAN MENGERTI SELURUH SYARAT DAN KETENTUAN PENGGUNAAN INI DAN KONSEKUENSINYA DAN DENGAN INI MENERIMA SETIAP HAK, KEWAJIBAN, DAN KETENTUAN YANG DIATUR DI DALAMNYA.
+                                                                        <label style="text-align: justify;">
+                                                                            <input id="skCheckbox" type="checkbox" name="sk" value="true" required>
+                                                                            Saya telah membaca dan mengerti seluruh Syarat dan Ketentuan Penggunaan Ini dan Konsekuensinya
+                                                                            dan dengan ini menerima setiap hak, kewajiban, dan ketentuan yang diatur di dalamnya.
                                                                         </label>
                                                                     </p>
                                                                 </div>
@@ -314,7 +315,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="col-md-6 col-6 text-center">
-                                                    <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll" onclick="confirmBook(event, 'Selesa', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
+                                                    <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
                                                         <span id="buttonText">Selesai </span><i id="buttonIcon" class="fa-solid fa-circle-check"></i>
                                                     </button>
                                                 </div>
@@ -451,7 +452,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-6 col-6 text-center">
-                                        <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll" onclick="confirmBook(event, 'Selesa', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
+                                        <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
                                             <span id="buttonText">Selesai </span><i id="buttonIcon" class="fa-solid fa-circle-check"></i>
                                         </button>
                                     </div>
@@ -494,8 +495,10 @@
         let isFormValid = true;
 
         const skCheck = document.getElementById('skCheckbox');
+        const isChecked = skCheck.checked;
 
-        if (!skCheck || !skCheck.checked) {
+        if (isChecked == false) {
+            console.log('eror')
             isFormValid = false;
             Swal.fire({
                 title: 'Gagal',
@@ -507,6 +510,7 @@
         const seatFull = '{{ $seatFull }}'
         const peserta = '{{ count($peserta) }}'
         if (seatFull) {
+            isFormValid = false;
             var checkedCount = $('.seat-checkbox:checked').length;
 
             if (checkedCount > peserta) {
@@ -520,6 +524,8 @@
                     text: "Anda harus memilih " + peserta + " kursi.",
                     icon: 'error',
                 });
+            } else if (checkedCount == peserta && isChecked == true) {
+                isFormValid = true;
             }
         }
 
