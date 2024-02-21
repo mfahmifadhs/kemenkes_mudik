@@ -135,193 +135,193 @@
                                 <input type="hidden" name="step" value="2">
                                 <input type="hidden" name="rute" value="{{ $rute->id_trayek }}">
                                 <input type="hidden" name="data" value="{{ json_encode($data) }}">
-                                        <ul class="nav mb-4" id="tab" role="tablist">
-                                            @foreach ($bus as $key => $row)
-                                            <li class="nav-item mr-2 my-1">
-                                                <a class="btn btn-default btn-sm border-secondary {{ $key == 0 ? 'active bg-info' : '' }} mx-2" data-toggle="pill" href="#bus-{{ $row->id_bus }}" role="tab" aria-selected="true">
-                                                    <b>BUS {{ $row->id_bus }}</b><br>
-                                                    <small class="text-success">Tersedia <b>{{ $row->total_kursi - $row->detail->where('kode_seat', '!=', null)->where('status', '!=', 'cancel')->count() }}</b> seat</small>
-                                                </a>
-                                            </li>
-                                            @endforeach
-                                        </ul>
+                                <ul class="nav mb-4" id="tab" role="tablist">
+                                    @foreach ($bus as $key => $row)
+                                    <li class="nav-item mr-2 my-1">
+                                        <a class="btn btn-default btn-sm border-secondary {{ $key == 0 ? 'active bg-info' : '' }} mx-2" data-toggle="pill" href="#bus-{{ $row->id_bus }}" role="tab" aria-selected="true">
+                                            <b>BUS {{ $row->id_bus }}</b><br>
+                                            <small class="text-success">Tersedia <b>{{ $row->total_kursi - $row->detail->where('kode_seat', '!=', null)->where('status', '!=', 'cancel')->count() }}</b> seat</small>
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
 
-                                        <div class="tab-content" id="tabContent">
-                                            <!-- Usulan Pengadaan -->
-                                            @foreach ($bus as $key => $row)
-                                            @php
-                                            $active = $key == 0 ? 'show active' : '';
-                                            $bus = $row->id_bus;
-                                            @endphp
-                                            <div class="tab-pane fade {{ $active }}" id="bus-{{ $row->id_bus }}" role="tabpanel">
-                                                <div class="row text-center">
-                                                    <div class="col-md-5 col-5">
-                                                        <span class="border border-dark px-2 py-1">CO-Driver</span>
-                                                    </div>
-                                                    <div class="col-md-2 col-2">&nbsp;</div>
-                                                    <div class="col-md-5 col-5">
-                                                        <span class="border border-dark px-2 py-1">Driver</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row my-2">
-                                                    <div class="col-md-5 col-5">
-                                                        @for ($i = 1; $i <= $row->seat_kiri; $i++)
-                                                            <div class="row text-center">
-                                                                @foreach (json_decode($row->kd_seat_kiri, true) as $kode)
-                                                                @php $seatCode = $i . $kode . $bus; @endphp
-                                                                @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
-                                                                <label class="col-md-5 col-5 bg-warning rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                                    {{ $i . $kode }}
-                                                                </label>
-                                                                @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
-                                                                <label class="col-md-5 col-5 bg-secondary text-white rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                                    {{ $i . $kode }}
-                                                                </label>
-                                                                @else
-                                                                <label class="col-md-5 col-5 btn btn-success border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                                    <input name="seat[]" type="checkbox" class="seat-checkbox" id="seat{{ $i . $kode . $bus }}" value="{{ $bus.'-'.$i . $kode }}">
-                                                                    {{ $i . $kode }}
-                                                                </label>
-                                                                @endif
-                                                                @endforeach
-                                                            </div>
-                                                            @endfor
-                                                    </div>
-                                                    <div class="col-md-2 col-2"></div>
-                                                    <div class="col-md-5 col-5">
-                                                        @for ($i = 1; $i <= $row->seat_kanan; $i++)
-                                                            <div class="row text-center">
-                                                                @foreach (json_decode($row->kd_seat_kanan, true) as $kode)
-                                                                @php $seatCode = $i . $kode . $bus; @endphp
-                                                                @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
-                                                                <label class="col-md-5 col-5 bg-warning rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                                    {{ $i . $kode }}
-                                                                </label>
-                                                                @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
-                                                                <label class="col-md-5 col-5 bg-secondary text-white rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                                    {{ $i . $kode }}
-                                                                </label>
-                                                                @else
-                                                                <label class="col-md-5 col-5 btn btn-success border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                                    <input name="seat[]" type="checkbox" class="seat-checkbox" id="seat{{ $i . $kode . $bus }}" value="{{ $bus.'-'.$i . $kode }}">
-                                                                    {{ $i . $kode }}
-                                                                </label>
-                                                                @endif
-                                                                @endforeach
-                                                            </div>
-                                                            @endfor
-                                                    </div>
-                                                </div>
-                                                @if ($row->total_kursi == 40)
-                                                <div class="col-md-12">
-                                                    <div class="row text-center">
-                                                        <label class="col-md-3 col-3 bg-secondary text-white rounded border border-dark mx-auto m-2 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                            Toilet
-                                                        </label>
-                                                        @for ($i = 1; $i <= $row->seat_belakang; $i++)
-                                                            @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
-                                                            @php $kdSeat = 10 + $i - 1; @endphp
-                                                            <label class="col-md-2 col-2 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                                {{ $kdSeat . $kode }}
-                                                            </label>
-                                                            @endforeach
-                                                            @endfor
-                                                    </div>
-                                                </div>
-                                                @endif
-                                                @if ($row->total_kursi == 37)
-                                                <div class="col-md-12">
-                                                    <div class="row text-center">
-                                                        @for ($i = 1; $i <= $row->seat_belakang; $i++)
-                                                            @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
-                                                            @php $kdSeat = 10 + $i - 1; @endphp
-                                                            <label class="col-md-2 col-2 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                                {{ $kdSeat . $kode }}
-                                                            </label>
-                                                            @endforeach
-                                                            @endfor
-                                                            <div class="col-md-1 col-1"></div>
-                                                            <label class="col-md-6 col-4 bg-secondary text-white rounded border border-dark mx-auto m-2 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                                Toilet
-                                                            </label>
-                                                    </div>
-                                                </div>
-                                                @endif
+                                <div class="tab-content" id="tabContent">
+                                    <!-- Usulan Pengadaan -->
+                                    @foreach ($bus as $key => $row)
+                                    @php
+                                    $active = $key == 0 ? 'show active' : '';
+                                    $bus = $row->id_bus;
+                                    @endphp
+                                    <div class="tab-pane fade {{ $active }}" id="bus-{{ $row->id_bus }}" role="tabpanel">
+                                        <div class="row text-center">
+                                            <div class="col-md-5 col-5">
+                                                <span class="border border-dark px-2 py-1">CO-Driver</span>
                                             </div>
-                                            @endforeach
+                                            <div class="col-md-2 col-2">&nbsp;</div>
+                                            <div class="col-md-5 col-5">
+                                                <span class="border border-dark px-2 py-1">Driver</span>
+                                            </div>
                                         </div>
-                                        <div class="form-group pt-5">
-                                            <div class="row">
-                                                @if ($seatFull)
-                                                <div class="col-md-12 py-2">
-                                                    <p class="text-right text-primary underline text-center">
-                                                        <a href="#" data-toggle="modal" data-target="#skModal">
-                                                            Syarat dan ketentuan
-                                                        </a>
-                                                    </p>
 
-                                                    <div class="modal fade" id="skModal" role="dialog" aria-labelledby="skLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="skLabel">Syarat dan Ketentuan</h5>
-                                                                    <button type="button" class="close btn custom-btn smoothscroll" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body text-sm" style="text-align: left;">
-                                                                    <p class="mb-2">Syarat dan Ketentuan Peserta Bus Mudik Kemenkes Tahun 2024:</p>
-                                                                    <ol type="1">
-                                                                        <li>Peserta yang terdaftar adalah Aparatur Sipil Negara (PNS dan PPPK), Pegawai Pemerintah Non Pegawai Negeri, Pegawai Alih Daya, dan/atau Pegawai Bank Mitra di lingkungan Kantor Pusat Kementerian Kesehatan</li>
-                                                                        <li>Peserta di luar pegawai Kantor Pusat Kementerian Kesehatan merupakan kerabat dalam satu Kartu Keluarga (KK) dan/atau satu alamat rumah yang sama dengan peserta pada point 1</li>
-                                                                        <li>Peserta dalam kondisi sehat dan tidak memiliki riwayat atau sedang dalam masa penularan penyakit menular yang berpotensi terhadap penyebaran penyakit di dalam Bus.</li>
-                                                                        <li>Obat-obatan pribadi merupakan tanggung jawab masing-masing peserta.</li>
-                                                                        <li>Dokumen yang dilampirkan sebagai data pelengkap dalam formular ini adalah benar.</li>
-                                                                        <li>Peserta tidak diperbolehkan untuk melakukan pemindahan nomor kursi tanpa persetujuan panitia.</li>
-                                                                        <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
-                                                                        <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
-                                                                        <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
-                                                                    </ol>
-                                                                    <p class="mt-4 text-justify">
-                                                                        <label style="text-align: justify;">
-                                                                            <input id="skCheckbox" type="checkbox" name="sk" value="true" required>
-                                                                            Saya telah membaca dan mengerti seluruh Syarat dan Ketentuan Penggunaan Ini dan Konsekuensinya
-                                                                            dan dengan ini menerima setiap hak, kewajiban, dan ketentuan yang diatur di dalamnya.
-                                                                        </label>
-                                                                    </p>
-                                                                </div>
-                                                            </div>
+                                        <div class="row my-2">
+                                            <div class="col-md-5 col-5">
+                                                @for ($i = 1; $i <= $row->seat_kiri; $i++)
+                                                    <div class="row text-center">
+                                                        @foreach (json_decode($row->kd_seat_kiri, true) as $kode)
+                                                        @php $seatCode = $i . $kode . $bus; @endphp
+                                                        @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
+                                                        <label class="col-md-5 col-5 bg-warning rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
+                                                        <label class="col-md-5 col-5 bg-secondary text-white rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @else
+                                                        <label class="col-md-5 col-5 btn btn-success border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            <input name="seat[]" type="checkbox" class="seat-checkbox" id="seat{{ $i . $kode . $bus }}" value="{{ $bus.'-'.$i . $kode }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @endif
+                                                        @endforeach
+                                                    </div>
+                                                    @endfor
+                                            </div>
+                                            <div class="col-md-2 col-2"></div>
+                                            <div class="col-md-5 col-5">
+                                                @for ($i = 1; $i <= $row->seat_kanan; $i++)
+                                                    <div class="row text-center">
+                                                        @foreach (json_decode($row->kd_seat_kanan, true) as $kode)
+                                                        @php $seatCode = $i . $kode . $bus; @endphp
+                                                        @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
+                                                        <label class="col-md-5 col-5 bg-warning rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
+                                                        <label class="col-md-5 col-5 bg-secondary text-white rounded border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @else
+                                                        <label class="col-md-5 col-5 btn btn-success border border-dark mx-auto my-1 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                            <input name="seat[]" type="checkbox" class="seat-checkbox" id="seat{{ $i . $kode . $bus }}" value="{{ $bus.'-'.$i . $kode }}">
+                                                            {{ $i . $kode }}
+                                                        </label>
+                                                        @endif
+                                                        @endforeach
+                                                    </div>
+                                                    @endfor
+                                            </div>
+                                        </div>
+                                        @if ($row->total_kursi == 40)
+                                        <div class="col-md-12">
+                                            <div class="row text-center">
+                                                <label class="col-md-3 col-3 bg-secondary text-white rounded border border-dark mx-auto m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                    Toilet
+                                                </label>
+                                                @for ($i = 1; $i <= $row->seat_belakang; $i++)
+                                                    @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
+                                                    @php $kdSeat = 10 + $i - 1; @endphp
+                                                    <label class="col-md-2 col-2 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        {{ $kdSeat . $kode }}
+                                                    </label>
+                                                    @endforeach
+                                                    @endfor
+                                            </div>
+                                        </div>
+                                        @endif
+                                        @if ($row->total_kursi == 37)
+                                        <div class="col-md-12">
+                                            <div class="row text-center">
+                                                @for ($i = 1; $i <= $row->seat_belakang; $i++)
+                                                    @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
+                                                    @php $kdSeat = 10 + $i - 1; @endphp
+                                                    <label class="col-md-2 col-2 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        {{ $kdSeat . $kode }}
+                                                    </label>
+                                                    @endforeach
+                                                    @endfor
+                                                    <div class="col-md-1 col-1"></div>
+                                                    <label class="col-md-6 col-4 bg-secondary text-white rounded border border-dark mx-auto m-2 p-2" for="seat{{ $i . $kode . $bus }}">
+                                                        Toilet
+                                                    </label>
+                                            </div>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <div class="form-group pt-5">
+                                    <div class="row">
+                                        @if ($seatFull)
+                                        <div class="col-md-12 py-2">
+                                            <p class="text-right text-primary underline text-center">
+                                                <a href="#" data-toggle="modal" data-target="#skModal">
+                                                    Syarat dan ketentuan
+                                                </a>
+                                            </p>
+
+                                            <div class="modal fade" id="skModal" role="dialog" aria-labelledby="skLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="skLabel">Syarat dan Ketentuan</h5>
+                                                            <button type="button" class="close btn custom-btn smoothscroll" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body text-sm" style="text-align: left;">
+                                                            <p class="mb-2">Syarat dan Ketentuan Peserta Bus Mudik Kemenkes Tahun 2024:</p>
+                                                            <ol type="1">
+                                                                <li>Peserta yang terdaftar adalah Aparatur Sipil Negara (PNS dan PPPK), Pegawai Pemerintah Non Pegawai Negeri, Pegawai Alih Daya, dan/atau Pegawai Bank Mitra di lingkungan Kantor Pusat Kementerian Kesehatan</li>
+                                                                <li>Peserta di luar pegawai Kantor Pusat Kementerian Kesehatan merupakan kerabat dalam satu Kartu Keluarga (KK) dan/atau satu alamat rumah yang sama dengan peserta pada point 1</li>
+                                                                <li>Peserta dalam kondisi sehat dan tidak memiliki riwayat atau sedang dalam masa penularan penyakit menular yang berpotensi terhadap penyebaran penyakit di dalam Bus.</li>
+                                                                <li>Obat-obatan pribadi merupakan tanggung jawab masing-masing peserta.</li>
+                                                                <li>Dokumen yang dilampirkan sebagai data pelengkap dalam formular ini adalah benar.</li>
+                                                                <li>Peserta tidak diperbolehkan untuk melakukan pemindahan nomor kursi tanpa persetujuan panitia.</li>
+                                                                <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
+                                                                <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
+                                                                <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
+                                                            </ol>
+                                                            <p class="mt-4 text-justify">
+                                                                <label style="text-align: justify;">
+                                                                    <input id="skCheckbox" type="checkbox" name="sk" value="true" required>
+                                                                    Saya telah membaca dan mengerti seluruh Syarat dan Ketentuan Penggunaan Ini dan Konsekuensinya
+                                                                    dan dengan ini menerima setiap hak, kewajiban, dan ketentuan yang diatur di dalamnya.
+                                                                </label>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @endif
-
-                                                @if (!$seatFull)
-                                                <div class="col-md-6 col-6 text-center">
-                                                    <a onclick="goBack()" class="btn custom-btn smoothscroll">
-                                                        <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-6 col-6 text-center">
-                                                    <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll">
-                                                        <span id="buttonText">Selanjutnya </span><i id="buttonIcon" class="fa fa-square-caret-right"></i>
-                                                    </button>
-                                                </div>
-                                                @else
-                                                <div class="col-md-6 col-6 text-center">
-                                                    <a href="{{ route('form.create') }}" class="btn custom-btn smoothscroll">
-                                                        <i class="fa-solid fa-times-circle"></i> Batalkan
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-6 col-6 text-center">
-                                                    <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
-                                                        <span id="buttonText">Selesai </span><i id="buttonIcon" class="fa-solid fa-circle-check"></i>
-                                                    </button>
-                                                </div>
-                                                @endif
                                             </div>
                                         </div>
+                                        @endif
+
+                                        @if (!$seatFull)
+                                        <div class="col-md-6 col-6 text-center">
+                                            <a onclick="goBack()" class="btn custom-btn smoothscroll">
+                                                <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 col-6 text-center">
+                                            <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll">
+                                                <span id="buttonText">Selanjutnya </span><i id="buttonIcon" class="fa fa-square-caret-right"></i>
+                                            </button>
+                                        </div>
+                                        @else
+                                        <div class="col-md-6 col-6 text-center">
+                                            <a href="{{ route('form.create') }}" class="btn custom-btn smoothscroll">
+                                                <i class="fa-solid fa-times-circle"></i> Batalkan
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 col-6 text-center">
+                                            <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
+                                                <span id="buttonText">Selesai </span><i id="buttonIcon" class="fa-solid fa-circle-check"></i>
+                                            </button>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
                             </form>
                     </div>
                     @elseif ($step == 2)
@@ -389,81 +389,80 @@
                                 </div>
                                 <div class="col-md-4"></div>
 
-                                @for ($i = 1; $i < 4; $i++)
-                                <div class="col-md-3 col-form-label">
+                                @for ($i = 1; $i < 4; $i++) <div class="col-md-3 col-form-label">
                                     Sertifikat Vaksin {{ $i }}
-                                </div>
-                                <div class="col-md-5 my-1">
-                                    <div class="btn btn-default btn-sm btn-block btn-file border-dark w-100 p-1">
-                                        <input type="hidden" name="foto_vaksin_{{ $i }}[]" value="" class="image-atk w-100">
-                                        <input id="vaksin{{ $key.$i }}" type="file" name="foto_vaksin_{{ $i }}[]" class="image-atk w-100" accept=".jpg, .jpeg, .png">
-                                    </div>
-                                </div>
-                                <div class="col-md-4"></div>
-                                @endfor
                             </div>
-                            @endforeach
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <p class="text-right text-primary underline ">
-                                            <a href="#" data-toggle="modal" data-target="#skModal">
-                                                Syarat dan ketentuan
-                                            </a>
-                                        </p>
+                            <div class="col-md-5 my-1">
+                                <div class="btn btn-default btn-sm btn-block btn-file border-dark w-100 p-1">
+                                    <input type="hidden" name="foto_vaksin_{{ $i }}[]" value="" class="image-atk w-100">
+                                    <input id="vaksin{{ $key.$i }}" type="file" name="foto_vaksin_{{ $i }}[]" class="image-atk w-100" accept=".jpg, .jpeg, .png">
+                                </div>
+                            </div>
+                            <div class="col-md-4"></div>
+                            @endfor
+                    </div>
+                    @endforeach
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <p class="text-right text-primary underline ">
+                                    <a href="#" data-toggle="modal" data-target="#skModal">
+                                        Syarat dan ketentuan
+                                    </a>
+                                </p>
 
-                                        <div class="modal fade" id="skModal" role="dialog" aria-labelledby="skLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="skLabel">Syarat dan Ketentuan</h5>
-                                                        <button type="button" class="close btn custom-btn smoothscroll" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body text-sm" style="text-align: left;">
-                                                        <p class="mb-2">Syarat dan Ketentuan Peserta Bus Mudik Kemenkes Tahun 2024:</p>
-                                                        <ol type="1">
-                                                            <li>Peserta yang terdaftar adalah Aparatur Sipil Negara (PNS dan PPPK), Pegawai Pemerintah Non Pegawai Negeri, Pegawai Alih Daya, dan/atau Pegawai Bank Mitra di lingkungan Kantor Pusat Kementerian Kesehatan</li>
-                                                            <li>Peserta di luar pegawai Kantor Pusat Kementerian Kesehatan merupakan kerabat dalam satu Kartu Keluarga (KK) dan/atau satu alamat rumah yang sama dengan peserta pada point 1</li>
-                                                            <li>Peserta dalam kondisi sehat dan tidak memiliki riwayat atau sedang dalam masa penularan penyakit menular yang berpotensi terhadap penyebaran penyakit di dalam Bus.</li>
-                                                            <li>Obat-obatan pribadi merupakan tanggung jawab masing-masing peserta.</li>
-                                                            <li>Dokumen yang dilampirkan sebagai data pelengkap dalam formular ini adalah benar.</li>
-                                                            <li>Peserta tidak diperbolehkan untuk melakukan pemindahan nomor kursi tanpa persetujuan panitia.</li>
-                                                            <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
-                                                            <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
-                                                            <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
-                                                        </ol>
-                                                        <p class="mt-4 text-justify">
-                                                            <label style="text-align: justify;">
-                                                                <input id="skCheckbox" type="checkbox" name="sk" required>
-                                                                Saya telah membaca dan mengerti seluruh Syarat dan Ketentuan Penggunaan Ini dan Konsekuensinya
-                                                                dan dengan ini menerima setiap hak, kewajiban, dan ketentuan yang diatur di dalamnya.
-                                                            </label>
-                                                        </p>
-                                                    </div>
-                                                </div>
+                                <div class="modal fade" id="skModal" role="dialog" aria-labelledby="skLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="skLabel">Syarat dan Ketentuan</h5>
+                                                <button type="button" class="close btn custom-btn smoothscroll" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-sm" style="text-align: left;">
+                                                <p class="mb-2">Syarat dan Ketentuan Peserta Bus Mudik Kemenkes Tahun 2024:</p>
+                                                <ol type="1">
+                                                    <li>Peserta yang terdaftar adalah Aparatur Sipil Negara (PNS dan PPPK), Pegawai Pemerintah Non Pegawai Negeri, Pegawai Alih Daya, dan/atau Pegawai Bank Mitra di lingkungan Kantor Pusat Kementerian Kesehatan</li>
+                                                    <li>Peserta di luar pegawai Kantor Pusat Kementerian Kesehatan merupakan kerabat dalam satu Kartu Keluarga (KK) dan/atau satu alamat rumah yang sama dengan peserta pada point 1</li>
+                                                    <li>Peserta dalam kondisi sehat dan tidak memiliki riwayat atau sedang dalam masa penularan penyakit menular yang berpotensi terhadap penyebaran penyakit di dalam Bus.</li>
+                                                    <li>Obat-obatan pribadi merupakan tanggung jawab masing-masing peserta.</li>
+                                                    <li>Dokumen yang dilampirkan sebagai data pelengkap dalam formular ini adalah benar.</li>
+                                                    <li>Peserta tidak diperbolehkan untuk melakukan pemindahan nomor kursi tanpa persetujuan panitia.</li>
+                                                    <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
+                                                    <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
+                                                    <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
+                                                </ol>
+                                                <p class="mt-4 text-justify">
+                                                    <label style="text-align: justify;">
+                                                        <input id="skCheckbox" type="checkbox" name="sk" required>
+                                                        Saya telah membaca dan mengerti seluruh Syarat dan Ketentuan Penggunaan Ini dan Konsekuensinya
+                                                        dan dengan ini menerima setiap hak, kewajiban, dan ketentuan yang diatur di dalamnya.
+                                                    </label>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-6 text-center">
-                                        <a href="javascript:void(0);" onclick="goBack()" class="btn custom-btn smoothscroll">
-                                            <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
-                                        </a>
-                                    </div>
-                                    <div class="col-md-6 col-6 text-center">
-                                        <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
-                                            <span id="buttonText">Selesai </span><i id="buttonIcon" class="fa-solid fa-circle-check"></i>
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
-                        </form>
+                            <div class="col-md-6 col-6 text-center">
+                                <a href="javascript:void(0);" onclick="goBack()" class="btn custom-btn smoothscroll">
+                                    <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-6 text-center">
+                                <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
+                                    <span id="buttonText">Selesai </span><i id="buttonIcon" class="fa-solid fa-circle-check"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    @endif
+                    </form>
                 </div>
+                @endif
             </div>
         </div>
+    </div>
     </div>
 </section>
 
@@ -617,26 +616,18 @@
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Ya',
-                cancelButtonText: 'Batal',
+                cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Menambahkan spinner saat tombol diklik
-                    document.getElementById('submitBtn').addEventListener('click', function() {
-                        document.getElementById('buttonText').style.display = 'none';
-                        document.getElementById('buttonIcon').className = 'fa fa-spinner fa-spin';
-                        document.getElementById('loadingIndicator').style.display = 'inline-block';
-                    });
+                    Swal.fire({
+                        title: "Mengirim data...",
+                        showConfirmButton: false,
+                        willOpen: () => {
+                            Swal.showLoading();
+                        },
+                    })
 
-                    // Melakukan submit form
-                    form.submit();
-
-                    // Simulasi proses (Anda dapat menyesuaikan ini dengan pengiriman data atau proses lainnya)
-                    setTimeout(function() {
-                        // Mengembalikan tampilan setelah selesai proses
-                        document.getElementById('buttonText').style.display = 'inline';
-                        document.getElementById('buttonIcon').className = 'fa fa-square-caret-right';
-                        document.getElementById('loadingIndicator').style.display = 'none';
-                    }, 2000);
+                    form.submit()
                 }
             });
         }
