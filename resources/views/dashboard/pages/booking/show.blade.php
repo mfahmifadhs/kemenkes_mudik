@@ -172,7 +172,7 @@
                                         @php $status = !$row->approval_roum ? 'text-warning' : ($row->approval_roum == 'true' ? 'text-success' : 'text-danger'); @endphp
                                         <label class="mb-1 btn-xs border-dark text-xs {{ $row->approval_uker == 'false' ? 'text-danger' : $status }}">
                                             <span class="text-xs">
-                                                @if (!$row->approval_roum && !$row->approval_uker)
+                                                @if (!$row->approval_roum || !$row->approval_uker)
                                                 <i class="fas fa-clock"></i>
                                                 @elseif ($row->approval_roum == 'true')
                                                 <i class="fas fa-check-circle"></i>
