@@ -63,24 +63,30 @@ class FormController extends Controller
     public function store(Request $request)
     {
         $seatCek = 0;
-        $bus  = $request->bus;
+        $bus = $request->bus;
         $seat = $request->seat;
 
         if ($request->seatFull == 'true') {
             $seatArr = array_map(function ($value) {
                 return substr($value, strpos($value, '-') + 1);
             }, $seat);
+
             $busArr = array_map(function ($value) {
-                return substr($value, 0,  strpos($value, '-'));
+                return substr($value, 0, strpos($value, '-'));
             }, $seat);
 
-            $seatCek = Peserta::whereIn('bus_id', $busArr)->whereIn('kode_seat', $seatArr)->where('status', '!=', 'cancel')->count();
+            $seatCek = Peserta::whereIn('bus_id', $busArr)
+                ->whereIn('kode_seat', $seatArr)
+                ->where('status', '!=', 'cancel')->count();
+
             $id_book = $request->id_book;
+
             if ($seatCek != 0) {
                 $peserta = Peserta::where('booking_id', $id_book)->pluck('id_peserta')->toArray();
                 $full = 'true';
                 $step = 1;
                 $rute = $request->rute;
+
                 return redirect()->route('form.create', compact('rute', 'step', 'full', 'peserta', 'id_book'))->with('failed', 'Bangku Penuh');
             } else {
                 foreach ($seatArr as $i => $seat_id) {
@@ -89,16 +95,18 @@ class FormController extends Controller
 
                     Peserta::where('id_peserta', $pesertaId)->update([
                         'bus_id'    => $busArr[$i],
-                        'kode_seat' => $seat_id
+                        'kode_seat' => $seat_id,
                     ]);
                 }
+
                 return redirect()->route('form.confirm', $id_book)->with('success', 'Berhasil Registrasi');
             }
-
         }
 
-        $data      = json_decode($request->data);
-        $id_book   = str_pad(Booking::withTrashed()->count() + 1, 4, 0, STR_PAD_LEFT);
+        // ... (kode untuk jenis seatFull yang lain)
+
+        $data = json_decode($request->data);
+        $id_book = str_pad(Booking::withTrashed()->count() + 1, 4, 0, STR_PAD_LEFT);
         $kode_book = Carbon::now()->format('ymdHis') . $id_book;
 
         $tambah  = new Booking();
@@ -115,9 +123,12 @@ class FormController extends Controller
         $tambah->created_at   = Carbon::now();
         $tambah->save();
 
-        $seatCek = Peserta::whereIn('bus_id', $bus)->whereIn('kode_seat', $seat)->where('status', '!=', 'cancel')->count();
+        $seatCek = Peserta::whereIn('bus_id', $bus)
+            ->whereIn('kode_seat', $seat)
+            ->where('status', '!=', 'cancel')->count();
+
         foreach ($seat as $key => $seat_id) {
-            $total      = str_pad(Peserta::withTrashed()->count() + 1, 4, 0, STR_PAD_LEFT);
+            $total = str_pad(Peserta::withTrashed()->count() + 1, 4, 0, STR_PAD_LEFT);
             $id_peserta = Carbon::now()->format('ymd') . $total;
 
             $detail = new Peserta();
@@ -153,7 +164,7 @@ class FormController extends Controller
             Peserta::where('id_peserta', $id_peserta)->update([
                 'foto_vaksin_1' => $request->foto_vaksin_1[$key] ? $fileVaksin1 : null,
                 'foto_vaksin_2' => $request->foto_vaksin_2[$key] ? $fileVaksin2 : null,
-                'foto_vaksin_3' => $request->foto_vaksin_3[$key] ? $fileVaksin3 : null
+                'foto_vaksin_3' => $request->foto_vaksin_3[$key] ? $fileVaksin3 : null,
             ]);
         }
 
@@ -176,6 +187,7 @@ class FormController extends Controller
             $full = 'true';
             $step = 1;
             $rute = $request->rute;
+
             return redirect()->route('form.create', compact('rute', 'step', 'full', 'data', 'peserta', 'id_book'))->with('failed', 'Bangku Penuh');
         }
 

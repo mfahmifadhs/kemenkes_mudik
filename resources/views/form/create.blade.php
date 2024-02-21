@@ -50,14 +50,14 @@
                             <div class="form-group row my-3">
                                 <div class="col-md-3 col-form-label">NIP/NIK*</div>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control border-dark number" name="nip_nik" required>
+                                    <input type="text" class="form-control border-dark number" name="nip_nik" maxlength="18" required>
                                 </div>
                             </div>
 
                             <div class="form-group row my-3">
                                 <div class="col-md-3 col-form-label">No. Telepon*</div>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control border-dark number" name="no_telp" required>
+                                    <input type="text" class="form-control border-dark number" name="no_telp" maxlength="16" required>
                                 </div>
                             </div>
 
@@ -381,11 +381,11 @@
                                 </div>
                                 <div class="col-md-1 col-form-label">Usia</div>
                                 <div class="col-md-3 my-1">
-                                    <input type="number" name="usia_peserta[]" class="form-control form-control-sm" required>
+                                    <input type="number" name="usia_peserta[]" class="form-control form-control-sm" maxlength="2" required>
                                 </div>
                                 <div class="col-md-3 col-form-label">NIK</div>
                                 <div class="col-md-5 my-1">
-                                    <input type="text" name="nik_peserta[]" class="form-control form-control-sm number" required>
+                                    <input type="text" name="nik_peserta[]" class="form-control form-control-sm number" maxlength="18" required>
                                 </div>
                                 <div class="col-md-4"></div>
 
