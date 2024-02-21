@@ -622,6 +622,8 @@
                     Swal.fire({
                         title: "Mengirim data...",
                         showConfirmButton: false,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
                         willOpen: () => {
                             Swal.showLoading();
                         },

@@ -62,7 +62,6 @@ class FormController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
         $seatCek = 0;
         $bus  = $request->bus;
         $seat = $request->seat;
