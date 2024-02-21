@@ -46,6 +46,7 @@
                 </button> -->
             </div>
         </nav>
+
         @if (Session::has('success'))
         <script>
             Swal.fire({
@@ -72,6 +73,18 @@
     <script src="{{ asset('dist/js/custom.js') }}"></script>
     <script src="{{ asset('dist/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     @yield('js')
+    <script>
+        $(document).ready(function() {
+            $('.number').on('input', function() {
+                // Menghapus karakter selain angka (termasuk tanda titik koma sebelumnya)
+                var value = $(this).val().replace(/[^0-9]/g, '');
+                // Format dengan menambahkan titik koma setiap tiga digit
+                var formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '');
+
+                $(this).val(formattedValue);
+            });
+        });
+    </script>
     <script>
         // Password
         $(document).ready(function() {

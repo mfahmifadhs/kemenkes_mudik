@@ -381,7 +381,7 @@
                                 </div>
                                 <div class="col-md-1 col-form-label">Usia</div>
                                 <div class="col-md-3 my-1">
-                                    <input type="number" name="usia_peserta[]" class="form-control form-control-sm" maxlength="2" required>
+                                    <input type="text" name="usia_peserta[]" class="form-control form-control-sm number" maxlength="2" required>
                                 </div>
                                 <div class="col-md-3 col-form-label">NIK</div>
                                 <div class="col-md-5 my-1">

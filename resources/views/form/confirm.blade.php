@@ -50,6 +50,11 @@
                                     <td>{{ $book->no_telp }}</td>
                                 </tr>
                                 <tr>
+                                    <td class="align-top" style="width: 23%;">Email</td>
+                                    <td class="align-top" style="width: 2%;">:</td>
+                                    <td>{{ $book->email }}</td>
+                                </tr>
+                                <tr>
                                     <td class="align-top" style="width: 23%;">Alamat</td>
                                     <td class="align-top" style="width: 2%;">:</td>
                                     <td>{{ $book->alamat }}</td>
@@ -88,30 +93,30 @@
 
                                 <hr class="my-3">
                             <h5 class="my-2">Detail Boking</h5>
-                            <p class="table-responsive">
-                            <table class="table table-striped small text-center">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Peserta</th>
-                                        <th>NIK</th>
-                                        <th>Bus</th>
-                                        <th>Kode Kursi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($detail as $row)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td class="text-left">{{ $row->nama_peserta }}</td>
-                                        <td>{{ $row->nik }}</td>
-                                        <td>{{ $row->bus_id }}</td>
-                                        <td>{{ $row->kode_seat }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            </p>
+                            <div class="table-responsive">
+                                <table class="table table-striped small text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Peserta</th>
+                                            <th>NIK</th>
+                                            <th>Bus</th>
+                                            <th>Kode Kursi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($detail as $row)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td class="text-left">{{ $row->nama_peserta }}</td>
+                                            <td>{{ $row->nik }}</td>
+                                            <td>{{ $row->bus_id }}</td>
+                                            <td>{{ $row->kode_seat }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                             <hr class="my-4">
                             <h5 class="my-2">Catatan</h5>
                             <p>
@@ -121,6 +126,9 @@
                                 <li class="small">Kemudian akan dilakukan verifikasi akhir oleh Biro Umum</li>
                                 <li class="small">
                                     Verifikasi dapat dicek berkala di link berikut: <a href="{{ route('tiket.check') }}"><u>Hasil Verifikasi</u></a>
+                                </li>
+                                <li class="small">
+                                    E-Tiket akan dikirimkan ke alamat email terdaftar, apabila peserta telah lolos verifikasi.
                                 </li>
                             </p>
                         </div>

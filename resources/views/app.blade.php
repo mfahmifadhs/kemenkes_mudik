@@ -27,6 +27,8 @@
 
     <link href="{{ asset('dist/css/templatemo-pod-talk.css') }}" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -45,6 +47,34 @@
             </div>
         </nav>
 
+        @if (Session::has('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '{{ Session::get("success") }}',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        </script>
+        @elseif (Session::has('failed'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                text: '{{ Session::get("failed") }}',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        </script>
+        @elseif (Session::has('pending'))
+        <script>
+            Swal.fire({
+                icon: 'info',
+                text: '{{ Session::get("pending") }}',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        </script>
+        @endif
 
         @yield('content')
     </main>
@@ -54,7 +84,18 @@
     <script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dist/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('dist/js/custom.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.number').on('input', function() {
+                // Menghapus karakter selain angka (termasuk tanda titik koma sebelumnya)
+                var value = $(this).val().replace(/[^0-9]/g, '');
+                // Format dengan menambahkan titik koma setiap tiga digit
+                var formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '');
 
+                $(this).val(formattedValue);
+            });
+        });
+    </script>
     <script>
         // Password
         $(document).ready(function() {
