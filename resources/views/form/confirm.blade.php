@@ -25,7 +25,7 @@
                         <div class="col-md-9">
                             <table class="w-100 text-sm align-top">
                                 <tr>
-                                    <td class="align-top" style="width: 23%;">Kode Pendaftaran</td>
+                                    <td class="align-top" style="width: 23%;">ID</td>
                                     <td class="align-top" style="width: 2%;">:</td>
                                     <td>{{ $book->kode_booking }}</td>
                                 </tr>
