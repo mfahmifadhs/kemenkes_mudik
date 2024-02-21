@@ -25,7 +25,7 @@
                         <div class="col-md-9">
                             <table class="w-100 text-sm align-top">
                                 <tr>
-                                    <td class="align-top" style="width: 23%;">Kode Boking</td>
+                                    <td class="align-top" style="width: 23%;">Kode Pendaftaran</td>
                                     <td class="align-top" style="width: 2%;">:</td>
                                     <td>{{ $book->kode_booking }}</td>
                                 </tr>
@@ -92,7 +92,7 @@
                             <p class="small m-3">
 
                                 <hr class="my-3">
-                            <h5 class="my-2">Detail Boking</h5>
+                            <h5 class="my-2">Detail Pendaftaran</h5>
                             <div class="table-responsive">
                                 <table class="table table-striped small text-center">
                                     <thead>
