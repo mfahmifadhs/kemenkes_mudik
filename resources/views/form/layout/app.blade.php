@@ -68,7 +68,7 @@
 
     <!-- JAVASCRIPT FILES -->
     <script src="{{ asset('dist/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- <script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script> -->
     <script src="{{ asset('dist/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('dist/js/custom.js') }}"></script>
     <script src="{{ asset('dist/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

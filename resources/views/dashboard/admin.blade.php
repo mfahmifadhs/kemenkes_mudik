@@ -52,7 +52,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-sm">
-                                        @foreach($book->where('approval_roum', null) as $row)
+                                        @foreach($book->where('approval_uker', 'true')->where('approval_roum', null) as $row)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ Carbon\Carbon::parse($row->created_at)->isoFormat('DD MMM Y | HH:mm:ss') }}</td>

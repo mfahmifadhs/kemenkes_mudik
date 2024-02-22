@@ -187,7 +187,7 @@
                             </div>
                         </div>
                     </div>
-                    @if (Auth::user()->role_id == 1)
+                    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                     <div class="card-body text-right">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> Simpan

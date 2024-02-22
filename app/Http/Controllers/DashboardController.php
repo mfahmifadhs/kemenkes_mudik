@@ -31,10 +31,14 @@ class DashboardController extends Controller
         $user = $role == 4 ? 'user' : 'admin';
         $rute = Trayek::get();
         $bus  = Bus::get();
-        $data = Booking::orderBy('id_booking', 'DESC');
+        $data = Booking::select('t_booking.created_at', 't_booking.*', 'unit_utama_id')
+                ->orderBy('t_booking.created_at', 'DESC')->orderBy('approval_uker', 'ASC')
+                ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id');
 
-        if ($role == 4) {
+        if ($role == 4 && Auth::user()->uker->unit_utama_id == '46593') {
             $book = $data->where('uker_id', Auth::user()->uker_id)->where('approval_uker', null)->get();
+        } else if ($role == 4) {
+            $book = $data->where('unit_utama_id', Auth::user()->uker->unit_utama_id)->where('approval_uker', null)->get();
         } else {
             $uker   = UnitKerja::get();
             $trayek = Trayek::get();

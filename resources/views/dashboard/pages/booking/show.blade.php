@@ -193,7 +193,15 @@
                                         <a href="{{ route('book.validation', $row->id_booking) }}" class="btn btn-default btn-small border-dark">
                                             <i class="fas fa-info-circle"></i> Detail
                                         </a>
-                                        @if (Auth::user()->role_id == 1 || Auth::user()->uker_id == $row->uker_id && Auth::user()->role_id == 4)
+                                        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                                        <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        @elseif (Auth::user()->role_id == 4 && Auth::user()->uker->unit_utama_id == $row->uker->unit_utama_id)
+                                        <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        @elseif (Auth::user()->role_id == 4 && Auth::user()->uker->unit_utama_id == '46593' && Auth::user()->uker_id == $row->uker_id)
                                         <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>

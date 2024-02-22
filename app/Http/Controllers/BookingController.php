@@ -34,12 +34,14 @@ class BookingController extends Controller
         $tujuan     = '';
         $status     = '';
         $role = Auth::user()->role_id;
-        $data = Booking::orderBy('created_at', 'DESC')->orderBy('approval_uker', 'ASC');
+        $data = Booking::select('t_booking.created_at', 't_booking.*', 'unit_utama_id')
+                ->orderBy('t_booking.created_at', 'DESC')->orderBy('approval_uker', 'ASC')
+                ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id');
 
-        if ($role == 4) {
-            $book = $data->where('uker_id', Auth::user()->uker_id)->where('approval_uker', '!=', null)->get();
-        } else if ($role == 2) {
-            $book = $data->where('approval_roum', '!=', null)->get();
+        if ($role == 4 && Auth::user()->uker->unit_utama_id == '46593') {
+            $book = $data->where('uker_id', Auth::user()->uker_id)->get();
+        } else if ($role == 4) {
+            $book = $data->where('unit_utama_id', Auth::user()->uker->unit_utama_id)->get();
         } else {
             $book = $data->get();
         }
@@ -113,6 +115,15 @@ class BookingController extends Controller
     public function validation($id)
     {
         $book = Booking::where('id_booking', $id)->first();
+
+        if (Auth::user()->role_id == 4) {
+            if ($book->uker->unit_utama_id == '46593' && $book->uker_id != Auth::user()->uker_id) {
+                abort(404);
+            } else if ($book->uker->unit_utama_id != Auth::user()->uker->unit_utama_id) {
+                abort(404);
+            }
+        }
+
         return view('dashboard.pages.booking.validation', compact('book'));
     }
 
@@ -168,6 +179,15 @@ class BookingController extends Controller
         $rute   = Trayek::get();
         $bus    = Bus::get();
         $tujuan = TrayekDetail::where('trayek_id', $book->trayek_id)->get();
+
+        if (Auth::user()->role_id == 4) {
+            if ($book->uker->unit_utama_id == '46593' && $book->uker_id != Auth::user()->uker_id) {
+                abort(404);
+            } else if ($book->uker->unit_utama_id != Auth::user()->uker->unit_utama_id) {
+                abort(404);
+            }
+        }
+
         return view('dashboard.pages.booking.edit', compact('book', 'utama', 'uker', 'rute', 'tujuan', 'bus'));
     }
 

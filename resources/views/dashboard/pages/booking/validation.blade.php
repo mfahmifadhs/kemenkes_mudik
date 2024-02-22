@@ -64,6 +64,8 @@
                                     <div class="col-md-9">: {{ $book->no_telp }}</div>
                                     <div class="col-md-2">Alamat</div>
                                     <div class="col-md-9">: {{ $book->alamat }}</div>
+                                    <div class="col-md-2">Email</div>
+                                    <div class="col-md-9">: {{ $book->email }}</div>
                                     <div class="col-md-2">Unit Kerja</div>
                                     <div class="col-md-9">: {{ $book->uker->nama_unit_kerja }}</div>
                                     <div class="col-md-2">Foto KTP</div>
@@ -150,7 +152,8 @@
                             </tbody>
                         </table>
                     </div>
-                    @if (!$book->status && $book->uker_id == Auth::user()->uker_id && Auth::user()->role_id == 4 && !$book->approval_uker)
+                    @if (!$book->status && !$book->approval_uker && Auth::user()->role_id == 4)
+                    @if ($book->uker->unit_utama_id == '46593' && $book->uker_id == Auth::user()->uker_id)
                     <div class="card-footer text-right font-weight-bold">
                         <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#tolak">
                             <i class="fas fa-times-circle"></i> Tolak
@@ -159,6 +162,16 @@
                             <i class="fas fa-check-circle"></i> Setuju
                         </a>
                     </div>
+                    @elseif (Auth::user()->uker->unit_utama_id == $book->uker->unit_utama_id)
+                    <div class="card-footer text-right font-weight-bold">
+                        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#tolak">
+                            <i class="fas fa-times-circle"></i> Tolak
+                        </a>
+                        <a href="{{ route('book.true', $book->id_booking) }}" class="btn btn-success" onclick="confirmTrue(event)">
+                            <i class="fas fa-check-circle"></i> Setuju
+                        </a>
+                    </div>
+                    @endif
                     @endif
 
                     @if ($book->status == 'true')
@@ -324,6 +337,16 @@
             cancelButtonText: 'Batal',
         }).then((result) => {
             if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Mengirim data...",
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    willOpen: () => {
+                        Swal.showLoading();
+                    },
+                })
+
                 window.location.href = url;
             }
         });
@@ -342,6 +365,16 @@
             cancelButtonText: 'Batal',
         }).then((result) => {
             if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Mengirim data...",
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    willOpen: () => {
+                        Swal.showLoading();
+                    },
+                })
+
                 form.submit();
             }
         });

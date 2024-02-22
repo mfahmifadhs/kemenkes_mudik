@@ -13,7 +13,7 @@
         <tr>
             <td class="mt-2" style="width: 70%;">
                 <div style="font-size: 36px;">
-                    Tiket Mudik
+                    <b>TIKET MUDIK</b>
                 </div>
             </td>
             <td style="width: 30%;">
@@ -48,7 +48,7 @@
         </tr>
     </table>
     <hr>
-    <p>Detail Pesanan</p>
+    <p>Detail Pendaftaran</p>
     <table style="width: 100%;">
         <thead>
             <tr style="border: 1px solid #000;">
@@ -77,19 +77,36 @@
     <p class="font-weight-bold">Catatan</p>
     <table>
         <tr>
-            <td>◾</td>
+            <td>1. </td>
             <td>Peserta diharapkan menyimpan Kode Booking yang telah didapatkan.</td>
         </tr>
         <tr>
-            <td>◾</td>
+            <td>2. </td>
             <td>Pendaftaran "Mudik Bersama Kemenkes" tidak dapat Dibatalkan/diubah tanpa persetujuan panitia.</td>
         </tr>
         <tr>
-            <td>◾</td>
+            <td style="vertical-align: top;">3. </td>
             <td>Selanjutnya akan dilakukan verifikasi oleh PIC Mudik Bersama Kemenkes pada masing-masing Sekretariat Unit Utama atau Subbagian Administrasi Umum pada setiap unit eselon II bagi Unit Utama Sekretariat Jenderal.</td>
         </tr>
         <tr>
-            <td>◾</td>
+            <td>4. </td>
+            <td>Kemudian akan dilakukan verifikasi akhir oleh Biro Umum.</td>
+        </tr>
+        <tr>
+            <td>5. </td>
+            <td>Menyetorkan uang jaminan senilai 200.000 sebagai penjamin kepastian keberangkatan peserta.</td>
+        </tr>
+        <tr>
+            <td>6. </td>
+            <td>Uang jaminan menjadi penjamin penumpang dapat mengikuti perjalanan.</td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">7. </td>
+            <td>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta dan atau keluarga peserta membatalkan keberangkatan. <br>
+                Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.</td>
+        </tr>
+        <tr>
+            <td>8. </td>
             <td>Kemudian akan dilakukan verifikasi akhir oleh Biro Umum.</td>
         </tr>
     </table>

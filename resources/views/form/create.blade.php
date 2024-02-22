@@ -124,7 +124,7 @@
                     @elseif ($rute && $step == 1)
                     <div id="bus">
                         <div class="mx-2 mb-4">
-                            <h4 class="mb-0">{{ ucfirst(strtolower($rute->jurusan)) }} - {{ $dest->nama_kota }}</h4>
+                            <h4 class="mb-0">{{ ucfirst(strtolower($rute->jurusan)) }}</h4>
                             <small>{{ $rute->rute }}</small>
                         </div>
                         @if (!$seatFull)
@@ -266,7 +266,7 @@
                                             </p>
 
                                             <div class="modal fade" id="skModal" role="dialog" aria-labelledby="skLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="skLabel">Syarat dan Ketentuan</h5>
@@ -286,6 +286,11 @@
                                                                 <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
                                                                 <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
                                                                 <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
+                                                                <li>Menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</li>
+                                                                <li>Uang jaminan menjadi penjamin penumpang dapat mengikuti perjalanan.</li>
+                                                                <li>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta dan atau keluarga peserta membatalkan keberangkatan.
+                                                                    Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.</li>
+                                                                <li>Uang jaminan akan dikembalikan 100%, sebelum keberangkatan dengan menunjukan e-ticket ke panitia.</li>
                                                             </ol>
                                                             <p class="mt-4 text-justify">
                                                                 <label style="text-align: justify;">
@@ -330,6 +335,10 @@
                     </div>
                     @elseif ($step == 2)
                     <div id="peserta">
+                        <div class="mb-4">
+                            <h4 class="mb-0">{{ ucfirst(strtolower($rute->jurusan)) }}</h4>
+                            <small>{{ $rute->rute }}</small>
+                        </div>
                         <form id="form" action="{{ route('form.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="step" value="2">
@@ -416,7 +425,7 @@
                                 </p>
 
                                 <div class="modal fade" id="skModal" role="dialog" aria-labelledby="skLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="skLabel">Syarat dan Ketentuan</h5>
@@ -436,6 +445,11 @@
                                                     <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
                                                     <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
                                                     <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
+                                                    <li>Menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</li>
+                                                    <li>Uang jaminan menjadi penjamin penumpang dapat mengikuti perjalanan.</li>
+                                                    <li>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta dan atau keluarga peserta membatalkan keberangkatan.
+                                                        Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.</li>
+                                                    <li>Uang jaminan akan dikembalikan 100%, sebelum keberangkatan dengan menunjukan e-ticket ke panitia.</li>
                                                 </ol>
                                                 <p class="mt-4 text-justify">
                                                     <label style="text-align: justify;">
