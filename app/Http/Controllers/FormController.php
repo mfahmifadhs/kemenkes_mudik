@@ -36,6 +36,7 @@ class FormController extends Controller
             $seatCek = Peserta::select(DB::RAW('concat(kode_seat, bus_id) as seat_booked'), 'status')->get();
             $bus  = Bus::where('trayek_id', $rute)->get();
             $rute = Trayek::where('id_trayek', $rute)->first();
+            $dest = TrayekDetail::where('id_detail', $request->get('dest'))->first();
 
             $data = [
                 'nama'    => $request->get('nama'),
@@ -57,7 +58,7 @@ class FormController extends Controller
             $data = json_decode($request->data);
         }
 
-        return view('form.create', compact('rute', 'utama', 'trayek', 'step', 'data', 'bus', 'seat', 'seatCek', 'seatTotal', 'seatFull', 'peserta', 'bookId'));
+        return view('form.create', compact('rute', 'utama', 'trayek', 'step', 'data', 'bus', 'seat', 'seatCek', 'dest', 'seatTotal', 'seatFull', 'peserta', 'bookId'));
     }
 
     public function store(Request $request)

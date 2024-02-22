@@ -123,6 +123,10 @@
                     </div>
                     @elseif ($rute && $step == 1)
                     <div id="bus">
+                        <div class="mx-2 mb-4">
+                            <h4 class="mb-0">{{ ucfirst(strtolower($rute->jurusan)) }} - {{ $dest->nama_kota }}</h4>
+                            <small>{{ $rute->rute }}</small>
+                        </div>
                         @if (!$seatFull)
                         <form action="{{ route('form.create') }}" method="GET">
                             @else
