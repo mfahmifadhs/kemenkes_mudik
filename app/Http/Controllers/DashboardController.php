@@ -28,7 +28,7 @@ class DashboardController extends Controller
         $uker   = [];
         $trayek = [];
         $role = Auth::user()->role_id;
-        $user = $role == 4 ? 'user' : ($role == 3 ? 'roum' : 'admin');
+        $user = $role == 4 ? 'user' : 'admin';
         $rute = Trayek::get();
         $bus  = Bus::get();
         $data = Booking::orderBy('id_booking', 'DESC');
