@@ -179,7 +179,7 @@
                     </div>
                     @endif
 
-                    @if ($book->approval_roum == 'true')
+                    @if ($book->approval_roum == 'true' && Auth::user()->role_id == 2 || Auth::user()->role_id == 1)
                     <div class="card-footer text-right font-weight-bold">
                         <a id="download" class="btn btn-success btn-sm" data-url="{{ route('tiket.email', $book->id_booking) }}" target="_blank">
                             <i class="fas fa-paper-plane"></i> <b>Kirm Email</b>
