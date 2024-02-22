@@ -171,32 +171,115 @@ class BookingController extends Controller
 
     public function update(Request $request, $id)
     {
-        $peserta = Peserta::where('id_peserta', $id)->first();
+        Booking::where('id_booking', $id)->update([
+            'trayek_id'     => $request->trayek_id,
+            'tujuan_id'     => $request->tujuan_id,
+            'uker_id'      => $request->uker_id,
+            'nama_pegawai'  => $request->nama_pegawai,
+            'nip_nik'       => $request->nip_nik,
+            'no_telp'       => $request->no_telp,
+            'alamat'        => $request->alamat,
+            'email'         => $request->email,
+            'catatan'       => $request->catatan,
+        ]);
 
-        for ($i = 1; $i < 4; $i++) {
-            $fotoName = "foto_vaksin_$i";
-
-            if ($request->$fotoName) {
-                $file      = $request->file('foto_vaksin_' . $i);
-                $filename  = 'vaksin'. $i .'_' . now()->timestamp . '_' . $file->getClientOriginalName();
-                $foto      = $file->storeAs('public/files/vaksin_'.$i, $filename);
-                $vaksin    = $filename;
-
-                if ($peserta->foto_vaksin_ + $i) {
-                    Storage::delete('public/files/vaksin_'.$i.'/' . $peserta->foto_vaksin_ + $i);
-                }
-
-                $fotoVaksin = 'foto_vaksin_'.$i;
-                Peserta::where('id_peserta', $id)->update([$fotoVaksin => $vaksin]);
-            }
+        $peserta = $request->id_peserta;
+        foreach($peserta as $i => $id_peserta) {
+            Peserta::where('id_peserta', $id_peserta)->update([
+                'nama_peserta'  => $request->nama_peserta[$i],
+                'usia'          => $request->usia[$i],
+                'nik'           => $request->nik[$i],
+                'bus_id'        => $request->bus_id[$i],
+                'kode_seat'     => $request->kode_seat[$i],
+                'status'        => $request->status[$i],
+            ]);
         }
 
-        return back()->with('success', 'Berhasil Menyimpan Perubahan');
+        return redirect()->route('book.edit', $id)->with('success', 'Berhasil Menyimpan Perubahan');
     }
 
-    public function delete($id)
+    public function updateFile(Request $request, $id)
+    {
+        $peserta = Peserta::where('id_peserta', $id)->first();
+        $book    = Booking::where('id_booking', $id)->first();
+
+        if ($peserta) {
+            for ($i = 1; $i < 4; $i++) {
+                $fotoName = "foto_vaksin_$i";
+
+                if ($request->$fotoName) {
+                    $file      = $request->file('foto_vaksin_' . $i);
+                    $filename  = 'vaksin'. $i .'_' . now()->timestamp . '_' . $file->getClientOriginalName();
+                    $foto      = $file->storeAs('public/files/vaksin_'.$i, $filename);
+                    $vaksin    = $filename;
+
+                    if ($peserta->foto_vaksin_ + $i) {
+                        Storage::delete('public/files/vaksin_'.$i.'/' . $peserta->foto_vaksin_ + $i);
+                    }
+
+                    $fotoVaksin = 'foto_vaksin_'.$i;
+                    Peserta::where('id_peserta', $id)->update([$fotoVaksin => $vaksin]);
+                }
+            }
+        } else if ($request->foto_ktp) {
+            $file      = $request->file('foto_ktp');
+            $filename  = 'ktp_' . now()->timestamp . '_' . $file->getClientOriginalName();
+            $foto      = $file->storeAs('public/files/foto_ktp/'. $filename);
+            $ktp       = $filename;
+
+            if ($book->foto_ktp) {
+                Storage::delete('public/files/foto_ktp/' . $book->foto_ktp);
+            }
+
+            Booking::where('id_booking', $id)->update(['foto_ktp' => $ktp]);
+
+        } else if ($request->foto_kk) {
+            $file      = $request->file('foto_kk');
+            $filename  = 'kk_' . now()->timestamp . '_' . $file->getClientOriginalName();
+            $foto      = $file->storeAs('public/files/foto_kk/'. $filename);
+            $kk        = $filename;
+
+            if ($book->foto_kk) {
+                Storage::delete('public/files/foto_kk/' . $book->foto_kk);
+            }
+
+            Booking::where('id_booking', $id)->update(['foto_kk' => $kk]);
+        }
+
+        $id_book = $peserta ? $peserta->booking_id : $id;
+        return redirect()->route('book.edit', $id_book)->with('success', 'Berhasil Menyimpan Perubahan');
+    }
+
+    public function deleteFile($file, $id)
     {
 
+        $peserta = Peserta::where('id_peserta', $id)->first();
+        $book    = Booking::where('id_booking', $id)->first();
+        if ($peserta) {
+            for ($i = 1; $i < 4; $i++) {
+                if ($file == 'vaksin'.$i) {
+                    Storage::delete('public/files/vaksin_'.$i.'/' . $peserta->foto_vaksin_ + $i);
+                }
+            }
+
+            Peserta::where('id_peserta', $id)->update([
+                'foto_vaksin_1' => $file == 'vaksin1' ? null : $peserta->foto_vaksin_1,
+                'foto_vaksin_2' => $file == 'vaksin2' ? null : $peserta->foto_vaksin_2,
+                'foto_vaksin_3' => $file == 'vaksin3' ? null : $peserta->foto_vaksin_3,
+            ]);
+
+        } else if ($file == 'fotoktp') {
+            Storage::delete('public/files/foto_ktp/' . $book->foto_ktp);
+            Booking::where('id_booking', $id)->update(['foto_ktp' => null]);
+
+        } else if ($file == 'fotokk') {
+            Storage::delete('public/files/foto_kk/' . $book->foto_kk);
+            Booking::where('id_booking', $id)->update(['foto_kk' => null]);
+
+        }
+
+        $id_book = $peserta ? $peserta->booking_id : $id;
+        return redirect()->route('book.edit', $id_book)->with('success', 'Berhasil Menghapus File');
     }
 
     public function emailTicket($id)

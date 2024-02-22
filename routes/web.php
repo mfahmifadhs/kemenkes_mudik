@@ -50,8 +50,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('book/validation/{id}', [BookingController::class, 'validation'])->name('book.validation');
     Route::get('book/pdf/{id}', [BookingController::class, 'pdf'])->name('book.pdf');
     Route::get('book/edit/{id}', [BookingController::class, 'edit'])->name('book.edit');
+    Route::get('file/delete/{file}/{id}', [BookingController::class, 'deleteFile'])->name('file.delete');
     Route::get('book/validation/true/{id}', [BookingController::class, 'storeValidation'])->name('book.true');
     Route::post('book/validation/false/{id}', [BookingController::class, 'storeValidation'])->name('book.false');
+    Route::post('file/update/{id}', [BookingController::class, 'updateFile'])->name('file.update');
     Route::post('book/update/{id}', [BookingController::class, 'update'])->name('book.update');
 
     Route::get('user', [UserController::class, 'index'])->name('user');
