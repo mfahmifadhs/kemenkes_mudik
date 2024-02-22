@@ -31,7 +31,7 @@ Route::get('tujuan/select/{id}', [FormController::class, 'selectDest']);
 Route::get('uker/select/{id}', [FormController::class, 'selectUker']);
 
 Route::get('form/konfirmasi/{id}', [FormController::class, 'confirm'])->name('form.confirm');
-Route::get('tiket/{id}', [FormController::class, 'ticket'])->name('tiket');
+Route::get('tiket/cetak/{rand}/{id}', [FormController::class, 'ticket'])->name('tiket');
 Route::post('form/konfirmasi/cek', [FormController::class, 'check'])->name('form.confirm.check');
 
 Route::group(['middleware' => 'auth'], function () {
@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bus/export/{id}', [BusController::class, 'export'])->name('bus.export');
 
     // select
-    Route::get('tiket/cetak/{id}', [BookingController::class, 'emailTicket'])->name('tiket.email');
+    Route::get('tiket/{id}', [BookingController::class, 'emailTicket'])->name('tiket.email');
     Route::get('book/validation/{id}', [BookingController::class, 'validation'])->name('book.validation');
     Route::get('book/pdf/{id}', [BookingController::class, 'pdf'])->name('book.pdf');
     Route::get('book/edit/{id}', [BookingController::class, 'edit'])->name('book.edit');

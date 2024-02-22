@@ -168,7 +168,7 @@
                         </a>
                     </div>
                     @endif
-                    @if (Auth::user()->role_id == 2 && !$book->approval_roum && $book->approval_uker == true)
+                    @if (Auth::user()->role_id == 2 && !$book->approval_roum && $book->approval_uker == 'true')
                     <div class="card-footer text-right font-weight-bold">
                         <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#tolak">
                             <i class="fas fa-times-circle"></i> Tolak

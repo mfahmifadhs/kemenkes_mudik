@@ -47,7 +47,7 @@
     </table>
     <p>
         Mohon klik link dibawah ini untuk mencetak <b>Tiket</b>: <br>
-        <a href="{{ route('tiket', $data['id']) }}" style="color: blue;"><i><u>
+        <a href="{{ route('tiket', ['rand' => Str::random(64), 'id' => $data['id']]) }}" style="color: blue;"><i><u>
             {{ encrypt('Link verifikasi data') }}
         </i></u></a>
     </p>

@@ -202,7 +202,7 @@ class FormController extends Controller
         return view('form.confirm', compact('book', 'detail'));
     }
 
-    public function ticket($id)
+    public function ticket($rand, $id)
     {
         $book = Booking::where('id_booking', $id)->first();
 

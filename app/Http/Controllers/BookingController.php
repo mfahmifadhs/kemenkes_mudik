@@ -15,6 +15,7 @@ use App\Models\UnitUtama;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Mpdf\Mpdf;
@@ -33,7 +34,7 @@ class BookingController extends Controller
         $tujuan     = '';
         $status     = '';
         $role = Auth::user()->role_id;
-        $data = Booking::orderBy('approval_uker', 'ASC');
+        $data = Booking::orderBy('created_at', 'DESC')->orderBy('approval_uker', 'ASC');
 
         if ($role == 4) {
             $book = $data->where('uker_id', Auth::user()->uker_id)->where('approval_uker', '!=', null)->get();
@@ -155,6 +156,7 @@ class BookingController extends Controller
             Mail::to($book->email)->send(new SendEmail($data));
         }
 
+        session()->forget('success');
         return redirect()->route('book.validation', $id)->with('success', 'Berhasil Melakukan Validasi');
     }
 
@@ -299,6 +301,7 @@ class BookingController extends Controller
 
         Mail::to($book->email)->send(new SendEmail($data));
 
+        session()->forget('success');
         return redirect()->route('book.validation', $book->id_booking)->with('success', 'Email Terkirim');
     }
 }
