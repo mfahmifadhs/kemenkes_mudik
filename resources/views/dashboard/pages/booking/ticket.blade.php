@@ -28,8 +28,8 @@
                 <h1><b>{{ $kode_book }}</b></h1>
             </td>
             <td style="width: 50%;">
-                <h3 style="margin-left: 10px;"><b>{{ $jurusan }} - {{ strtoupper($tujuan) }}</b></h3>
-                <h6 style="font-size: 12px;">{{ $rute }}</h6>
+                <h3 style="margin-left: 10px;"><b>JAKARTA - {{ strtoupper($tujuan) }}</b></h3>
+                <!-- <h6 style="font-size: 12px;">{{ $rute }}</h6>
                 <table class="table mt-3" style="width: 100%;">
                     <tr>
                         <td>
@@ -43,7 +43,7 @@
                             <small>14.00</small>
                         </td>
                     </tr>
-                </table>
+                </table> -->
             </td>
         </tr>
     </table>
