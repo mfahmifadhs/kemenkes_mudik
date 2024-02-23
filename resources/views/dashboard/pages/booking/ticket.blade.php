@@ -82,7 +82,7 @@
         </tr>
         <tr>
             <td>2. </td>
-            <td>Pendaftaran "Mudik Bersama Kemenkes" tidak dapat Dibatalkan/diubah tanpa persetujuan panitia.</td>
+            <td>Pendaftaran "Mudik Bersama Kemenkes" tidak dapat dibatalkan/diubah tanpa persetujuan panitia.</td>
         </tr>
         <tr>
             <td style="vertical-align: top;">3. </td>
