@@ -86,7 +86,9 @@
         </tr>
         <tr>
             <td style="vertical-align: top;">3. </td>
-            <td><th>Peserta wajib</th> menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</td>
+            <td><span style="font-weight: bold;">Peserta wajib</span>
+            menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.
+        </td>
         </tr>
         <tr>
             <td>4. </td>
