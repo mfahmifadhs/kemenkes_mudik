@@ -269,7 +269,9 @@
                                                 <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="skLabel"><b><u>Syarat dan Ketentuan</u></b></h5>
+                                                            <h5 class="modal-title" id="skLabel">
+                                                                <a href="#">Syarat dan Ketentuan</a>
+                                                            </h5>
                                                             <button type="button" class="close btn custom-btn smoothscroll" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true"><i class="fas fa-times"></i></span>
                                                             </button>
@@ -429,7 +431,9 @@
                                     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="skLabel"><b><u>Syarat dan Ketentuan</u></b></h5>
+                                                <h5 class="modal-title" id="skLabel">
+                                                    <a href="#">Syarat dan Ketentuan</a>
+                                                </h5>
                                                 <button type="button" class="close btn custom-btn smoothscroll" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true"><i class="fas fa-times"></i></span>
                                                 </button>
