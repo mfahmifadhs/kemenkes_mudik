@@ -286,10 +286,11 @@
                                                                 <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
                                                                 <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
                                                                 <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
-                                                                <li>Menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</li>
+                                                                <li><b>Peserta wajib</b> menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</li>
                                                                 <li>Uang jaminan menjadi penjamin penumpang dapat mengikuti perjalanan.</li>
-                                                                <li>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta dan atau keluarga peserta membatalkan keberangkatan.
-                                                                    Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.</li>
+                                                                <li>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta dan/atau keluarga peserta membatalkan keberangkatan. <br>
+                                                                    Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya
+                                                                </li>
                                                                 <li>Uang jaminan akan dikembalikan 100%, sebelum keberangkatan dengan menunjukan e-ticket ke panitia.</li>
                                                             </ol>
                                                             <p class="mt-4 text-justify">
@@ -445,10 +446,11 @@
                                                     <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
                                                     <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
                                                     <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
-                                                    <li>Menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</li>
+                                                    <li><b>Peserta wajib</b> menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</li>
                                                     <li>Uang jaminan menjadi penjamin penumpang dapat mengikuti perjalanan.</li>
-                                                    <li>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta dan atau keluarga peserta membatalkan keberangkatan.
-                                                        Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.</li>
+                                                    <li>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta dan/atau keluarga peserta membatalkan keberangkatan. <br>
+                                                        Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya
+                                                    </li>
                                                     <li>Uang jaminan akan dikembalikan 100%, sebelum keberangkatan dengan menunjukan e-ticket ke panitia.</li>
                                                 </ol>
                                                 <p class="mt-4 text-justify">
