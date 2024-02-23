@@ -10,7 +10,10 @@
                         <h1 class="text-white">Mudik Bersama Kemenkes</h1>
                     </a>
 
-                    <p class="text-white">Mudik bersama Kemenkes ke 10 kota.</p>
+                    <p class="text-white h4">
+                        Pendaftaran 26 Februari - 8 Maret 2024 <br>
+                        <small class="h6">*Selama Kuota Masih Tersedia</small>
+                    </p>
                 </div>
                 <div class="custom-block custom-block-full col-md-5 mx-auto">
                     <form id="form" action="{{ route('form.confirm.check') }}" method="POST">

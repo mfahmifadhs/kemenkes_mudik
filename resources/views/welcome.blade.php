@@ -5,12 +5,15 @@
         <div class="row">
 
             <div class="col-lg-12 col-12">
-                <div class="text-center mb-5 pb-2">
+                <div class="text-center mb-4 pb-2">
                     <a href="{{ route('login') }}">
                         <h1 class="text-white">Mudik Bersama Kemenkes</h1>
                     </a>
 
-                    <p class="text-white">Mudik bersama Kemenkes ke 10 kota.</p>
+                    <p class="text-white h4">
+                        Pendaftaran 26 Februari - 8 Maret 2024 <br>
+                        <small class="h6">*Selama Kuota Masih Tersedia</small>
+                    </p>
 
                     <a href="{{ route('form.create') }}" class="btn custom-btn smoothscroll mt-3">Daftar Sekarang</a>
                     <a href="{{ route('tiket.check') }}" class="btn btn-danger bg-danger hover:bg-primary custom-btn smoothscroll mt-3">Cek Pendaftaran</a>

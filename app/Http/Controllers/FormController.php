@@ -208,6 +208,10 @@ class FormController extends Controller
 
         $data = [
             'book'      => $book->id_booking,
+            'pegawai'   => $book->nama_pegawai,
+            'nip_nik'   => $book->nip_nik,
+            'uker'      => $book->uker->nama_unit_kerja,
+            'alamat'    => $book->alamat,
             'kode_book' => $book->kode_booking,
             'jurusan'   => $book->rute->jurusan,
             'rute'      => $book->rute->rute,

@@ -8,7 +8,7 @@
             <div class="col-lg-12 col-12">
                 <div class="text-center mb-2 pb-2">
                     <a href="{{ route('login') }}">
-                        <h1 class="text-white">Formulir Regitrasi Peserta</h1>
+                        <h1 class="text-white">Formulir Registrasi Peserta</h1>
                     </a>
 
                     <p class="text-white">Pastikan seluruh informasi diisi dengan tepat dan benar.</p>
@@ -261,7 +261,7 @@
                                         <div class="col-md-12 py-2">
                                             <p class="text-right text-primary underline text-center">
                                                 <a href="#" data-toggle="modal" data-target="#skModal">
-                                                    Syarat dan ketentuan
+                                                    <b><u>Syarat dan ketentuan</u></b>
                                                 </a>
                                             </p>
 
@@ -423,7 +423,7 @@
                             <div class="col-md-12 text-center">
                                 <p class="text-right text-primary underline ">
                                     <a href="#" data-toggle="modal" data-target="#skModal">
-                                        Syarat dan ketentuan
+                                        <b><u>Syarat dan ketentuan</u></b>
                                     </a>
                                 </p>
 

@@ -12,7 +12,10 @@
                         <h1 class="text-white">Mudik Bersama Kemenkes</h1>
                     </a>
 
-                    <p class="text-white">Mudik bersama Kemenkes ke 10 kota.</p>
+                    <p class="text-white h4">
+                        Pendaftaran 26 Februari - 8 Maret 2024 <br>
+                        <small class="h6">*Selama Kuota Masih Tersedia</small>
+                    </p>
                 </div>
                 <div class="custom-block custom-block-full col-md-8 mx-auto mb-5">
                     <div class="row">

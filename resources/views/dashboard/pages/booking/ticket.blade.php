@@ -12,7 +12,7 @@
     <table>
         <tr>
             <td class="mt-2" style="width: 70%;">
-                <div style="font-size: 36px;">
+                <div style="font-size: 36px;font-weight: bold;">
                     <b>TIKET MUDIK</b>
                 </div>
             </td>
@@ -48,7 +48,15 @@
         </tr>
     </table>
     <hr>
-    <p>Detail Pendaftaran</p>
+    <h6>
+        <span style="font-weight: bold;">Tiket ini diterima oleh</span> <br>
+        {{ $pegawai }} <br>
+        {{ $nip_nik }} <br>
+        {{ $uker }} <br>
+        {{ $alamat }} <br>
+    </h6>
+    <hr>
+    <p style="font-weight: bold;">Detail Pendaftaran</p>
     <table style="width: 100%;">
         <thead>
             <tr style="border: 1px solid #000;">
