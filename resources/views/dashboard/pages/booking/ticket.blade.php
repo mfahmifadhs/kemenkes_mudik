@@ -95,12 +95,12 @@
             <td>Uang jaminan menjadi penjamin penumpang dapat mengikuti perjalanan.</td>
         </tr>
         <tr>
-            <td style="vertical-align: top;">7. </td>
-            <td>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta <b>dan/atau</b> keluarga peserta membatalkan keberangkatan<br>
+            <td style="vertical-align: top;">5. </td>
+            <td>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta <span style="font-weight: bold;">dan/atau</span> keluarga peserta membatalkan keberangkatan<br>
                 Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.</td>
         </tr>
         <tr>
-            <td style="vertical-align: top;">5. </td>
+            <td style="vertical-align: top;">6. </td>
             <td><b>E-ticket ini harap ditunjukkan ke panitia untuk pengambilan uang jaminan pada saat waktu keberangkatan</b></td>
         </tr>
     </table>
