@@ -94,7 +94,7 @@
         </tr>
         <tr>
             <td>5. </td>
-            <td>Menyetorkan uang jaminan senilai 200.000 sebagai penjamin kepastian keberangkatan peserta.</td>
+            <td><b>Peserta wajib</b> menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</td>
         </tr>
         <tr>
             <td>6. </td>
