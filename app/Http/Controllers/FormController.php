@@ -225,16 +225,14 @@ class FormController extends Controller
     {
         $kode = $request->kode;
         $book = Booking::where('kode_booking', $kode)->orWhere('nip_nik', $kode)->first();
-        $note = $book ? $book->catatan : 'Tidak tidak ditemukan';
+        $note = $book ? 'Pendaftaran Ditolak - ' . $book->catatan : 'Tidak tidak ditemukan';
 
         if ($book && $book->approval_uker == 'true' && $book->approval_roum == 'true') {
             return redirect()->route('form.confirm', $book->id_booking)->with('success', 'Tiket ditemukan');
         } else if ($book && $book->approval_uker != 'false' && $book->approval_roum != 'false') {
             return redirect()->route('tiket.check')->with('pending', 'Sedang dalam proses Validasi');
-        } else if ($book->approval_uker == 'false' || $book->approval_roum == 'false') {
-            return redirect()->route('tiket.check')->with('failed', 'Pendaftaran Ditolak - ' . $note);
         } else {
-            return redirect()->route('tiket.check')->with('failed', 'Pendaftaran Tidak Ditemukan');
+            return redirect()->route('tiket.check')->with('failed', $note);
         }
     }
 
