@@ -231,7 +231,7 @@ class FormController extends Controller
             return redirect()->route('form.confirm', $book->id_booking)->with('success', 'Tiket ditemukan');
         } else if ($book && $book->approval_uker != 'false' && $book->approval_roum != 'false') {
             return redirect()->route('tiket.check')->with('pending', 'Sedang dalam proses Validasi');
-        } else if ($book && $book->approval_uker == 'false' || $book->approval_roum == 'false') {
+        } else if ($book->approval_uker == 'false' || $book->approval_roum == 'false') {
             return redirect()->route('tiket.check')->with('failed', 'Pendaftaran Ditolak - ' . $note);
         } else {
             return redirect()->route('tiket.check')->with('failed', 'Pendaftaran Tidak Ditemukan');
