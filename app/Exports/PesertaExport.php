@@ -16,11 +16,19 @@ class PesertaExport implements FromCollection, WithHeadings, WithMapping, WithSt
 
     public function collection()
     {
-        $data     = Peserta::join('t_booking', 'id_booking', 'booking_id')
+        $role    = Auth::user()->role_id;
+        $peserta = Peserta::join('t_booking', 'id_booking', 'booking_id')
             ->join('t_trayek', 'id_trayek', 'trayek_id')
             ->join('t_trayek_detail', 'id_detail', 'tujuan_id')
-            ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
-            ->get();
+            ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id');
+
+        if ($role == 4 && Auth::user()->uker->unit_utama_id == '46593') {
+            $data = $peserta->where('uker_id', Auth::user()->uker_id)->get();
+        } else if ($role == 4) {
+            $data = $peserta->where('unit_utama_id', Auth::user()->uker->unit_utama_id)->get();
+        } else {
+            $data = $peserta->get();
+        }
 
         return $data;
     }
@@ -32,10 +40,10 @@ class PesertaExport implements FromCollection, WithHeadings, WithMapping, WithSt
             ++$this->no,
             $data->id_peserta,
             $data->nama_unit_kerja,
-            '`'. $data->kode_booking,
+            '`' . $data->kode_booking,
             $data->nama_peserta,
             $data->usia,
-            '`'. $data->nik,
+            '`' . $data->nik,
             $data->bus_id,
             $data->kode_seat,
             $data->jurusan,
