@@ -85,11 +85,11 @@
             <td>Pendaftaran "Mudik Bersama Kemenkes" tidak dapat Dibatalkan/diubah tanpa persetujuan panitia.</td>
         </tr>
         <tr>
-            <td>3. </td>
-            <td><b>Peserta wajib</b> menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</td>
+            <td style="vertical-align: top;">3. </td>
+            <td><th>Peserta wajib</th> menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</td>
         </tr>
         <tr>
-            <td>7. </td>
+            <td>4. </td>
             <td>Uang jaminan menjadi penjamin penumpang dapat mengikuti perjalanan.</td>
         </tr>
         <tr>
@@ -98,7 +98,7 @@
                 Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.</td>
         </tr>
         <tr>
-            <td>8. </td>
+            <td style="vertical-align: top;">5. </td>
             <td><b>E-ticket ini harap ditunjukkan ke panitia untuk pengambilan uang jaminan pada saat waktu keberangkatan</b></td>
         </tr>
     </table>
