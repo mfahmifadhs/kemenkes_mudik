@@ -12,7 +12,7 @@
 
                     <p class="text-white">Mudik bersama Kemenkes ke 10 kota.</p>
 
-                    <a href="{{ route('form.create') }}" class="btn custom-btn smoothscroll mt-3">Daftar Sekarang</a>
+                    <!-- <a href="{{ route('form.create') }}" class="btn custom-btn smoothscroll mt-3">Daftar Sekarang</a> -->
                     <a href="{{ route('tiket.check') }}" class="btn btn-danger bg-danger hover:bg-primary custom-btn smoothscroll mt-3">Cek Pendaftaran</a>
                 </div>
 
