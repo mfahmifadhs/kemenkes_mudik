@@ -86,8 +86,7 @@
         </tr>
         <tr>
             <td style="vertical-align: top;">3. </td>
-            <td><span style="font-weight: bold;">Peserta wajib</span>
-            menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.
+            <td>Peserta wajib menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.
         </td>
         </tr>
         <tr>
@@ -96,7 +95,7 @@
         </tr>
         <tr>
             <td style="vertical-align: top;">5. </td>
-            <td>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta <span style="font-weight: bold;">dan/atau</span> keluarga peserta membatalkan keberangkatan<br>
+            <td>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta dan/atau keluarga peserta membatalkan keberangkatan<br>
                 Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.</td>
         </tr>
         <tr>
