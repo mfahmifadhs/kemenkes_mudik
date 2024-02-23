@@ -85,29 +85,21 @@
             <td>Pendaftaran "Mudik Bersama Kemenkes" tidak dapat Dibatalkan/diubah tanpa persetujuan panitia.</td>
         </tr>
         <tr>
-            <td style="vertical-align: top;">3. </td>
-            <td>Selanjutnya akan dilakukan verifikasi oleh PIC Mudik Bersama Kemenkes pada masing-masing Sekretariat Unit Utama atau Subbagian Administrasi Umum pada setiap unit eselon II bagi Unit Utama Sekretariat Jenderal.</td>
-        </tr>
-        <tr>
-            <td>4. </td>
-            <td>Kemudian akan dilakukan verifikasi akhir oleh Biro Umum.</td>
-        </tr>
-        <tr>
-            <td>5. </td>
+            <td>3. </td>
             <td><b>Peserta wajib</b> menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</td>
         </tr>
         <tr>
-            <td>6. </td>
+            <td>7. </td>
             <td>Uang jaminan menjadi penjamin penumpang dapat mengikuti perjalanan.</td>
         </tr>
         <tr>
             <td style="vertical-align: top;">7. </td>
-            <td>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta dan atau keluarga peserta membatalkan keberangkatan. <br>
+            <td>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta <b>dan/atau</b> keluarga peserta membatalkan keberangkatan<br>
                 Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.</td>
         </tr>
         <tr>
             <td>8. </td>
-            <td>Kemudian akan dilakukan verifikasi akhir oleh Biro Umum.</td>
+            <td><b>E-ticket ini harap ditunjukkan ke panitia untuk pengambilan uang jaminan pada saat waktu keberangkatan</b></td>
         </tr>
     </table>
 
