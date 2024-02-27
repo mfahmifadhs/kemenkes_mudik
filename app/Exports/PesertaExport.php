@@ -91,7 +91,6 @@ class PesertaExport implements FromCollection, WithHeadings, WithMapping, WithSt
         if ($role == 4 && Auth::user()->uker->unit_utama_id == '46593') {
             $peserta = $res->where('uker_id', Auth::user()->uker_id)->get();
         } else if ($role == 4) {
-            dd(Auth::user()->uker);
             $peserta = $res->where('unit_utama_id', Auth::user()->uker->unit_utama_id)->get();
         } else {
             $peserta = $res->get();
