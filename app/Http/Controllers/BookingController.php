@@ -105,6 +105,7 @@ class BookingController extends Controller
         }
 
         $role = Auth::user()->role_id;
+
         if ($role == 4 && Auth::user()->uker->unit_utama_id == '46593') {
             $book = $data->where('uker_id', Auth::user()->uker_id)->get();
         } else if ($role == 4) {
@@ -118,7 +119,7 @@ class BookingController extends Controller
         if ($request->downloadFile == 'pdf') {
             return view('dashboard.pages.booking.pdf', compact('book', 'dataUker', 'dataUtama', 'dataTujuan', 'dataRute', 'uker', 'utama', 'rute', 'tujuan'));
         } else if ($request->downloadFile == 'excel') {
-            return Excel::download(new PesertaExport, 'peserta.xlsx');
+            return Excel::download(new PesertaExport($request->all()), 'peserta.xlsx');
         }
 
         return view('dashboard.pages.booking.show', compact('book', 'dataUker', 'dataUtama', 'dataTujuan', 'dataRute', 'uker', 'utama', 'rute', 'tujuan', 'status'));
