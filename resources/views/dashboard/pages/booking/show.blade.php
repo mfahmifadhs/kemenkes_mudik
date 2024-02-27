@@ -42,18 +42,25 @@
                             <div class="form-group col-md-3">
                                 <label class="col-form-label text-xs">Unit Utama</label>
                                 <select name="utama" class="form-control form-control-sm" onchange="this.form.submit()">
+                                    @if (Auth::user()->role_id != 4)
                                     <option value="">Seluruh Unit Utama</option>
                                     @foreach ($dataUtama as $row)
                                     <option value="{{ $row->id_unit_utama }}" <?php echo $row->id_unit_utama == $utama ? 'selected' : '' ?>>
                                         {{ $row->nama_unit_utama }}
                                     </option>
                                     @endforeach
+                                    @else
+                                    <option value="">{{ Auth::user()->uker->unitUtama->nama_unit_utama }}</option>
+                                    @endif
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="col-form-label text-xs">Unit Kerja</label>
                                 <select name="uker" class="form-control form-control-sm" onchange="this.form.submit()">
+                                    @if (Auth::user()->uker->unit_utama_id != '46593' || Auth::user()->role_id != 4)
                                     <option value="">Seluruh Unit Kerja</option>
+                                    @endif
+
                                     @foreach ($dataUker as $row)
                                     <option value="{{ $row->id_unit_kerja }}" <?php echo $row->id_unit_kerja == $uker ? 'selected' : '' ?>>
                                         {{ $row->nama_unit_kerja }}

@@ -25,7 +25,7 @@ class BookingController extends Controller
     public function index()
     {
         $dataTujuan = [];
-        $dataUker   = [];
+        $resUker    = [];
         $dataUtama  = UnitUtama::orderBy('nama_unit_utama', 'ASC')->get();
         $dataRute   = Trayek::orderBy('id_trayek', 'ASC')->get();
         $uker       = '';
@@ -40,10 +40,13 @@ class BookingController extends Controller
 
         if ($role == 4 && Auth::user()->uker->unit_utama_id == '46593') {
             $book = $data->where('uker_id', Auth::user()->uker_id)->get();
+            $dataUker = UnitKerja::where('id_unit_kerja', Auth::user()->uker_id)->get();
         } else if ($role == 4) {
             $book = $data->where('unit_utama_id', Auth::user()->uker->unit_utama_id)->get();
+            $dataUker = UnitKerja::where('unit_utama_id', Auth::user()->uker->unit_utama_id)->get();
         } else {
             $book = $data->get();
+            $dataUker = $resUker;
         }
 
         return view('dashboard.pages.booking.show', compact('book', 'dataUker', 'dataUtama', 'dataTujuan', 'dataRute', 'uker', 'utama', 'rute', 'tujuan', 'status'));
@@ -52,7 +55,7 @@ class BookingController extends Controller
     public function filter(Request $request)
     {
         $dataTujuan = [];
-        $dataUker   = [];
+        $dataUker   = Auth::user()->role_id == 4 ? UnitKerja::where('unit_utama_id', Auth::user()->uker->unit_utama_id)->get() : [];
         $dataUtama  = UnitUtama::orderBy('nama_unit_utama', 'ASC')->get();
         $dataRute   = Trayek::orderBy('id_trayek', 'ASC')->get();
         $utama      = $request->get('utama');
@@ -99,6 +102,15 @@ class BookingController extends Controller
             }
         } else {
             $res    = $data;
+        }
+
+        $role = Auth::user()->role_id;
+        if ($role == 4 && Auth::user()->uker->unit_utama_id == '46593') {
+            $book = $data->where('uker_id', Auth::user()->uker_id)->get();
+        } else if ($role == 4) {
+            $book = $data->where('unit_utama_id', Auth::user()->uker->unit_utama_id)->get();
+        } else {
+            $book = $data->get();
         }
 
         $book = $res->get();
