@@ -84,6 +84,12 @@
                                         </a>
                                         @else Tidak ada @endif
                                     </div>
+                                    <div class="col-md-2">Tujuan</div>
+                                    <div class="col-md-9">: {{ $book->tujuan->nama_kota }}</div>
+                                    <div class="col-md-2">Rute</div>
+                                    <div class="col-md-9">:
+                                        {{ ucwords(strtolower($book->rute->jurusan)) }} <br> <span class="ml-1">{{ $book->rute->rute }}</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-2 text-center">
