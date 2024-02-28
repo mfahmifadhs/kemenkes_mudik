@@ -29,8 +29,10 @@ class BusController extends Controller
                    ->where('status', '!=', 'cancel')
                    ->where('bus_id', $id);
 
-        if ($user->role_id == 4) {
-            $peserta = $data->where('t_peserta.status', '!=', 'cancel')->where('uker_id', $user->uker_id)->get();
+        if ($user->role_id == 4 && Auth::user()->uker->unit_utama_id == '46593') {
+            $peserta = $data->where('uker_id', Auth::user()->uker_id)->where('approval_uker', null)->get();
+        } else if ($user->role_id == 4) {
+            $peserta = $data->where('unit_utama_id', Auth::user()->uker->unit_utama_id)->where('approval_uker', null)->get();
         } else {
             $peserta = $data->get();
         }
