@@ -107,6 +107,42 @@
                     </div>
                     @endif
 
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{ $book->where('approval_roum', 'true')->flatMap->detail->where('status', 'full')->count() }} <small class="text-xs">pemesanan</small></h3>
+                                    <p>Sudah Disetujui</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>{{ $book->flatMap->detail->where('status', 'book')->count() }} <small class="text-xs">pemesanan</small></h3>
+                                    <p>Proses Validasi</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3>{{ $book->flatMap->detail->where('status', 'cancel')->count() }} <small class="text-xs">pemesanan</small></h3>
+                                    <p>Tidak Disetujui</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card w-100">
                         <div class="card-header mt-2">
                             <div class="float-left">
@@ -147,7 +183,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-12">
+
                             <div class="card w-100">
                                 <div class="card-header mt-2">
                                     <div class="float-left">
@@ -178,35 +215,6 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="small-box bg-success">
-                                <div class="inner">
-                                    <h3>{{ $book->flatMap->detail->where('status', 'full')->count() }} <small class="text-xs">pemesanan</small></h3>
-                                    <p>Sudah Disetujui</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                            </div>
-                            <div class="small-box bg-warning">
-                                <div class="inner">
-                                    <h3>{{ $book->flatMap->detail->where('status', 'book')->count() }} <small class="text-xs">pemesanan</small></h3>
-                                    <p>Proses Validasi</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                            </div>
-                            <div class="small-box bg-danger">
-                                <div class="inner">
-                                    <h3>{{ $book->flatMap->detail->where('status', 'cancel')->count() }} <small class="text-xs">pemesanan</small></h3>
-                                    <p>Tidak Disetujui</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-times-circle"></i>
                                 </div>
                             </div>
                         </div>
