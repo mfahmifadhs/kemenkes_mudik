@@ -25,6 +25,7 @@ class BusController extends Controller
         $seatCek = Peserta::select(DB::RAW('concat(kode_seat, bus_id) as seat_booked'), 'status')->get();
         $bus     = Bus::where('id_bus', $id)->get();
         $data    = Peserta::join('t_booking', 'id_booking', 'booking_id')
+                   ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
                    ->select('t_peserta.status', 't_peserta.*', 't_booking.uker_id')
                    ->where('status', '!=', 'cancel')
                    ->where('bus_id', $id);
