@@ -149,9 +149,11 @@
                     @endforeach
                 </div>
                 <div class="col-md-8">
+                    @if (Auth::user()->role_id == 2)
                     <a href="{{ route('bus.print', $bus) }}" class="btn btn-danger btn-sm my-2">
                         <i class="fas fa-print"></i> Cetak
                     </a>
+                    @endif
 
                     <div class="card">
                         <div class="card-body">
