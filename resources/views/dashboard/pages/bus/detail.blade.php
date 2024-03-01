@@ -151,15 +151,16 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <table id="table" class="table text-center">
+                            <table id="table" class="table text-center text-sm">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Tiket</th>
-                                        <th>Nama</th>
-                                        <th>Usia</th>
-                                        <th>NIK</th>
-                                        <th>Kode Seat</th>
+                                        <th style="width: 0%;">No</th>
+                                        <th style="width: auto;">Unit Kerja</th>
+                                        <th style="width: 10%;">Tiket</th>
+                                        <th style="width: 20%;">Nama</th>
+                                        <th style="width: 10%;">Usia</th>
+                                        <th style="width: 10%;">NIK</th>
+                                        <th style="width: auto;">No. Kursi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -170,6 +171,9 @@
                                             @if ($row->status == 'cancel') <i class="fas fa-times-circle text-danger"></i> @endif
                                             @if ($row->status == 'book') <i class="fas fa-clock text-warning"></i> @endif
                                             @if ($row->status == 'full') <i class="fas fa-check-circle text-success"></i> @endif
+                                        </td>
+                                        <td class="text-left">
+                                            {{ $row->booking->uker->nama_unit_kerja }}
                                         </td>
                                         <td>{{ $row->booking->kode_booking  }}</td>
                                         <td class="text-left">{{ $row->nama_peserta }}</td>
