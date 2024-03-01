@@ -160,7 +160,7 @@
                                         <th style="width: 20%;">Nama</th>
                                         <th style="width: 10%;">Usia</th>
                                         <th style="width: 10%;">NIK</th>
-                                        <th style="width: auto;">No. Kursi</th>
+                                        <th style="width: 12%size ;">No. Kursi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
