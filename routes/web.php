@@ -37,6 +37,7 @@ Route::post('form/konfirmasi/cek', [FormController::class, 'check'])->name('form
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('bus', [BusController::class, 'index'])->name('bus');
+    Route::get('bus/cetak/{id}', [BusController::class, 'print'])->name('bus.print');
     Route::get('dashboard/waktu', [DashboardController::class, 'time'])->name('dashboard.time');
 
     Route::get('peserta', [BookingController::class, 'index'])->name('peserta');

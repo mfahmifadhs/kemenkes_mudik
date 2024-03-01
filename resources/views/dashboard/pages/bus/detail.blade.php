@@ -149,6 +149,10 @@
                     @endforeach
                 </div>
                 <div class="col-md-8">
+                    <a href="{{ route('bus.print', $bus) }}" class="btn btn-danger btn-sm my-2">
+                        <i class="fas fa-print"></i> Cetak
+                    </a>
+
                     <div class="card">
                         <div class="card-body">
                             <table id="table" class="table text-center text-sm">
