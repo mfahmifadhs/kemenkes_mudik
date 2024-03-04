@@ -112,7 +112,7 @@
                             <div class="small-box bg-success">
                                 <div class="inner">
                                     <h3>{{ $book->where('approval_roum', 'true')->flatMap->detail->where('status', 'full')->count() }} <small class="text-xs">pemesanan</small></h3>
-                                    <p>Sudah Disetujui</p>
+                                    <p><b>Sudah Disetujui</b></p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-check-circle"></i>
@@ -123,7 +123,7 @@
                             <div class="small-box bg-warning">
                                 <div class="inner">
                                     <h3>{{ $book->flatMap->detail->where('status', 'book')->count() }} <small class="text-xs">pemesanan</small></h3>
-                                    <p>Proses Validasi</p>
+                                    <p><b>Proses Validasi</b></p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-clock"></i>
@@ -134,10 +134,46 @@
                             <div class="small-box bg-danger">
                                 <div class="inner">
                                     <h3>{{ $book->flatMap->detail->where('status', 'cancel')->count() }} <small class="text-xs">pemesanan</small></h3>
-                                    <p>Tidak Disetujui</p>
+                                    <p><b>Tidak Disetujui</b></p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-times-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3>{{ $bus->sum('total_kursi') }} <small class="text-xs">kursi</small></h3>
+                                    <p><b>Total Kursi</b></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3>{{ $book->flatMap->detail->where('status', '!=', 'book')->count() }} <small class="text-xs">kursi</small></h3>
+                                    <p><b>Tidak Tersedia</b></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{ $bus->sum('total_kursi') - $book->flatMap->detail->where('status', '!=', 'book')->count() }} <small class="text-xs">kursi</small></h3>
+                                    <p><b>Tersedia</b></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-clock"></i>
                                 </div>
                             </div>
                         </div>
