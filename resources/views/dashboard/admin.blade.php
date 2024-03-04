@@ -182,7 +182,7 @@
                         <div class="col-md-3">
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>{{ $bus->sum('total_kursi') - $book->flatMap->detail->where('status', '!=', 'book')->count() }} <small class="text-xs">kursi</small></h3>
+                                    <h3>{{ $bus->sum('total_kursi') - $book->flatMap->detail->where('status', '!=', 'cancel')->count() }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Tersedia</b></p>
                                 </div>
                                 <div class="icon">
