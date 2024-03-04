@@ -169,13 +169,13 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="small-box bg-success">
+                            <div class="small-box bg-danger">
                                 <div class="inner">
                                     <h3>{{ $book->flatMap->detail->where('status', 'full')->count() }} <small class="text-xs">kursi</small></h3>
-                                    <p><b>Sudah Deposit</b></p>
+                                    <p><b>Tidak Tersedia</b></p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-times-circle"></i>
                                 </div>
                             </div>
                         </div>
