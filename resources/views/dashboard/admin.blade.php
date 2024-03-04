@@ -107,6 +107,7 @@
                     </div>
                     @endif
 
+                    <label>Total Pemesanan</label>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="small-box bg-success">
@@ -143,37 +144,49 @@
                         </div>
                     </div>
 
+                    <label>Total Kursi</label>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="small-box bg-info">
                                 <div class="inner">
                                     <h3>{{ $bus->sum('total_kursi') }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Total Kursi</b></p>
                                 </div>
                                 <div class="icon">
+                                    <i class="fas fa-bus"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>{{ $book->flatMap->detail->where('status', 'book')->count() }} <small class="text-xs">kursi</small></h3>
+                                    <p><b>Proses Verifikasi</b></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{ $book->flatMap->detail->where('status', 'full')->count() }} <small class="text-xs">kursi</small></h3>
+                                    <p><b>Sudah Deposit</b></p>
+                                </div>
+                                <div class="icon">
                                     <i class="fas fa-check-circle"></i>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="small-box bg-danger">
-                                <div class="inner">
-                                    <h3>{{ $book->flatMap->detail->where('status', '!=', 'book')->count() }} <small class="text-xs">kursi</small></h3>
-                                    <p><b>Tidak Tersedia</b></p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-times-circle"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="small-box bg-success">
                                 <div class="inner">
                                     <h3>{{ $bus->sum('total_kursi') - $book->flatMap->detail->where('status', '!=', 'book')->count() }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Tersedia</b></p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-clock"></i>
+                                    <i class="fas fa-check-circle"></i>
                                 </div>
                             </div>
                         </div>
