@@ -123,7 +123,7 @@
                         </div>
                         @endif
 
-                        @if ($row->total_kursi == 37)
+                        @if ($row->total_kursi == 36)
                         <div class="col-md-5 my-2 mt-5">
                             @for ($i = 1; $i <= $row->seat_belakang; $i++)
                                 <div class="row">
