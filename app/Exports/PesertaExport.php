@@ -74,7 +74,7 @@ class PesertaExport implements FromCollection, WithHeadings, WithMapping, WithSt
             }
 
             if ($this->status) {
-                if ($this->status == 'success') {
+                if ($this->status == 'succeed') {
                     $status = 'full';
                 } else if ($this->status == 'rejected') {
                     $status = 'cancel';
