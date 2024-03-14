@@ -74,16 +74,20 @@ class PesertaExport implements FromCollection, WithHeadings, WithMapping, WithSt
             }
 
             if ($this->status) {
-                if ($this->status == 'succeed') {
-                    $status = 'full';
+                if ($this->status == 'verif_uker') {
+                    $res = $data->where('approval_uker', null);
+                } else if ($this->status == 'verif_roum') {
+                    $res = $data->where('approval_roum', null)
+                           ->where('approval_uker', 'true');
+                } else if ($this->status == 'succeed') {
+                    $res = $data->where('approval_uker', 'true')
+                           ->where('approval_roum', 'true');
                 } else if ($this->status == 'rejected') {
-                    $status = 'cancel';
-                } else {
-                    $status = 'book';
+                    $res = $data->where('approval_uker', 'false')
+                           ->orWhere('approval_roum', 'false');
                 }
-
-                $res  = $data->where('status', $status);
             }
+
         } else {
             $res    = $data;
         }
