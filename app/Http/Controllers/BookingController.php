@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BookingExport;
 use App\Exports\PesertaExport;
 use App\Mail\SendEmail;
 use App\Mail\SendPdfMail;
@@ -120,6 +121,8 @@ class BookingController extends Controller
             return view('dashboard.pages.booking.pdf', compact('book', 'dataUker', 'dataUtama', 'dataTujuan', 'dataRute', 'uker', 'utama', 'rute', 'tujuan'));
         } else if ($request->downloadFile == 'excel') {
             return Excel::download(new PesertaExport($request->all()), 'peserta.xlsx');
+        } else if ($request->downloadFile == 'ticket') {
+            return Excel::download(new BookingExport($request->all()), 'tiket.xlsx');
         }
 
         return view('dashboard.pages.booking.show', compact('book', 'dataUker', 'dataUtama', 'dataTujuan', 'dataRute', 'uker', 'utama', 'rute', 'tujuan', 'status'));
