@@ -96,8 +96,8 @@ class BookingExport implements FromCollection, WithHeadings, WithMapping, WithSt
             $peserta->approval_uker,
             $peserta->approval_roum,
             $peserta->catatan,
-            $peserta->foto_kk ? '=HYPERLINK("' . asset('storage/files/vaksin_1/' . $peserta->foto_kk) . '","File-Kartu-Keluarga")' : '',
-            $peserta->foto_ktp ? '=HYPERLINK("' . asset('storage/files/vaksin_2/' . $peserta->foto_ktp) . '","File-KTP")' : ''
+            $peserta->foto_kk ? '=HYPERLINK("' . asset('storage/files/foto_kk/' . $peserta->foto_kk) . '","File-KK")' : '',
+            $peserta->foto_ktp ? '=HYPERLINK("' . asset('storage/files/foto_ktp/' . $peserta->foto_ktp) . '","File-KTP")' : ''
         ];
     }
 
