@@ -11,7 +11,7 @@
                     </a>
 
                     <p class="text-white h4">
-                        Pendaftaran 26 Februari - 15 Maret 2024 <br>
+                        Pendaftaran 26 Februari - Selesai <br>
                         <small class="h6">*Selama Kuota Masih Tersedia</small>
                     </p>
 
