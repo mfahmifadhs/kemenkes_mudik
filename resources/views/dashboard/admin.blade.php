@@ -112,7 +112,7 @@
                         <div class="col-md-4">
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>{{ $book->where('approval_roum', 'true')->flatMap->detail->where('status', 'full')->count() }} <small class="text-xs">pemesanan</small></h3>
+                                    <h3>{{ $book->where('approval_roum', 'true')->count() }} <small class="text-xs">pemesanan</small></h3>
                                     <p><b>Sudah Disetujui</b></p>
                                 </div>
                                 <div class="icon">
@@ -123,7 +123,10 @@
                         <div class="col-md-4">
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3>{{ $book->flatMap->detail->where('status', 'book')->count() }} <small class="text-xs">pemesanan</small></h3>
+                                    <h3>
+                                        {{ $book->where('approval_uker', null)->count() + $book->where('approval_uker', 'true')->where('approval_roum', null)->count() }} 
+                                        <small class="text-xs">pemesanan</small>
+                                    </h3>
                                     <p><b>Proses Validasi</b></p>
                                 </div>
                                 <div class="icon">
@@ -134,7 +137,10 @@
                         <div class="col-md-4">
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>{{ $book->flatMap->detail->where('status', 'cancel')->count() }} <small class="text-xs">pemesanan</small></h3>
+                                    <h3>
+                                        {{ $book->where('approval_uker', 'false')->count() + $book->where('approval_roum', 'false')->count() }} 
+                                        <small class="text-xs">pemesanan</small>
+                                    </h3>
                                     <p><b>Tidak Disetujui</b></p>
                                 </div>
                                 <div class="icon">
@@ -160,7 +166,11 @@
                         <div class="col-md-3">
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3>{{ $book->flatMap->detail->where('status', 'book')->count() }} <small class="text-xs">kursi</small></h3>
+                                    @php
+                                        $seatUker = $book->where('approval_uker', null)->flatMap->detail->count();
+                                        $seatRoum = $book->where('approval_uker', 'true')->where('approval_roum', null)->flatMap->detail->count();
+                                    @endphp
+                                    <h3>{{ $seatUker + $seatRoum }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Proses Verifikasi</b></p>
                                 </div>
                                 <div class="icon">
@@ -171,7 +181,7 @@
                         <div class="col-md-3">
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>{{ $book->flatMap->detail->where('status', 'full')->count() }} <small class="text-xs">kursi</small></h3>
+                                    <h3>{{ $book->flatMap->detail->where('status', 'full')->where('kode_seat', '!=', null)->count() }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Tidak Tersedia</b></p>
                                 </div>
                                 <div class="icon">
