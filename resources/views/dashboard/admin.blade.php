@@ -127,7 +127,7 @@
                                         {{ $book->where('approval_uker', null)->count() + $book->where('approval_uker', 'true')->where('approval_roum', null)->count() }} 
                                         <small class="text-xs">pemesanan</small>
                                     </h3>
-                                    <p><b>Proses Validasi</b></p>
+                                    <p><b>Proses Verifikasi</b></p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-clock"></i>
@@ -181,7 +181,7 @@
                         <div class="col-md-3">
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>{{ $book->flatMap->detail->where('status', 'full')->where('kode_seat', '!=', null)->count() }} <small class="text-xs">kursi</small></h3>
+                                    <h3>{{ $bus->sum('total_kursi') - ($seatUker + $seatRoum) }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Tidak Tersedia</b></p>
                                 </div>
                                 <div class="icon">
