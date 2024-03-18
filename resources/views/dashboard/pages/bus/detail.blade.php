@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-md-2 my-2"></div>
                         <div class="col-md-5 my-2">
-                            @for ($i = 1; $i <= $row->seat_kiri; $i++)
+                            @for ($i = 1; $i <= $row->seat_kanan; $i++)
                                 <center>
                                     <div class="row">
                                         @foreach (json_decode($row->kd_seat_kanan, true) as $kode)
@@ -123,7 +123,7 @@
                         </div>
                         @endif
 
-                        @if ($row->total_kursi == 36)
+                        @if ($row->total_kursi == 36 || $row->total_kursi == 38)
                         <div class="col-md-5 my-2 mt-5">
                             @for ($i = 1; $i <= $row->seat_belakang; $i++)
                                 <div class="row">

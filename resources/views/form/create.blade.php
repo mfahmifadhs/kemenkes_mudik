@@ -227,21 +227,21 @@
                                                     @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
                                                     @php $kdSeat = 10 + $i - 1; @endphp
                                                     <label class="col-md-2 col-2 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                        {{ $kdSeat . $kode }}
+                                                        {{ $kode }}
                                                     </label>
                                                     @endforeach
                                                     @endfor
                                             </div>
                                         </div>
                                         @endif
-                                        @if ($row->total_kursi == 36)
-                                        <div class="col-md-12">
+                                        @if ($row->total_kursi == 36 || $row->total_kursi == 38)
+                                        <div class="col-md-12 m-2">
                                             <div class="row text-center">
                                                 @for ($i = 1; $i <= $row->seat_belakang; $i++)
                                                     @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
                                                     @php $kdSeat = 10 + $i - 1; @endphp
                                                     <label class="col-md-2 col-2 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                        {{ $kdSeat . $kode }}
+                                                        {{ $kode }}
                                                     </label>
                                                     @endforeach
                                                     @endfor
