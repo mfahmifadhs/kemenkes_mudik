@@ -181,7 +181,10 @@
                         <div class="col-md-3">
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>{{ $bus->sum('total_kursi') - ($seatUker + $seatRoum) }} <small class="text-xs">kursi</small></h3>
+                                    @php
+                                        $seatFull = $book->flatMap->detail->where('status', 'full')->where('kode_seat', '!=', null)->count();
+                                    @endphp
+                                    <h3>{{ $seatFull }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Tidak Tersedia</b></p>
                                 </div>
                                 <div class="icon">
@@ -192,7 +195,7 @@
                         <div class="col-md-3">
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>{{ $bus->sum('total_kursi') - $book->flatMap->detail->where('status', '!=', 'cancel')->count() }} <small class="text-xs">kursi</small></h3>
+                                    <h3>{{ $bus->sum('total_kursi') - ($seatUker + $seatRoum + $seatFull) }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Tersedia</b></p>
                                 </div>
                                 <div class="icon">
