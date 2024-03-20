@@ -72,7 +72,7 @@
                         <th>No</th>
                         <th style="width: 30%;">Nama Pegawai</th>
                         <th>Nama Peserta </th>
-                        <th>No. Kursi</th>
+                        <th>Seat</th>
                         <th>Tujuan</th>
                     </tr>
                 </thead>
@@ -84,20 +84,20 @@
                 <tbody>
                     @foreach($peserta as $row)
                     <tr>
-                        @if($row->booking->detail->count() > 1 && $row->booking_id != $prevEmployeeId)
+                        @if($row->booking->detail->count() > 1 && $row->booking->id_booking != $prevEmployeeId)
                         <td rowspan="{{ $row->booking->detail->count() }}">{{ $currentRow  }}</td>
                         <td class="text-left" rowspan="{{ $row->booking->detail->count() }}">
                             {{ $row->booking->kode_booking }} <br>
                             {{ $row->booking->nama_pegawai }} <br>
-                            {{ $row->booking->uker->nama_unit_kerja }}
-                            @php $prevEmployeeId = $row->booking_id; $total += 1; $currentRow += 1; @endphp
+                            {{ $row->booking->uker?->nama_unit_kerja }}
+                            @php $prevEmployeeId = $row->booking->id_booking; $total += 1; $currentRow += 1; @endphp
                         </td>
                         @elseif ($row->booking->detail->count() == 1)
                         <td>{{ $currentRow  }}</td>
                         <td class="text-left">
                             {{ $row->booking->kode_booking }} <br>
                             {{ $row->booking->nama_pegawai }} <br>
-                            {{ $row->booking->uker->nama_unit_kerja }}
+                            {{ $row->booking->uker?->nama_unit_kerja }}
                             @php $currentRow += 1; @endphp
                         </td>
                         @endif
