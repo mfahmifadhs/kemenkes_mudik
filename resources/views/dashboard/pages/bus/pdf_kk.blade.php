@@ -58,7 +58,11 @@
         </p>
         <div class="float-left">
             <div class="text-uppercase h2 font-weight-bold text-info">
-                <p>Bus {{ $bus->id_bus }} - Daftar PESERTA</p>
+                <p>
+                    Bus {{ $bus->id_bus }} - Daftar PESERTA <br class="mb-0">
+                    <small class="text-lg font-weight-bold">{{ $bus->trayek->rute }}</small>
+                </p>
+
             </div>
         </div>
         <div class="float-right mt-2">
