@@ -58,8 +58,8 @@
                                         @foreach (json_decode($row->kd_seat_kiri, true) as $kode)
                                         @php $seatCode = $i . $kode . $bus; @endphp
                                         @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
-                                        <div class="col-md-6 col-6">
-                                            <label class="bg-warning text-white rounded border border-warning p-2 w-100" for="seat{{ $i . $kode . $row }}">
+                                        <div class="col-md-6 col-6 my-2">
+                                            <label class="bg-warning text-white rounded border border-warning p-2 w-100 h-100" for="seat{{ $i . $kode . $row }}">
                                                 <b class="text-warning">{{ $i . $kode }}</b>
                                                 <small class="text-dark">
                                                     <h6 class="mb-0">{{ $peserta->where('bus_id', $bus)->where('kode_seat', $i.$kode)->first()?->nama_peserta }}</h6>
@@ -68,8 +68,8 @@
                                             </label>
                                         </div>
                                         @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
-                                        <div class="col-md-6 col-6">
-                                            <label class="bg-danger text-white rounded border border-danger p-2 w-100" for="seat{{ $i . $kode . $row }}">
+                                        <div class="col-md-6 col-6 my-2">
+                                            <label class="bg-danger text-white rounded border border-danger p-2 w-100 h-100" for="seat{{ $i . $kode . $row }}">
                                                 <b class="text-danger">{{ $i . $kode }}</b>
                                                 <small class="text-dark">
                                                     <h6 class="mb-0">{{ $peserta->where('bus_id', $bus)->where('kode_seat', $i.$kode)->first()?->nama_peserta }}</h6>
@@ -78,13 +78,9 @@
                                             </label>
                                         </div>
                                         @else
-                                        <div class="col-md-6 col-6">
-                                            <label class="bg-success text-white rounded border border-success p-2 w-100" for="seat{{ $i . $kode . $row }}">
-                                                <b class="text-success">{{ $i . $kode }}</b>
-                                                <small class="text-dark">
-                                                    <h6 class="mb-0">{{ $peserta->where('bus_id', $bus)->where('kode_seat', $i.$kode)->first()?->nama_peserta }}</h6>
-                                                    <h6 class="mt-0">{{ $peserta->where('bus_id', $bus)->where('kode_seat', $i.$kode)->first()?->booking->uker->nama_unit_kerja }}</h6>
-                                                </small>
+                                        <div class="col-md-6 col-6 my-2">
+                                            <label class="bg-success text-white rounded border border-success p-2 w-100 h-100" for="seat{{ $i . $kode . $row }}">
+                                                <div class="pt-2"><b class="text-success">{{ $i . $kode }}</b></div>
                                             </label>
                                         </div>
                                         @endif
@@ -101,8 +97,8 @@
                                         @foreach (json_decode($row->kd_seat_kanan, true) as $kode)
                                         @php $seatCode = $i . $kode . $bus; @endphp
                                         @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
-                                        <div class="col-md-6 col-6">
-                                            <label class="bg-warning text-warning rounded border border-warning p-2 w-100" for="seat{{ $i . $kode . $row }}">
+                                        <div class="col-md-6 col-6 my-2">
+                                            <label class="bg-warning text-warning rounded border border-warning p-2 w-100 h-100" for="seat{{ $i . $kode . $row }}">
                                                 <b class="text-warning">{{ $i . $kode }}</b> <br>
                                                 <small class="text-dark">
                                                     <h6 class="mb-0">{{ $peserta->where('bus_id', $bus)->where('kode_seat', $i.$kode)->first()?->nama_peserta }}</h6>
@@ -112,8 +108,8 @@
                                             </label>
                                         </div>
                                         @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
-                                        <div class="col-md-6 col-6">
-                                            <label class="bg-danger text-danger rounded border border-danger p-2 w-100" for="seat{{ $i . $kode . $row }}">
+                                        <div class="col-md-6 col-6 my-2">
+                                            <label class="bg-danger text-danger rounded border border-danger p-2 w-100 h-100" for="seat{{ $i . $kode . $row }}">
                                                 <b class="text-danger">{{ $i . $kode }}</b>
                                                 <small class="text-dark">
                                                     <h6 class="mb-0">{{ $peserta->where('bus_id', $bus)->where('kode_seat', $i.$kode)->first()?->nama_peserta }}</h6>
@@ -122,13 +118,9 @@
                                             </label>
                                         </div>
                                         @else
-                                        <div class="col-md-6 col-6">
-                                            <label class="bg-success text-success rounded border border-success p-2 w-100" for="seat{{ $i . $kode . $row }}">
-                                                <b class="text-success">{{ $i . $kode }}</b>
-                                                <small class="text-dark">
-                                                    <h6 class="mb-0">{{ $peserta->where('bus_id', $bus)->where('kode_seat', $i.$kode)->first()?->nama_peserta }}</h6>
-                                                    <h6 class="mt-0">{{ $peserta->where('bus_id', $bus)->where('kode_seat', $i.$kode)->first()?->booking->uker->nama_unit_kerja }}</h6>
-                                                </small>
+                                        <div class="col-md-6 col-6 my-2">
+                                            <label class="bg-success text-success rounded border border-success p-2 w-100 h-100" for="seat{{ $i . $kode . $row }}">
+                                                <div class="pt-2"><b class="text-success">{{ $i . $kode }}</b></div>
                                             </label>
                                         </div>
                                         @endif

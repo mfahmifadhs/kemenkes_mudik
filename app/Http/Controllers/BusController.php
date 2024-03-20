@@ -48,7 +48,7 @@ class BusController extends Controller
         }
     }
 
-    public function print($id)
+    public function pdfSeat($id)
     {
         $user    = Auth::user();
         $seatCek = Peserta::select(DB::RAW('concat(kode_seat, bus_id) as seat_booked'), 'status')->get();
@@ -67,7 +67,17 @@ class BusController extends Controller
             $peserta = $data->get();
         }
 
-        return view('dashboard.pages.bus.print', compact('seatCek', 'bus', 'peserta'));
+        return view('dashboard.pages.bus.pdf_seat', compact('seatCek', 'bus', 'peserta'));
+    }
+
+    public function pdfKk($id)
+    {
+        $bus = Bus::where('id_bus', $id)->first();
+        $peserta = Peserta::join('t_booking', 'id_booking', 'booking_id')
+                   ->where('bus_id', $id)->where('approval_uker', 'true')->where('approval_roum', 'true')
+                   ->get();
+        return view('dashboard.pages.bus.pdf_kk', compact('bus','peserta'));
+
     }
 }
 

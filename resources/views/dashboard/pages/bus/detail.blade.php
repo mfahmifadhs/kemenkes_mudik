@@ -150,8 +150,11 @@
                 </div>
                 <div class="col-md-8">
                     @if (Auth::user()->role_id == 2)
-                    <a href="{{ route('bus.print', $bus) }}" class="btn btn-danger btn-sm my-2">
-                        <i class="fas fa-print"></i> Cetak
+                    <a href="{{ route('bus.pdfSeat', $bus) }}" class="btn btn-danger btn-sm my-2" target="__blank">
+                        <i class="fas fa-print"></i> Cetak Kursi
+                    </a>
+                    <a href="{{ route('bus.pdfKk', $bus) }}" class="btn btn-danger btn-sm my-2" target="__blank">
+                        <i class="fas fa-print"></i> Cetak Pegawai
                     </a>
                     @endif
 

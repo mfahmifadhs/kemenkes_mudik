@@ -58,10 +58,10 @@
         </p>
         <div class="float-left">
             <div class="text-uppercase h2 font-weight-bold text-info">
-                <p>Daftar PESERTA</p>
+                <p>Bus {{ $bus->id_bus }} - Daftar PESERTA</p>
             </div>
         </div>
-        <div class="float-right">
+        <div class="float-right mt-2">
             {{ \Carbon\carbon::now()->isoFormat('HH:mm') }} |
             {{ \Carbon\carbon::now()->isoFormat('DD MMMM Y') }}
         </div>
@@ -70,45 +70,43 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Unit Kerja</th>
-                        <th>Tiket</th>
-                        <th style="width: 20%;">Nama</th>
-                        <th>Bis</th>
-                        <th>Seat</th>
-                        <th>Trayek</th>
+                        <th style="width: 30%;">Nama Pegawai</th>
+                        <th>Nama Peserta </th>
+                        <th>No. Kursi</th>
+                        <th>Tujuan</th>
                     </tr>
                 </thead>
-                @php $no = 1; @endphp
-                @foreach($book as $row)
-                @foreach($row->detail as $subRow)
-                <thead style="font-size: 16px;">
+                @php
+                $total = 0;
+                $prevEmployeeId = null;
+                $currentRow = 1;
+                @endphp
+                <tbody>
+                    @foreach($peserta as $row)
                     <tr>
-                        <td>
-                            {{ $no++ }}
-                            @if ($row->status == 'true') <i class="fas fa-check-circle text-success"></i>@endif
-                            @if ($row->status == 'false') <i class="fas fa-times-circle text-danger"></i>@endif
-                            @if ($row->status == null) <i class="fas fa-clock text-warning"></i>@endif
+                        @if($row->booking->detail->count() > 1 && $row->booking_id != $prevEmployeeId)
+                        <td rowspan="{{ $row->booking->detail->count() }}">{{ $currentRow  }}</td>
+                        <td class="text-left" rowspan="{{ $row->booking->detail->count() }}">
+                            {{ $row->booking->kode_booking }} <br>
+                            {{ $row->booking->nama_pegawai }} <br>
+                            {{ $row->booking->uker->nama_unit_kerja }}
+                            @php $prevEmployeeId = $row->booking_id; $total += 1; $currentRow += 1; @endphp
                         </td>
-                        <td class="text-left">{{ $row->uker->nama_unit_kerja }}</td>
+                        @elseif ($row->booking->detail->count() == 1)
+                        <td>{{ $currentRow  }}</td>
                         <td class="text-left">
-                            {{ Carbon\Carbon::parse($subRow->created_at)->isoFormat('DD MMMM Y') }} <br>
-                            {{ $row->kode_booking }}
+                            {{ $row->booking->kode_booking }} <br>
+                            {{ $row->booking->nama_pegawai }} <br>
+                            {{ $row->booking->uker->nama_unit_kerja }}
+                            @php $currentRow += 1; @endphp
                         </td>
-                        <td class="text-left">
-                            {{ $subRow->nama_peserta }} <br>
-                            {{ $subRow->usia }} tahun <br>
-                            {{ $subRow->nik }}
-                        </td>
-                        <td>{{ $subRow->bus_id }}</td>
-                        <td>{{ $subRow->kode_seat }}</td>
-                        <td class="text-left">
-                            {{ $subRow->booking->rute->jurusan }} <br>
-                            {{ $subRow->booking->rute->rute }}
-                        </td>
+                        @endif
+                        <td class="text-left">{{ $row->nama_peserta }}</td>
+                        <td>{{ $row->kode_seat }}</td>
+                        <td>{{ strtoupper($row->booking->tujuan->nama_kota) }}</td>
                     </tr>
-                </thead>
-                @endforeach
-                @endforeach
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
