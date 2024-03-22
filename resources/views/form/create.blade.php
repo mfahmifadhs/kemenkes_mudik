@@ -90,6 +90,10 @@
                                         </option>
                                         @endforeach
                                     </select>
+                                    <label class="pt-1" style="font-size: 11px;">
+                                        <b class="bg-success text-white p-1 rounded-3 p">New Rute</b> &nbsp;
+                                        Jakarta - (Cirebon) - Brebes - Tegal - Batang - Kendal - Semarang - Bawen - Solo - Yogyakarta
+                                    </label>
                                 </div>
                             </div>
                             <div class="form-group row my-3">
