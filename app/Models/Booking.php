@@ -20,6 +20,7 @@ class Booking extends Model
         'trayek_id',
         'tujuan_id',
         'uker_id',
+        'nama_upt',
         'nama_pegawai',
         'nip_nik',
         'no_telp',

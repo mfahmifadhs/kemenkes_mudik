@@ -70,6 +70,10 @@
                                                     <div class="col-md-7">: {{ $row->detail->count() }} orang</div>
                                                     <div class="col-md-4">Unit Kerja</div>
                                                     <div class="col-md-7">: {{ $row->uker->nama_unit_kerja }}</div>
+                                                    @if ($row->nama_upt)
+                                                    <div class="col-md-4">Nama UPT</div>
+                                                    <div class="col-md-7">: {{ $row->nama_upt }}</div>
+                                                    @endif
                                                 </div>
                                             </td>
                                             <td class="text-left">

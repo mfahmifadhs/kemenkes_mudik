@@ -53,6 +53,9 @@
         {{ $pegawai }} <br>
         {{ $nip_nik }} <br>
         {{ $uker }} <br>
+        @if ($upt)
+        <br> {{ $upt }}
+        @endif
         {{ $alamat }} <br>
     </h6>
     <hr>

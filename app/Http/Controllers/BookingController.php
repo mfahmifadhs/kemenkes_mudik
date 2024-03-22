@@ -174,6 +174,7 @@ class BookingController extends Controller
                 'nama'    => $book->nama_pegawai,
                 'nip'     => $book->nip_nik,
                 'uker'    => $book->uker->nama_unit_kerja,
+                'upt'     => $book->nama_upt,
                 'peserta' => $book->detail->count(),
                 'tujuan'  => $book->tujuan->nama_kota,
                 'trayek'  => $book->rute->jurusan,
@@ -212,7 +213,8 @@ class BookingController extends Controller
         Booking::where('id_booking', $id)->update([
             'trayek_id'     => $request->trayek_id,
             'tujuan_id'     => $request->tujuan_id,
-            'uker_id'      => $request->uker_id,
+            'uker_id'       => $request->uker_id,
+            'nama_upt'      => $request->nama_upt,
             'nama_pegawai'  => $request->nama_pegawai,
             'nip_nik'       => $request->nip_nik,
             'no_telp'       => $request->no_telp,

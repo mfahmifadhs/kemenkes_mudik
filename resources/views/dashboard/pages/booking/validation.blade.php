@@ -68,6 +68,10 @@
                                     <div class="col-md-9">: {{ $book->email }}</div>
                                     <div class="col-md-2">Unit Kerja</div>
                                     <div class="col-md-9">: {{ $book->uker->nama_unit_kerja }}</div>
+                                    @if($book->nama_upt)
+                                    <div class="col-md-2">Nama UPT</div>
+                                    <div class="col-md-9">: {{ $book->nama_upt }}</div>
+                                    @endif
                                     <div class="col-md-2">Foto KTP</div>
                                     <div class="col-md-9">:
                                         @if ($book->foto_ktp)

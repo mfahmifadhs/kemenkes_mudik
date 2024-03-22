@@ -41,6 +41,7 @@ class FormController extends Controller
             $data = [
                 'nama'    => $request->get('nama'),
                 'uker'    => $request->get('uker'),
+                'upt'     => $request->get('nama_upt'),
                 'nip_nik' => $request->get('nip_nik'),
                 'no_telp' => $request->get('no_telp'),
                 'alamat'  => $request->get('alamat'),
@@ -116,6 +117,7 @@ class FormController extends Controller
         $tambah->trayek_id    = $request->rute;
         $tambah->tujuan_id    = $data->tujuan;
         $tambah->uker_id      = $data->uker;
+        $tambah->nama_upt     = $data->upt;
         $tambah->nama_pegawai = $data->nama;
         $tambah->nip_nik      = $data->nip_nik;
         $tambah->no_telp      = $data->no_telp;
@@ -211,6 +213,7 @@ class FormController extends Controller
             'pegawai'   => $book->nama_pegawai,
             'nip_nik'   => $book->nip_nik,
             'uker'      => $book->uker->nama_unit_kerja,
+            'upt'       => $book->nama_upt,
             'alamat'    => $book->alamat,
             'kode_book' => $book->kode_booking,
             'jurusan'   => $book->rute->jurusan,

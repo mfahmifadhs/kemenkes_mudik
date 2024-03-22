@@ -89,7 +89,12 @@
                             @if ($row->status == 'false') <i class="fas fa-times-circle text-danger"></i>@endif
                             @if ($row->status == null) <i class="fas fa-clock text-warning"></i>@endif
                         </td>
-                        <td class="text-left">{{ $row->uker->nama_unit_kerja }}</td>
+                        <td class="text-left">
+                            {{ $row->uker->nama_unit_kerja }}
+                            @if ($row->nama_upt)
+                            {{ $row->nama_upt }}
+                            @endif
+                        </td>
                         <td class="text-left">
                             {{ Carbon\Carbon::parse($subRow->created_at)->isoFormat('DD MMMM Y') }} <br>
                             {{ $row->kode_booking }}

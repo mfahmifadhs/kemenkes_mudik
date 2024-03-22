@@ -136,7 +136,12 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $row->created_at }}</td>
-                                    <td class="text-left">{{ $row->uker->nama_unit_kerja }}</td>
+                                    <td class="text-left">
+                                        {{ $row->uker->nama_unit_kerja }}
+                                        @if($row->nama_upt)
+                                        <br> {{ $row->nama_upt }}
+                                        @endif
+                                    </td>
                                     <td class="text-left">
                                         <div class="row">
                                             <div class="col-md-3">Kode Boking</div>

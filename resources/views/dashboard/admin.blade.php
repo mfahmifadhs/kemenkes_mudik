@@ -70,6 +70,10 @@
                                                     <div class="col-md-7">: {{ $row->detail->count() }} orang</div>
                                                     <div class="col-md-4">Unit Kerja</div>
                                                     <div class="col-md-7">: {{ $row->uker->nama_unit_kerja }}</div>
+                                                    @if ($row->nama_upt)
+                                                    <div class="col-md-4">Nama UPT</div>
+                                                    <div class="col-md-7">: {{ $row->nama_upt }}</div>
+                                                    @endif
                                                 </div>
                                             </td>
                                             <td class="text-left">
@@ -124,7 +128,7 @@
                             <div class="small-box bg-warning">
                                 <div class="inner">
                                     <h3>
-                                        {{ $book->where('approval_uker', null)->count() + $book->where('approval_uker', 'true')->where('approval_roum', null)->count() }} 
+                                        {{ $book->where('approval_uker', null)->count() + $book->where('approval_uker', 'true')->where('approval_roum', null)->count() }}
                                         <small class="text-xs">pemesanan</small>
                                     </h3>
                                     <p><b>Proses Verifikasi</b></p>
@@ -138,7 +142,7 @@
                             <div class="small-box bg-danger">
                                 <div class="inner">
                                     <h3>
-                                        {{ $book->where('approval_uker', 'false')->count() + $book->where('approval_roum', 'false')->count() }} 
+                                        {{ $book->where('approval_uker', 'false')->count() + $book->where('approval_roum', 'false')->count() }}
                                         <small class="text-xs">pemesanan</small>
                                     </h3>
                                     <p><b>Tidak Disetujui</b></p>

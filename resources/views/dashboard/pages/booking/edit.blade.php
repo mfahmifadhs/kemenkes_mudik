@@ -57,6 +57,10 @@
                                     </select>
                                 </div>
                                 <div class="row form-group">
+                                    <label class="col-form-label col-md-3">Nama UPT</label>
+                                    <input type="text" name="nama_upt" class="form-control col-md-9" value="{{ $book->nama_upt }}">
+                                </div>
+                                <div class="row form-group">
                                     <label class="col-form-label col-md-3">Nama pegawai</label>
                                     <input type="text" name="nama_pegawai" class="form-control col-md-9" value="{{ $book->nama_pegawai }}">
                                 </div>

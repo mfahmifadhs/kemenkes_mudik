@@ -47,6 +47,13 @@
                                     <td class="align-top" style="width: 2%;">:</td>
                                     <td>{{ $book->uker->nama_unit_kerja }}</td>
                                 </tr>
+                                @if ($book->nama_upt)
+                                <tr>
+                                    <td class="align-top" style="width: 23%;">Nama UPT</td>
+                                    <td class="align-top" style="width: 2%;">:</td>
+                                    <td>{{ $book->nama_upt }}</td>
+                                </tr>
+                                @endif
                                 <tr>
                                     <td class="align-top" style="width: 23%;">No. Telepon</td>
                                     <td class="align-top" style="width: 2%;">:</td>

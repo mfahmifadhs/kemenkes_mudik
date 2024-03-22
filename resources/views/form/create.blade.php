@@ -41,6 +41,14 @@
                             </div>
 
                             <div class="form-group row my-3">
+                                <div class="col-md-3 col-form-label">Nama UPT</div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control border-dark" name="nama_upt">
+                                    <small>Pegawai Kantor Pusat tidak harus mengisi nama UPT.</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row my-3">
                                 <div class="col-md-3 col-form-label">Nama Lengkap*</div>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control border-dark" name="nama" required>

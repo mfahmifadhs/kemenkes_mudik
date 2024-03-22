@@ -24,6 +24,13 @@
             <td>:</td>
             <td>{{ $data['uker'] }}</td>
         </tr>
+        @if ($data['nama_upt'])
+        <tr>
+            <td>Nama UPT</td>
+            <td>:</td>
+            <td>{{ $data['upt'] }}</td>
+        </tr>
+        @endif
         <tr>
             <td>Jumlah Peserta</td>
             <td>:</td>
