@@ -331,6 +331,7 @@ class BookingController extends Controller
             'nama'    => $book->nama_pegawai,
             'nip'     => $book->nip_nik,
             'uker'    => $book->uker->nama_unit_kerja,
+            'upt'     => $book->nama_upt,
             'peserta' => $book->detail->count(),
             'tujuan'  => $book->tujuan->nama_kota,
             'trayek'  => $book->rute->jurusan,

@@ -24,7 +24,7 @@
             <td>:</td>
             <td>{{ $data['uker'] }}</td>
         </tr>
-        @if ($data['nama_upt'])
+        @if ($data['upt'])
         <tr>
             <td>Nama UPT</td>
             <td>:</td>
