@@ -53,9 +53,9 @@
         <span style="font-weight: bold;">Tiket ini diterima oleh</span> <br>
         {{ $pegawai }} <br>
         {{ $nip_nik }} <br>
-        {{ $uker }} <br>
+        {{ $uker }}
         @if ($upt)
-        <br> {{ $upt }}
+        <br> {{ $upt }} <br>
         @endif
         {{ $alamat }} <br>
     </h6>
