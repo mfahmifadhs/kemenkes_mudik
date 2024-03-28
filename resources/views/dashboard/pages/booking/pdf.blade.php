@@ -102,7 +102,8 @@
                         <td class="text-left">
                             {{ $subRow->nama_peserta }} <br>
                             {{ $subRow->usia }} tahun <br>
-                            {{ $subRow->nik }}
+                            {{ $subRow->nik }} <br>
+                            {{ $row->no_telp }}
                         </td>
                         <td>{{ $subRow->bus_id }}</td>
                         <td>{{ $subRow->kode_seat }}</td>

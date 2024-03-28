@@ -44,6 +44,7 @@ class PesertaExport implements FromCollection, WithHeadings, WithMapping, WithSt
                 'nama_unit_kerja',
                 'kode_booking',
                 'nama_peserta',
+                'no_telp',
                 'usia',
                 'nik',
                 'bus_id',
@@ -109,6 +110,7 @@ class PesertaExport implements FromCollection, WithHeadings, WithMapping, WithSt
             $peserta->nama_unit_kerja,
             '`' . $peserta->kode_booking,
             $peserta->nama_peserta,
+            $peserta->no_telp,
             $peserta->usia,
             '`' . $peserta->nik,
             $peserta->bus_id,
@@ -126,7 +128,7 @@ class PesertaExport implements FromCollection, WithHeadings, WithMapping, WithSt
     {
         return [
             [
-                "NO", "ID", "UNIT KERJA", "TIKET", "NAMA PESERTA", "USIA", "NIK", "BUS", "SEAT", "JURUSAN", "RUTE", "TUJUAN", "VAKSIN 1", "VAKSIN 2", "VAKSIN 3"
+                "NO", "ID", "UNIT KERJA", "TIKET", "NAMA PESERTA", "NO TELP", "USIA", "NIK", "BUS", "SEAT", "JURUSAN", "RUTE", "TUJUAN", "VAKSIN 1", "VAKSIN 2", "VAKSIN 3"
             ]
         ];
     }

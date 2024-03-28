@@ -93,6 +93,7 @@
                         <td class="text-left" rowspan="{{ $row->booking->detail->count() }}">
                             {{ $row->booking->kode_booking }} <br>
                             {{ $row->booking->nama_pegawai }} <br>
+                            {{ $row->booking->no_telp }} <br>
                             {{ $row->booking->uker?->nama_unit_kerja }}
                             @php $prevEmployeeId = $row->booking->id_booking; $total += 1; $currentRow += 1; @endphp
                         </td>
@@ -101,6 +102,7 @@
                         <td class="text-left">
                             {{ $row->booking->kode_booking }} <br>
                             {{ $row->booking->nama_pegawai }} <br>
+                            {{ $row->booking->no_telp }} <br>
                             {{ $row->booking->uker?->nama_unit_kerja }}
                             @php $currentRow += 1; @endphp
                         </td>
