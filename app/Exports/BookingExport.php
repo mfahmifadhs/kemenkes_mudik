@@ -32,7 +32,7 @@ class BookingExport implements FromCollection, WithHeadings, WithMapping, WithSt
     public function collection()
     {
         $role = Auth::user()->role_id;
-        $data = Booking::orderBy('id_booking', 'ASC')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id');
+        $data = Booking::orderBy('id_booking', 'ASC')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')->join('t_unit_utama', 'id_unit_utama', 'unit_utama_id');
 
         if ($this->utama || $this->uker || $this->rute || $this->tujuan || $this->status) {
             if ($this->utama) {
