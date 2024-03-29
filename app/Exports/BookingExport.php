@@ -83,6 +83,7 @@ class BookingExport implements FromCollection, WithHeadings, WithMapping, WithSt
         return [
             //data yang dari kolom tabel database yang akan diambil
             ++$this->no,
+            $peserta->nama_unit_utama,
             $peserta->nama_unit_kerja,
             '`' . $peserta->kode_booking,
             $peserta->nama_pegawai,
@@ -102,7 +103,7 @@ class BookingExport implements FromCollection, WithHeadings, WithMapping, WithSt
     {
         return [
             [
-                "NO", "UNIT KERJA", "TIKET", "NAMA PEGAWAI", "NIP/NIK", "NO.TELP", "ALAMAT", "EMAIL", "VERIFY UKER", "VERIFY ROUM", "CATATAN", "FOTO KK", "FOTO KTP"
+                "NO", "UNIT UTAMA", "UNIT KERJA", "TIKET", "NAMA PEGAWAI", "NIP/NIK", "NO.TELP", "ALAMAT", "EMAIL", "VERIFY UKER", "VERIFY ROUM", "CATATAN", "FOTO KK", "FOTO KTP"
             ]
         ];
     }
