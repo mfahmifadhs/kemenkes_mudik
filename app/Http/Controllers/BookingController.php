@@ -64,7 +64,8 @@ class BookingController extends Controller
         $rute       = $request->get('rute');
         $tujuan     = $request->get('tujuan');
         $status     = $request->get('status');
-        $data       = Booking::orderBy('id_booking', 'ASC')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id');
+        $data       = Booking::select('t_booking.created_at', 't_booking.*', 'unit_utama_id')
+                      ->orderBy('id_booking', 'ASC')->join('t_unit_kerja', 'id_unit_kerja', 'uker_id');
 
         if ($utama || $uker || $rute || $tujuan || $status) {
             if ($utama) {
