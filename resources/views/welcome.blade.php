@@ -11,11 +11,10 @@
                     </a>
 
                     <p class="text-white h4">
-                        Pendaftaran 26 Februari - Selesai <br>
-                        <small class="h6">*Selama Kuota Masih Tersedia</small>
+                        <b class="text-danger">PENDAFTARAN DITUTUP</b> <br>
+                        <small class="h6">Keberangkatan 04 April 2024</small>
                     </p>
 
-                    <a href="{{ route('form.create') }}" class="btn custom-btn smoothscroll mt-3">Daftar Sekarang</a>
                     <a href="{{ route('tiket.check') }}" class="btn btn-danger bg-danger hover:bg-primary custom-btn smoothscroll mt-3">Cek Pendaftaran</a>
                 </div>
 
