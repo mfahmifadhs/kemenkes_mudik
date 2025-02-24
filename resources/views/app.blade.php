@@ -80,7 +80,7 @@
     </main>
 
     <!-- JAVASCRIPT FILES -->
-    <script src="{{ asset('dist/js/jquery.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dist/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('dist/js/custom.js') }}"></script>
