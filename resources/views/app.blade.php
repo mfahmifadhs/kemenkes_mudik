@@ -80,6 +80,7 @@
     </main>
 
     <!-- JAVASCRIPT FILES -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('dist/js/owl.carousel.min.js') }}"></script>
