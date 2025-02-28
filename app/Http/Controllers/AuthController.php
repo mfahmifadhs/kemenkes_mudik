@@ -9,6 +9,7 @@ use Hash;
 use Auth;
 use Session;
 use DB;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -23,7 +24,6 @@ class AuthController extends Controller
         $request->validate([
             'username'  => 'required',
             'password'  => 'required',
-            'g-recaptcha-response' => 'required',
         ]);
 
         $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
