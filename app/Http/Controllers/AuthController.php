@@ -23,7 +23,20 @@ class AuthController extends Controller
         $request->validate([
             'username'  => 'required',
             'password'  => 'required',
+            'g-recaptcha-response' => 'required',
         ]);
+
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $request->input('g-recaptcha-response'),
+            'remoteip' => $request->ip(),
+        ]);
+
+        $result = $response->json();
+
+        if (!$result['success']) {
+            return back()->withErrors(['captcha' => 'Captcha verification failed.']);
+        }
 
         $credentials = $request->only('username', 'password');
 
