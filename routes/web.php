@@ -22,9 +22,9 @@ Route::get('/tiket/cek', function () {
 
 
 Route::get('keluar', [AuthController::class, 'keluar'])->name('keluar');
-Route::post('login', [AuthController::class, 'postLogin'])->name('post.login');
+Route::post('login', [AuthController::class, 'postLogin'])->name('post.login')->middleware('validate.host.referer');;
 
-// Route::get('form/daftar', [FormController::class, 'create'])->name('form.create');
+Route::get('form/daftar', [FormController::class, 'create'])->name('form.create');
 Route::post('form/daftar', [FormController::class, 'store'])->name('form.store');
 
 Route::get('tujuan/select/{id}', [FormController::class, 'selectDest']);

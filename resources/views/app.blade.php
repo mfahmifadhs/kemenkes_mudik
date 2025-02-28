@@ -74,6 +74,16 @@
                 timer: 1500
             });
         </script>
+        @elseif ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'info',
+                text: '{{ $errors->all() }}',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        </script>
+
         @endif
 
         @yield('content')

@@ -15,6 +15,7 @@
                         <small class="h6">Keberangkatan 04 April 2024</small>
                     </p>
 
+                    <a href="{{ route('form.create') }}" class="btn btn-success bg-success hover:bg-primary custom-btn smoothscroll mt-3">Daftar</a>
                     <a href="{{ route('tiket.check') }}" class="btn btn-danger bg-danger hover:bg-primary custom-btn smoothscroll mt-3">Cek Pendaftaran</a>
                 </div>
 
