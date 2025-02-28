@@ -35,7 +35,7 @@ class AuthController extends Controller
         $result = $response->json();
 
         if (!$result['success']) {
-            return back()->withErrors(['captcha' => 'Captcha verification failed.']);
+            return back()->with('failed', 'Gagal Verifikasi Captcha');
         }
 
         $credentials = $request->only('username', 'password');
