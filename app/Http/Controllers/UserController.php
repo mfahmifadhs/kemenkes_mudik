@@ -46,6 +46,15 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        try {
+            $request->validate([
+                'name' => 'required|string|regex:/^[a-zA-Z0-9\s]+$/',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return back()->with('failed', 'Nama Hanya Diisi Teks!');
+        }
+
+
         $user   = User::count();
         $idUser = $user + 1;
 
