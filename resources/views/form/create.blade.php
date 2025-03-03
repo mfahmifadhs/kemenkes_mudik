@@ -98,10 +98,6 @@
                                         </option>
                                         @endforeach
                                     </select>
-                                    <label class="pt-1" style="font-size: 11px;">
-                                        <b class="bg-success text-white p-1 rounded-3 p">New Rute</b> &nbsp;
-                                        Jakarta - (Cirebon) - Brebes - Tegal - Batang - Kendal - Semarang - Bawen - Solo - Yogyakarta
-                                    </label>
                                 </div>
                             </div>
                             <div class="form-group row my-3">
@@ -118,7 +114,6 @@
                                         Mohon persiapkan dokumen pendukung antara lain :
                                         <li class="mx-4">Foto KTP</li>
                                         <li class="mx-4">Foto Kartu Keluarga</li>
-                                        <li class="mx-4">Sertifikat Vaksin 1,2,3 setiap penumpang</li>
                                     </label>
                                 </div>
                             </div>
@@ -362,8 +357,7 @@
                             <div class="mb-4">
                                 <h5><b>Informasi Peserta</b></h5>
                                 <small>
-                                    Mohon untuk mengisi dan melengkapi Nama Lengkap dan NIK peserta. <br>
-                                    Peserta <b>Wajib</b> Mengupload Sertifikat Vaksin 1 sampai Vaksin 3.
+                                    Mohon untuk mengisi dan melengkapi Nama Lengkap dan NIK peserta.
                                 </small>
                             </div>
 
@@ -416,89 +410,77 @@
                                     <input type="text" name="nik_peserta[]" class="form-control form-control-sm number" maxlength="18" required>
                                 </div>
                                 <div class="col-md-4"></div>
-
-                                @for ($i = 1; $i < 4; $i++) <div class="col-md-3 col-form-label">
-                                    Sertifikat Vaksin {{ $i }}
                             </div>
-                            <div class="col-md-5 my-1">
-                                <div class="btn btn-default btn-sm btn-block btn-file border-dark w-100 p-1">
-                                    <input type="hidden" name="foto_vaksin_{{ $i }}[]" value="" class="image-atk w-100">
-                                    <input id="vaksin{{ $key.$i }}" type="file" name="foto_vaksin_{{ $i }}[]" class="image-atk w-100" accept=".jpg, .jpeg, .png">
-                                </div>
-                            </div>
-                            <div class="col-md-4"></div>
-                            @endfor
-                    </div>
-                    @endforeach
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <p class="text-right text-primary underline ">
-                                    <a href="#" data-toggle="modal" data-target="#skModal">
-                                        <b><u>Syarat dan ketentuan</u></b>
-                                    </a>
-                                </p>
+                            @endforeach
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <p class="text-right text-primary underline ">
+                                            <a href="#" data-toggle="modal" data-target="#skModal">
+                                                <b><u>Syarat dan ketentuan</u></b>
+                                            </a>
+                                        </p>
 
-                                <div class="modal fade" id="skModal" role="dialog" aria-labelledby="skLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="skLabel">
-                                                    <a href="#">Syarat dan Ketentuan</a>
-                                                </h5>
-                                                <button type="button" class="close btn custom-btn smoothscroll" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body text-sm" style="text-align: left;">
-                                                <p class="mb-2">Syarat dan Ketentuan Peserta Bus Mudik Kemenkes Tahun 2024:</p>
-                                                <ol type="1">
-                                                    <li>Peserta yang terdaftar adalah Aparatur Sipil Negara (PNS dan PPPK), Pegawai Pemerintah Non Pegawai Negeri, Pegawai Alih Daya, dan/atau Pegawai Bank Mitra di lingkungan Kantor Pusat Kementerian Kesehatan</li>
-                                                    <li>Peserta di luar pegawai Kantor Pusat Kementerian Kesehatan merupakan kerabat dalam satu Kartu Keluarga (KK) dan/atau satu alamat rumah yang sama dengan peserta pada point 1</li>
-                                                    <li>Peserta dalam kondisi sehat dan tidak memiliki riwayat atau sedang dalam masa penularan penyakit menular yang berpotensi terhadap penyebaran penyakit di dalam Bus.</li>
-                                                    <li>Obat-obatan pribadi merupakan tanggung jawab masing-masing peserta.</li>
-                                                    <li>Dokumen yang dilampirkan sebagai data pelengkap dalam formular ini adalah benar.</li>
-                                                    <li>Peserta tidak diperbolehkan untuk melakukan pemindahan nomor kursi tanpa persetujuan panitia.</li>
-                                                    <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
-                                                    <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
-                                                    <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
-                                                    <li><b>Peserta wajib</b> menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</li>
-                                                    <li>Uang jaminan menjadi penjamin penumpang dapat mengikuti perjalanan.</li>
-                                                    <li>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta <b>dan/atau</b> keluarga peserta membatalkan keberangkatan. <br>
-                                                        Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.
-                                                    </li>
-                                                    <li>Uang jaminan akan dikembalikan 100%, sebelum keberangkatan dengan menunjukan e-ticket ke panitia.</li>
-                                                </ol>
-                                                <p class="mt-4 text-justify">
-                                                    <label style="text-align: justify;">
-                                                        <input id="skCheckbox" type="checkbox" name="sk" required>
-                                                        Saya telah membaca dan mengerti seluruh Syarat dan Ketentuan Penggunaan Ini dan Konsekuensinya
-                                                        dan dengan ini menerima setiap hak, kewajiban, dan ketentuan yang diatur di dalamnya.
-                                                    </label>
-                                                </p>
+                                        <div class="modal fade" id="skModal" role="dialog" aria-labelledby="skLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="skLabel">
+                                                            <a href="#">Syarat dan Ketentuan</a>
+                                                        </h5>
+                                                        <button type="button" class="close btn custom-btn smoothscroll" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body text-sm" style="text-align: left;">
+                                                        <p class="mb-2">Syarat dan Ketentuan Peserta Bus Mudik Kemenkes Tahun 2024:</p>
+                                                        <ol type="1">
+                                                            <li>Peserta yang terdaftar adalah Aparatur Sipil Negara (PNS dan PPPK), Pegawai Pemerintah Non Pegawai Negeri, Pegawai Alih Daya, dan/atau Pegawai Bank Mitra di lingkungan Kantor Pusat Kementerian Kesehatan</li>
+                                                            <li>Peserta di luar pegawai Kantor Pusat Kementerian Kesehatan merupakan kerabat dalam satu Kartu Keluarga (KK) dan/atau satu alamat rumah yang sama dengan peserta pada point 1</li>
+                                                            <li>Peserta dalam kondisi sehat dan tidak memiliki riwayat atau sedang dalam masa penularan penyakit menular yang berpotensi terhadap penyebaran penyakit di dalam Bus.</li>
+                                                            <li>Obat-obatan pribadi merupakan tanggung jawab masing-masing peserta.</li>
+                                                            <li>Dokumen yang dilampirkan sebagai data pelengkap dalam formular ini adalah benar.</li>
+                                                            <li>Peserta tidak diperbolehkan untuk melakukan pemindahan nomor kursi tanpa persetujuan panitia.</li>
+                                                            <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
+                                                            <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
+                                                            <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
+                                                            <li><b>Peserta wajib</b> menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</li>
+                                                            <li>Uang jaminan menjadi penjamin penumpang dapat mengikuti perjalanan.</li>
+                                                            <li>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta <b>dan/atau</b> keluarga peserta membatalkan keberangkatan. <br>
+                                                                Contoh : Pegawai atas nama A, mendaftarkan 3 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.
+                                                            </li>
+                                                            <li>Uang jaminan akan dikembalikan 100%, sebelum keberangkatan dengan menunjukan e-ticket ke panitia.</li>
+                                                        </ol>
+                                                        <p class="mt-4 text-justify">
+                                                            <label style="text-align: justify;">
+                                                                <input id="skCheckbox" type="checkbox" name="sk" required>
+                                                                Saya telah membaca dan mengerti seluruh Syarat dan Ketentuan Penggunaan Ini dan Konsekuensinya
+                                                                dan dengan ini menerima setiap hak, kewajiban, dan ketentuan yang diatur di dalamnya.
+                                                            </label>
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6 col-6 text-center">
+                                        <a href="javascript:void(0);" onclick="goBack()" class="btn custom-btn smoothscroll">
+                                            <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 col-6 text-center">
+                                        <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
+                                            <span id="buttonText">Selesai </span><i id="buttonIcon" class="fa-solid fa-circle-check"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-6 text-center">
-                                <a href="javascript:void(0);" onclick="goBack()" class="btn custom-btn smoothscroll">
-                                    <i class="fa-solid fa-square-caret-left"></i> Sebelumnya
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-6 text-center">
-                                <button type="submit" id="submitBtn" class="btn custom-btn smoothscroll" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
-                                    <span id="buttonText">Selesai </span><i id="buttonIcon" class="fa-solid fa-circle-check"></i>
-                                </button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
-                    </form>
+                    @endif
                 </div>
-                @endif
             </div>
         </div>
-    </div>
     </div>
 </section>
 
@@ -613,36 +595,6 @@
             }
         }
 
-        for (let key = 0; key < seatTotal; key++) {
-            for (let i = 1; i < 4; i++) {
-                const fileInput = document.getElementById('vaksin' + key + i);
-
-                if (fileInput) {
-                    const fileSize = fileInput.files[0] ? fileInput.files[0].size : '';
-                    const allowedTypes = ['image/jpeg', 'image/png'];
-                    if (fileSize) {
-                        if (fileSize > 5 * 1024 * 1024) {
-                            Swal.fire({
-                                title: 'Gagal',
-                                text: 'File foto harus kurang dari 5 MB',
-                                icon: 'error',
-                            });
-                            isFormValid = false;
-                            break; // Keluar dari perulangan jika validasi gagal untuk salah satu input
-                        } else if (!allowedTypes.includes(fileInput.files[0].type)) {
-                            Swal.fire({
-                                title: 'Gagal',
-                                text: 'Tipe file foto harus jpg atau png',
-                                icon: 'error',
-                            });
-                            isFormValid = false;
-                            break; // Keluar dari perulangan jika validasi gagal untuk salah satu input
-                        }
-                    }
-                }
-            }
-        }
-
         // Memeriksa validitas akhir setelah perulangan
         if (isFormValid) {
             // Menampilkan kotak dialog konfirmasi
@@ -692,11 +644,11 @@
     $(document).ready(function() {
         $('.seat-checkbox').change(function() {
             var checkedCount = $('.seat-checkbox:checked').length;
-            if (checkedCount > 5) {
+            if (checkedCount > 3) {
                 $(this).prop('checked', false);
 
                 Swal.fire({
-                    text: "Anda hanya dapat memilih maksimal 5 kursi.",
+                    text: "Anda hanya dapat memilih maksimal 3 kursi.",
                     icon: 'error',
                 });
             } else {

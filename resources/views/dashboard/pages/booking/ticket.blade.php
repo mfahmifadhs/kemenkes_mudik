@@ -53,11 +53,11 @@
         <span style="font-weight: bold;">Tiket ini diterima oleh</span> <br>
         {{ $pegawai }} <br>
         {{ $nip_nik }} <br>
+        {{ $alamat }} <br>
         {{ $uker }}
         @if ($upt)
-        <br> {{ $upt }} <br>
+        <br> {{ $upt }}
         @endif
-        {{ $alamat }} <br>
     </h6>
     <hr>
     <p style="font-weight: bold;">Detail Pendaftaran</p>
@@ -108,7 +108,7 @@
         <tr>
             <td style="vertical-align: top;">5. </td>
             <td>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta dan/atau keluarga peserta membatalkan keberangkatan<br>
-                Contoh : Pegawai atas nama A, mendaftarkan 4 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.</td>
+                Contoh : Pegawai atas nama A, mendaftarkan 3 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.</td>
         </tr>
         <tr>
             <td style="vertical-align: top;">6. </td>

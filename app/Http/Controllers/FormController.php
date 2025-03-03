@@ -108,7 +108,7 @@ class FormController extends Controller
         // ... (kode untuk jenis seatFull yang lain)
 
         $data = json_decode($request->data);
-        $id_book = str_pad(Booking::withTrashed()->count() + 1, 4, 0, STR_PAD_LEFT);
+        $id_book = Booking::withTrashed()->count() + 1;
         $kode_book = Carbon::now()->format('ymdHis') . $id_book;
 
         $tambah  = new Booking();
@@ -131,8 +131,7 @@ class FormController extends Controller
             ->where('status', '!=', 'cancel')->count();
 
         foreach ($seat as $key => $seat_id) {
-            $total = str_pad(Peserta::withTrashed()->count() + 1, 4, 0, STR_PAD_LEFT);
-            $id_peserta = Carbon::now()->format('ymd') . $total;
+            $id_peserta = Peserta::withTrashed()->count() + 1;
 
             $detail = new Peserta();
             $detail->id_peserta   = $id_peserta;
@@ -145,30 +144,30 @@ class FormController extends Controller
             $detail->created_at   = Carbon::now();
             $detail->save();
 
-            if ($request->foto_vaksin_1[$key]) {
-                $vaksin_1 = $request->file('foto_vaksin_1')[$key];
-                $fileVaksin1  = 'vaksin1_' . now()->timestamp . '_' . $vaksin_1->getClientOriginalName();
-                $vaksin_1->storeAs('public/files/vaksin_1', $fileVaksin1);
-            }
+            // if ($request->foto_vaksin_1[$key]) {
+            //     $vaksin_1 = $request->file('foto_vaksin_1')[$key];
+            //     $fileVaksin1  = 'vaksin1_' . now()->timestamp . '_' . $vaksin_1->getClientOriginalName();
+            //     $vaksin_1->storeAs('public/files/vaksin_1', $fileVaksin1);
+            // }
 
-            if ($request->foto_vaksin_2[$key]) {
-                $vaksin_2 = $request->file('foto_vaksin_2')[$key];
-                $fileVaksin2  = 'vaksin2_' . now()->timestamp . '_' . $vaksin_2->getClientOriginalName();
-                $vaksin_2->storeAs('public/files/vaksin_2', $fileVaksin2);
-            }
+            // if ($request->foto_vaksin_2[$key]) {
+            //     $vaksin_2 = $request->file('foto_vaksin_2')[$key];
+            //     $fileVaksin2  = 'vaksin2_' . now()->timestamp . '_' . $vaksin_2->getClientOriginalName();
+            //     $vaksin_2->storeAs('public/files/vaksin_2', $fileVaksin2);
+            // }
 
-            if ($request->foto_vaksin_3[$key]) {
-                $vaksin_3 = $request->file('foto_vaksin_3')[$key];
-                $fileVaksin3  = 'vaksin3_' . now()->timestamp . '_' . $vaksin_3->getClientOriginalName();
-                $vaksin_3->storeAs('public/files/vaksin_3', $fileVaksin3);
+            // if ($request->foto_vaksin_3[$key]) {
+            //     $vaksin_3 = $request->file('foto_vaksin_3')[$key];
+            //     $fileVaksin3  = 'vaksin3_' . now()->timestamp . '_' . $vaksin_3->getClientOriginalName();
+            //     $vaksin_3->storeAs('public/files/vaksin_3', $fileVaksin3);
 
-            }
+            // }
 
-            Peserta::where('id_peserta', $id_peserta)->update([
-                'foto_vaksin_1' => $request->foto_vaksin_1[$key] ? $fileVaksin1 : null,
-                'foto_vaksin_2' => $request->foto_vaksin_2[$key] ? $fileVaksin2 : null,
-                'foto_vaksin_3' => $request->foto_vaksin_3[$key] ? $fileVaksin3 : null,
-            ]);
+            // Peserta::where('id_peserta', $id_peserta)->update([
+            //     'foto_vaksin_1' => $request->foto_vaksin_1[$key] ? $fileVaksin1 : null,
+            //     'foto_vaksin_2' => $request->foto_vaksin_2[$key] ? $fileVaksin2 : null,
+            //     'foto_vaksin_3' => $request->foto_vaksin_3[$key] ? $fileVaksin3 : null,
+            // ]);
         }
 
         if ($request->foto_ktp || $request->foto_kk) {

@@ -7,12 +7,12 @@
             <div class="col-lg-12 col-12">
                 <div class="text-center mb-4 pb-2">
                     <a href="{{ route('login') }}">
-                        <h1 class="text-white">Mudik Bersama Kemenkes</h1>
+                        <h1 class="text-white">Mudik Bersama Kemenkes 2025</h1>
                     </a>
 
                     <p class="text-white h4">
-                        <b class="text-danger">PENDAFTARAN DITUTUP</b> <br>
-                        <small class="h6">Keberangkatan 04 April 2024</small>
+                        <h1 class="text-danger"><i>COMING SOON</i></h1>
+                        <small class="h6">Keberangkatan 27 Maret 2025</small>
                     </p>
 
                     <!-- <a href="{{ route('form.create') }}" class="btn btn-success bg-success hover:bg-primary custom-btn smoothscroll mt-3">Daftar</a> -->

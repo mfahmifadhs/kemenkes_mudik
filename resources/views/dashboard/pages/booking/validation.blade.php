@@ -122,9 +122,6 @@
                                     <th class="align-middle">NIK</th>
                                     <th class="align-middle">Kode Seat</th>
                                     <th class="align-middle">Bus</th>
-                                    <th style="width: 10%;">Sertifikat Vaksin 1</th>
-                                    <th style="width: 10%;">Sertifikat Vaksin 2</th>
-                                    <th style="width: 10%;">Sertifikat Vaksin 3</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -136,27 +133,6 @@
                                     <td>{{ $row->nik }}</td>
                                     <td>{{ $row->kode_seat }}</td>
                                     <td>{{ $row->bus_id }}</td>
-                                    <td>
-                                        @if ($row->foto_vaksin_1)
-                                        <a class="text-primary" href="#" onclick="openModal(1, '{{ $row->id_peserta }}')">
-                                            <u>Lihat foto</u>
-                                        </a>
-                                        @else Tidak ada @endif
-                                    </td>
-                                    <td>
-                                        @if ($row->foto_vaksin_2)
-                                        <a class="text-primary" href="#" onclick="openModal(2, '{{ $row->id_peserta }}')">
-                                            <u>Lihat foto</u>
-                                        </a>
-                                        @else Tidak ada @endif
-                                    </td>
-                                    <td>
-                                        @if ($row->foto_vaksin_3)
-                                        <a class="text-primary" href="#" onclick="openModal(3, '{{ $row->id_peserta }}')">
-                                            <u>Lihat foto</u>
-                                        </a>
-                                        @else Tidak ada @endif
-                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
