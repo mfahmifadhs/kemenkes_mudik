@@ -644,11 +644,11 @@
     $(document).ready(function() {
         $('.seat-checkbox').change(function() {
             var checkedCount = $('.seat-checkbox:checked').length;
-            if (checkedCount > 3) {
+            if (checkedCount > 4) {
                 $(this).prop('checked', false);
 
                 Swal.fire({
-                    text: "Anda hanya dapat memilih maksimal 3 kursi.",
+                    text: "Anda hanya dapat memilih maksimal 4 kursi.",
                     icon: 'error',
                 });
             } else {
