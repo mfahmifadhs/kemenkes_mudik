@@ -9,11 +9,11 @@
             <div class="col-lg-12 col-12">
                 <div class="text-center mb-5 pb-2">
                     <a href="{{ route('login') }}">
-                        <h1 class="text-white">Mudik Bersama Kemenkes</h1>
+                        <h1 class="text-white">Mudik Bersama Kemenkes 2025</h1>
                     </a>
 
                     <p class="text-white h4">
-                        Pendaftaran 26 Februari - 8 Maret 2024 <br>
+                        Pendaftaran 05 Maret - 14 Maret 2025 <br>
                         <small class="h6">*Selama Kuota Masih Tersedia</small>
                     </p>
                 </div>
