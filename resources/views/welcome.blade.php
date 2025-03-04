@@ -11,12 +11,18 @@
                     </a>
 
                     <p class="text-white h4">
-                        <h1 class="text-danger"><i>COMING SOON</i></h1>
-                        <small class="h6">Keberangkatan 27 Maret 2025</small>
+                    @if (Carbon\Carbon::now()->isoFormat('D-M-YY HH:mm') >= '5-3-25 10:00')
+                    <h5 class="text-white">Pendaftaran 05 Maret 2025 - 14 Maret 2025</h5>
+                    @else
+                    <h1 class="text-danger"><i>COMING SOON</i></h1>
+                    @endif
+                    <h6 class="h6 text-warning"><b>Keberangkatan 27 Maret 2025</b></h6>
                     </p>
 
-                    <!-- <a href="{{ route('form.create') }}" class="btn btn-success bg-success hover:bg-primary custom-btn smoothscroll mt-3">Daftar</a> -->
-                    <a href="{{ route('tiket.check') }}" class="btn btn-danger bg-danger hover:bg-primary custom-btn smoothscroll mt-3">Cek Pendaftaran</a>
+                    @if (Carbon\Carbon::now()->isoFormat('D-M-YY HH:mm') >= '5-3-25 10:00')
+                    <a href="{{ route('form.create') }}" class="btn btn-success bg-primary hover:bg-primary custom-btn smoothscroll mt-3">Daftar Sekarang</a>
+                    @endif
+                    <a href="{{ route('tiket.check') }}" class="btn btn-danger bg-danger hover:bg-primary custom-btn smoothscroll mt-3">Cek Pendaftaran </a>
                 </div>
 
                 <div class="owl-carousel owl-theme">
