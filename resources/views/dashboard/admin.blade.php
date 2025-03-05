@@ -243,7 +243,7 @@
                                         @php
                                         // Hitung nilai untuk setiap baris
                                         $kursi = $row->bus->sum('total_kursi');
-                                        $tersedia = $row->book->flatMap->detail->where('status', 'book')->count();
+                                        $tersedia = $row->book->flatMap->detail->where('status', 'book')->get();
                                         $dipesan = $row->book->flatMap->detail->where('status', 'book')->count();
                                         $terisi = $row->book->flatMap->detail->where('status', 'full')->count();
 
