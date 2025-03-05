@@ -172,6 +172,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 "paging": true,
                 "searching": true
             })
+
+            $("#table-data").DataTable({
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": true,
+                "info": true,
+                "paging": true,
+                "searching": true
+            })
         })
 
 

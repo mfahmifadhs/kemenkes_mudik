@@ -279,6 +279,41 @@
                         </div>
                     </div>
 
+                    <div class="card w-100">
+                        <div class="card-header mt-2">
+                            <div class="float-left">
+                                <label>Rekap Tujuan</label>
+                            </div>
+                        </div>
+
+                        <div class="card-header">
+                            <div class="table-responsive">
+                                <table id="table-data" class="table table-bordered text-center">
+                                    <thead class="text-sm">
+                                        <tr>
+                                            <th style="width: 0%;">No</th>
+                                            <th style="width: 10%;">Jurusan</th>
+                                            <th>Rute</th>
+                                            <th>Tujuan</th>
+                                            <th style="width: 10%;">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-sm">
+                                        @foreach($tujuan as $row)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $row->tujuan->trayek->jurusan }}</td>
+                                            <td class="text-left">{{ $row->tujuan->trayek->rute }}</td>
+                                            <td>{{ $row->tujuan->nama_kota }}</td>
+                                            <td>{{ $row->total }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-12">
 

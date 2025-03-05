@@ -27,6 +27,7 @@ class DashboardController extends Controller
 
         $uker   = [];
         $trayek = [];
+        $tujuan = [];
         $role = Auth::user()->role_id;
         $user = $role == 4 ? 'user' : 'admin';
         $rute = Trayek::get();
@@ -42,10 +43,11 @@ class DashboardController extends Controller
         } else {
             $uker   = UnitKerja::get();
             $trayek = Trayek::get();
+            $tujuan = Booking::select(DB::RAW('count(tujuan_id) as total'), 'tujuan_id')->groupBy('tujuan_id')->get();
             $book   = $data->get();
         }
 
-        return view('dashboard.' . $user, compact('user', 'rute', 'bus', 'book', 'trayek', 'uker'));
+        return view('dashboard.' . $user, compact('user', 'rute', 'bus', 'book', 'trayek', 'uker', 'tujuan'));
 
     }
 
