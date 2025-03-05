@@ -171,8 +171,8 @@
                             <div class="small-box bg-warning">
                                 <div class="inner">
                                     @php
-                                        $seatUker = $book->where('approval_uker', null)->flatMap->detail->count();
-                                        $seatRoum = $book->where('approval_uker', 'true')->where('approval_roum', null)->flatMap->detail->count();
+                                    $seatUker = $book->where('approval_uker', null)->flatMap->detail->count();
+                                    $seatRoum = $book->where('approval_uker', 'true')->where('approval_roum', null)->flatMap->detail->count();
                                     @endphp
                                     <h3>{{ $seatUker + $seatRoum }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Proses Verifikasi</b></p>
@@ -186,7 +186,7 @@
                             <div class="small-box bg-danger">
                                 <div class="inner">
                                     @php
-                                        $seatFull = $book->flatMap->detail->where('status', 'full')->where('kode_seat', '!=', null)->count();
+                                    $seatFull = $book->flatMap->detail->where('status', 'full')->where('kode_seat', '!=', null)->count();
                                     @endphp
                                     <h3>{{ $seatFull }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Tidak Tersedia</b></p>
@@ -231,17 +231,48 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-sm">
+                                        @php
+                                        // Inisialisasi variabel total
+                                        $totalKursi = 0;
+                                        $totalTersedia = 0;
+                                        $totalDipesan = 0;
+                                        $totalTerisi = 0;
+                                        @endphp
+
                                         @foreach($trayek as $row)
+                                        @php
+                                        // Hitung nilai untuk setiap baris
+                                        $kursi = $row->bus->sum('total_kursi');
+                                        $tersedia = $kursi - $row->book->flatMap->detail->where('status', '!=', 'cancel')->count();
+                                        $dipesan = $row->book->flatMap->detail->where('status', 'book')->count();
+                                        $terisi = $row->book->flatMap->detail->where('status', 'full')->count();
+
+                                        // Tambahkan ke total
+                                        $totalKursi += $kursi;
+                                        $totalTersedia += $tersedia;
+                                        $totalDipesan += $dipesan;
+                                        $totalTerisi += $terisi;
+                                        @endphp
+
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $row->jurusan }}</td>
                                             <td class="text-left">{{ $row->rute }}</td>
-                                            <td>{{ $row->bus->sum('total_kursi') }}</td>
-                                            <td>{{ $row->bus->sum('total_kursi') - $row->book->flatMap->detail->where('status', '!=', 'cancel')->count() }}</td>
-                                            <td>{{ $row->book->flatMap->detail->where('status', 'book')->count() }}</td>
-                                            <td>{{ $row->book->flatMap->detail->where('status', 'full')->count() }}</td>
+                                            <td>{{ $kursi }}</td>
+                                            <td>{{ $tersedia }}</td>
+                                            <td>{{ $dipesan }}</td>
+                                            <td>{{ $terisi }}</td>
                                         </tr>
                                         @endforeach
+
+                                        <!-- Baris Total -->
+                                        <tr>
+                                            <td colspan="3" class="text-right"><strong>Total</strong></td>
+                                            <td><strong>{{ $totalKursi }}</strong></td>
+                                            <td><strong>{{ $totalTersedia }}</strong></td>
+                                            <td><strong>{{ $totalDipesan }}</strong></td>
+                                            <td><strong>{{ $totalTerisi }}</strong></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
