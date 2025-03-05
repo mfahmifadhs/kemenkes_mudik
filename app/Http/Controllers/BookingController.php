@@ -264,25 +264,7 @@ class BookingController extends Controller
         //     return back()->with('error', 'File tidak valid!');
         // }
 
-        if ($peserta) {
-            for ($i = 1; $i < 4; $i++) {
-                $fotoName = "foto_vaksin_$i";
-
-                if ($request->$fotoName) {
-                    $file      = $request->file('foto_vaksin_' . $i);
-                    $filename  = 'vaksin' . $i . '_' . now()->timestamp . '_' . $file->getClientOriginalName();
-                    $foto      = $file->storeAs('public/files/vaksin_' . $i, $filename);
-                    $vaksin    = $filename;
-
-                    if ($peserta->foto_vaksin_ + $i) {
-                        Storage::delete('public/files/vaksin_' . $i . '/' . $peserta->foto_vaksin_ + $i);
-                    }
-
-                    $fotoVaksin = 'foto_vaksin_' . $i;
-                    Peserta::where('id_peserta', $id)->update([$fotoVaksin => $vaksin]);
-                }
-            }
-        } else if ($request->foto_ktp) {
+        if ($request->foto_ktp) {
             $file      = $request->file('foto_ktp');
             $filename  = 'ktp_' . now()->timestamp . '_' . $file->getClientOriginalName();
             $foto      = $file->storeAs('public/files/foto_ktp/' . $filename);
@@ -307,7 +289,7 @@ class BookingController extends Controller
         }
 
         $id_book = $peserta ? $peserta->booking_id : $id;
-        return redirect()->route('book.edit', $id_book)->with('success', 'Berhasil Menyimpan Perubahan');
+        return redirect()->route('book.edit', $id)->with('success', 'Berhasil Menyimpan Perubahan');
     }
 
     public function deleteFile($file, $id)
