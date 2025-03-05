@@ -304,7 +304,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $row->tujuan->trayek->jurusan }}</td>
                                             <td class="text-left">{{ $row->tujuan->trayek->rute }}</td>
-                                            <td>{{ $row->tujuan->nama_kota }}</td>
+                                            <td class="text-left">{{ strtoupper($row->tujuan->nama_kota) }}</td>
                                             <td>{{ $row->total }}</td>
                                         </tr>
                                         @endforeach
