@@ -247,7 +247,8 @@ class BookingController extends Controller
 
         try {
             $request->validate([
-                'foto_kk' => 'required|mimes:jpg,jpeg,png|max:2048',
+                'foto_kk'  => 'required|mimes:jpg,jpeg,png|max:2048',
+                'foto_ktp' => 'required|mimes:jpg,jpeg,png|max:2048',
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return back()->with('failed', 'Format File Tidak Didukung!');
