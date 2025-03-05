@@ -43,7 +43,7 @@ class DashboardController extends Controller
         } else {
             $uker   = UnitKerja::get();
             $trayek = Trayek::get();
-            $tujuan = Booking::select(DB::RAW('count(tujuan_id) as total'), 'tujuan_id')->groupBy('tujuan_id')->get();
+            $tujuan = Booking::select(DB::RAW('count(tujuan_id) as total'), 'tujuan_id')->orderBy('tujuan_id','asc')->groupBy('tujuan_id')->get();
             $book   = $data->get();
         }
 
