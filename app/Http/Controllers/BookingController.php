@@ -245,24 +245,24 @@ class BookingController extends Controller
         $peserta = Peserta::where('id_peserta', $id)->first();
         $book    = Booking::where('id_booking', $id)->first();
 
-        try {
-            $request->validate([
-                'foto_kk'  => 'required|mimes:jpg,jpeg,png|max:2048',
-                'foto_ktp' => 'required|mimes:jpg,jpeg,png|max:2048',
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return back()->with('failed', 'Format File Tidak Didukung!');
-        }
+        // try {
+        //     $request->validate([
+        //         'foto_kk'  => 'required|mimes:jpg,jpeg,png|max:2048',
+        //         'foto_ktp' => 'required|mimes:jpg,jpeg,png|max:2048',
+        //     ]);
+        // } catch (\Illuminate\Validation\ValidationException $e) {
+        //     return back()->with('failed', 'Format File Tidak Didukung!');
+        // }
 
 
-        $file = $request->file('foto_kk');
+        // $file = $request->file('foto_kk');
 
-        $mimeType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file->getPathname());
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        // $mimeType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file->getPathname());
+        // $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
 
-        if (!in_array($mimeType, $allowedTypes)) {
-            return back()->with('error', 'File tidak valid!');
-        }
+        // if (!in_array($mimeType, $allowedTypes)) {
+        //     return back()->with('error', 'File tidak valid!');
+        // }
 
         if ($peserta) {
             for ($i = 1; $i < 4; $i++) {
