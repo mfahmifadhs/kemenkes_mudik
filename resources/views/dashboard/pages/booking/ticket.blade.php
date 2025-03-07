@@ -68,10 +68,10 @@
             <tr style="border: 1px solid #000;">
                 <th>No</th>
                 <th>Nama Peserta</th>
-                <th>Usia</th>
-                <th>NIK</th>
-                <th>Bus</th>
-                <th>Nomor Kursi</th>
+                <th style="width: 10%;">Usia</th>
+                <th style="width: 10%;">NIK</th>
+                <th style="width: 10%;">Bus</th>
+                <th style="width: 10%;">Nomor Kursi</th>
             </tr>
         </thead>
         <tbody>
