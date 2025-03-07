@@ -68,10 +68,10 @@
             <tr style="border: 1px solid #000;">
                 <th style="text-align: center;">No</th>
                 <th>Nama Peserta</th>
+                <th style="width: 25%;">NIK</th>
                 <th style="width: 10%;">Usia</th>
-                <th style="width: 20%;">NIK</th>
                 <th style="width: 10%;">Bus</th>
-                <th style="width: 10%;">Nomor Kursi</th>
+                <th style="width: 15%;">Nomor Kursi</th>
             </tr>
         </thead>
         <tbody>
@@ -79,10 +79,10 @@
             <tr style="border: 1px solid #000;">
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $peserta->nama_peserta }}</td>
-                <td>{{ $peserta->usia }}</td>
                 <td>{{ $peserta->nik }}</td>
-                <td>{{ $peserta->bus_id }}</td>
-                <td>{{ $peserta->kode_seat }}</td>
+                <td style="text-align: center;">{{ $peserta->usia }}</td>
+                <td style="text-align: center;">{{ $peserta->bus_id }}</td>
+                <td style="text-align: center;">{{ $peserta->kode_seat }}</td>
             </tr>
             @endforeach
         </tbody>
