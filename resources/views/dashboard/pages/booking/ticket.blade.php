@@ -69,15 +69,15 @@
                 <th style="text-align: center;">No</th>
                 <th>Nama Peserta</th>
                 <th style="width: 25%;">NIK</th>
-                <th style="width: 10%;">Usia</th>
-                <th style="width: 10%;">Bus</th>
+                <th style="width: 10%;text-align: center;">Usia</th>
+                <th style="width: 10%;text-align: center;">Bus</th>
                 <th style="width: 15%;">Nomor Kursi</th>
             </tr>
         </thead>
         <tbody>
             @foreach($peserta as $index => $peserta)
             <tr style="border: 1px solid #000;">
-                <td>{{ $index + 1 }}</td>
+                <td style="text-align: center;">{{ $index + 1 }}</td>
                 <td>{{ $peserta->nama_peserta }}</td>
                 <td>{{ $peserta->nik }}</td>
                 <td style="text-align: center;">{{ $peserta->usia }}</td>
