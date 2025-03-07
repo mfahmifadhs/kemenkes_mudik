@@ -30,8 +30,8 @@
             <td style="width: 50%;">
                 <h3 style="margin-left: 10px;"><b>JAKARTA - {{ strtoupper($tujuan) }}</b></h3>
                 <h6 style="font-size: 12px;">{{ $rute }}</h6>
-                <h6 style="font-size: 12px; font-weight: bold;">Keberangkatan Tanggal 27 Maret 2025 Pukul 08.00 WIB</h6>
-                <h6 style="font-size: 12px; color: red;">Diharapkan berkumpul paling lambat 06.30 WIB</h6>
+                <span style="font-size: 12px; font-weight: bold;">Keberangkatan Tanggal 27 Maret 2025 Pukul 08.00 WIB</span>
+                <span style="font-size: 12px; color: red;">Diharapkan berkumpul paling lambat 06.30 WIB</span>
                 <!-- <table class="table mt-3" style="width: 100%;">
                     <tr>
                         <td>
