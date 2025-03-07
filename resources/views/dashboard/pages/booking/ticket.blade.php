@@ -32,7 +32,7 @@
                 <h6 style="font-size: 12px;">{{ $rute }}</h6>
                 <span style="font-size: 12px; font-weight: bold;">Keberangkatan Tanggal 27 Maret 2025 Pukul 08.00 WIB</span> <br>
                 <span style="font-size: 12px; color: red;font-weight: bold;">Diharapkan berkumpul paling lambat 06.30 WIB</span> <br>
-                <span style="font-size: 12px;">Contact Person : 0812-6337-1270 (Martin), 0852-3073-8280 (Desya) </span>
+                <span style="font-size: 12px;">Contact Person : 0812-6337-1270 (Martin), 0852-3073-8280 (Desya), 0812-9120-2267 (Fajrin) </span>
                 <!-- <table class="table mt-3" style="width: 100%;">
                     <tr>
                         <td>
