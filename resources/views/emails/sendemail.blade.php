@@ -54,8 +54,8 @@
     </table>
     <p>
         Mohon klik link dibawah ini untuk mencetak <b>Tiket</b>: <br>
-        <a href="{{ route('tiket', ['rand' => 'cetak', 'id' => $data['id']]) }}" style="color: blue;"><i><u>
-            {{ encrypt('Link verifikasi data') }}
+        <a href="{{ route('tiket', ['rand' => 'cetak', 'id' => $data['id']]) }}" class="btn btn-primary border-dark"><i><u>
+            Cetak Tiket
         </i></u></a>
     </p>
 
