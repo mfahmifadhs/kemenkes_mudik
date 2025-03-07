@@ -71,7 +71,7 @@
                 <th style="width: 25%;">NIK</th>
                 <th style="width: 10%;text-align: center;">Usia</th>
                 <th style="width: 10%;text-align: center;">Bus</th>
-                <th style="width: 15%;">Nomor Kursi</th>
+                <th style="width: 15%;text-align: center;"> Kursi</th>
             </tr>
         </thead>
         <tbody>
