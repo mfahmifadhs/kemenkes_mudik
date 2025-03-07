@@ -17,7 +17,7 @@
                 </div>
             </td>
             <td style="width: 30%;">
-                <img src="https://i.ibb.co/crBsD6k/logo-kemenkes.png" style="width: 50%;">
+                <img src="{{ public_path('dist/img/logo-kemenkes.png') }}" style="width: 50%;">
             </td>
         </tr>
     </table>
