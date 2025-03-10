@@ -241,21 +241,22 @@
                                             </div>
                                         </div>
                                         @endif
-                                        @if ($row->total_kursi == 36 || $row->total_kursi == 38)
+                                        @if ($row->total_kursi == 36 || $row->total_kursi == 50)
                                         <div class="col-md-12 m-2">
                                             <div class="row text-center">
                                                 @for ($i = 1; $i <= $row->seat_belakang; $i++)
                                                     @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
                                                     @php $kdSeat = 10 + $i - 1; @endphp
-                                                    <label class="col-md-2 col-2 bg-secondary text-white rounded border border-dark m-2 p-2" for="seat{{ $i . $kode . $bus }}">
-                                                        {{ $kode }}
+                                                    <label class="col-md-2 col-2 btn btn-success text-white rounded border border-dark p-2 m-2" style="width: 15vh;" for="seat{{ '12' . $kode . $bus }}">
+                                                        <input name="seat[]" type="checkbox" class="seat-checkbox" id="seat{{ '12' . $kode . $bus }}" value="{{ $bus.'-'. '12' . $kode }}">
+                                                        {{ '12'. $kode }}
                                                     </label>
                                                     @endforeach
-                                                    @endfor
-                                                    <div class="col-md-1 col-1"></div>
+                                                @endfor
+                                                    <!-- <div class="col-md-1 col-1"></div>
                                                     <label class="col-md-6 col-4 bg-secondary text-white rounded border border-dark mx-auto m-2 p-2" for="seat{{ $i . $kode . $bus }}">
                                                         Toilet
-                                                    </label>
+                                                    </label> -->
                                             </div>
                                         </div>
                                         @endif

@@ -123,27 +123,43 @@
                         </div>
                         @endif
 
-                        @if ($row->total_kursi == 36 || $row->total_kursi == 38)
-                        <div class="col-md-5 my-2 mt-5">
+                        @if ($row->total_kursi == 36 || $row->total_kursi == 50)
+                        <div class="col-md-12 my-2">
                             @for ($i = 1; $i <= $row->seat_belakang; $i++)
+                            <center>
                                 <div class="row">
-                                    @foreach (json_decode($row->kd_seat_belakang, true) as $key => $kode)
-                                    @php $kdSeat = 10 + $i - 1; @endphp
-                                    <div class="col-md-6">
-                                        <label class="bg-secondary text-white rounded border border-dark p-2 w-100" for="seat{{ $i . $kode . $row }}">
-                                            {{ $kdSeat . $kode }}
+                                    @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
+                                    @php $seatCode = '12' . $kode . $bus; @endphp
+                                    @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
+                                    <div class="col-md-2">
+                                        <label class="bg-warning text-white rounded border border-dark p-2 w-100" for="seat{{ '12' . $kode . $row }}">
+                                            {{ '12' . $kode }}
                                         </label>
                                     </div>
+                                    @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
+                                    <div class="col-md-2">
+                                        <label class="bg-danger text-white rounded border border-dark p-2 w-100" for="seat{{ '12' . $kode . $row }}">
+                                            {{ '12' . $kode }}
+                                        </label>
+                                    </div>
+                                    @else
+                                    <div class="col-md-2">
+                                        <label class="bg-success text-white rounded border border-dark p-2 w-100" for="seat{{ '12' . $kode . $row }}">
+                                            {{ '12' . $kode }}
+                                        </label>
+                                    </div>
+                                    @endif
                                     @endforeach
                                 </div>
-                                @endfor
+                            </center>
+                            @endfor
                         </div>
-                        <div class="col-md-2"></div>
+                        <!-- <div class="col-md-2"></div>
                         <div class="col-md-5">
                             <label class="bg-secondary text-white rounded border border-dark w-100 mt-3" style="padding: 14%;">
                                 TOILET
                             </label>
-                        </div>
+                        </div> -->
                         @endif
                     </div>
                     @endforeach
