@@ -13,7 +13,7 @@
                     <p class="text-white h4">
                     <h5 class="text-white">Pendaftaran 05 Maret 2025 - 14 Maret 2025</h5>
                     <!-- <h1 class="text-danger"><i>COMING SOON</i></h1> -->
-                    <h6 class="h6 text-warning"><b>Keberangkatan 27 Maret 2025</b></h6>
+                    <h6 class="h6 text-warning"><b>Keberangkatan 26 Maret 2025</b></h6>
                     </p>
 
                     <a href="{{ route('form.create') }}" class="btn btn-success bg-primary hover:bg-primary custom-btn smoothscroll mt-3">Daftar Sekarang</a>
