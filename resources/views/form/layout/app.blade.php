@@ -102,6 +102,23 @@
         });
     </script>
 
+    <script>
+        function confirmLink(event, url) {
+            event.preventDefault();
+
+            Swal.fire({
+                title: 'Download...',
+                text: 'Mohon menunggu.',
+                icon: 'info',
+                allowOutsideClick: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            window.location.href = url;
+        }
+    </script>
+
 </body>
 
 </html>

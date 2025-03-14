@@ -19,7 +19,7 @@
                     <form id="form" action="{{ route('form.confirm.check') }}" method="POST">
                         @csrf
                         <div class="form-group text-center">
-                            <label>Masukkan Kode Pendaftaran atau NIK/NIP</label>
+                            <label>Masukkan Kode Pendaftaran</label>
                             <input type="number" class="form-control form-control-lg text-center rounded border border-dark number" maxlength="18" name="kode" required>
                         </div>
                         <div class="form-group mt-4 text-center">

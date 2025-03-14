@@ -149,6 +149,11 @@
                                 <a href="{{ url('/') }}" class="btn btn-default border-dark text-dark">
                                     <i class="fa-solid fa-home"></i>
                                 </a>
+                                @if ($book->approval_uker == 'true' && $book->approval_roum == 'true')
+                                <a href="#" onclick="confirmLink(event, `{{ route('tiket', ['rand' => 'tiket', 'id' => $book->id_booking]) }}`)" class="btn btn-default border-dark text-dark">
+                                    <i class="fa-solid fa-ticket"></i> Cetak Tiket
+                                </a>
+                                @endif
                             </div>
                         </div>
                     </div>
