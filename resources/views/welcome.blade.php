@@ -16,7 +16,7 @@
                     <h6 class="h6 text-warning"><b>Keberangkatan 26 Maret 2025</b></h6>
                     </p>
 
-                    <a href="{{ route('form.create') }}" class="btn btn-success bg-primary hover:bg-primary custom-btn smoothscroll mt-3">Daftar Sekarang</a>
+                    <!-- <a href="{{ route('form.create') }}" class="btn btn-success bg-primary hover:bg-primary custom-btn smoothscroll mt-3">Daftar Sekarang</a> -->
                     <a href="{{ route('tiket.check') }}" class="btn btn-danger bg-danger hover:bg-primary custom-btn smoothscroll mt-3">Cek Pendaftaran </a>
                 </div>
 
