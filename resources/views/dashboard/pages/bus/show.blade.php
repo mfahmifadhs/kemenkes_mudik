@@ -21,7 +21,7 @@
                         <span id="downloadSpinner" class="spinner-border spinner-border-sm" style="display: none;" role="status" aria-hidden="true"></span>
                         <small>Download Excel</small>
                     </a>
-                    <a id="downloadButton" onclick="downloadFile('pdf')" class="btn btn-csv bg-danger border-danger" target="__blank">
+                    <a href="{{ route('bus.pdfSeat') }}" class="btn btn-csv bg-danger border-danger" target="__blank">
                         <span class="btn btn-danger btn-sm"><i class="fas fa-print"></i></span>
                         <span id="downloadSpinner" class="spinner-border spinner-border-sm" style="display: none;" role="status" aria-hidden="true"></span>
                         <small>Cetak</small>

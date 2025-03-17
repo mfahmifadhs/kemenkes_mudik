@@ -37,7 +37,7 @@ Route::post('form/konfirmasi/cek', [FormController::class, 'check'])->name('form
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('bus', [BusController::class, 'index'])->name('bus');
-    Route::get('bus/cetak/kursi/{id}', [BusController::class, 'pdfSeat'])->name('bus.pdfSeat');
+    Route::get('bus/cetak/kursi', [BusController::class, 'pdfSeat'])->name('bus.pdfSeat');
     Route::get('bus/cetak/kk/{id}', [BusController::class, 'pdfKk'])->name('bus.pdfKk');
     Route::get('dashboard/waktu', [DashboardController::class, 'time'])->name('dashboard.time');
 

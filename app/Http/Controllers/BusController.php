@@ -48,16 +48,15 @@ class BusController extends Controller
         }
     }
 
-    public function pdfSeat($id)
+    public function pdfSeat()
     {
         $user    = Auth::user();
         $seatCek = Peserta::select(DB::RAW('concat(kode_seat, bus_id) as seat_booked'), 'status')->get();
-        $bus     = Bus::where('id_bus', $id)->get();
+        $bus     = Bus::take(2)->get();
         $data    = Peserta::join('t_booking', 'id_booking', 'booking_id')
                    ->join('t_unit_kerja', 'id_unit_kerja', 'uker_id')
                    ->select('t_peserta.status', 't_peserta.*', 't_booking.uker_id')
-                   ->where('status', '!=', 'cancel')
-                   ->where('bus_id', $id);
+                   ->where('status', '!=', 'cancel');
 
         if ($user->role_id == 4 && Auth::user()->uker->unit_utama_id == '46593') {
             $peserta = $data->where('uker_id', Auth::user()->uker_id)->where('approval_uker', null)->get();
