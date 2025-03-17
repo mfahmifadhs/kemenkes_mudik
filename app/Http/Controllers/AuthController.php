@@ -26,13 +26,13 @@ class AuthController extends Controller
             'password'  => 'required',
         ]);
 
-        // $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-        //     'secret' => env('RECAPTCHA_SECRET_KEY'),
-        //     'response' => $request->input('g-recaptcha-response'),
-        //     'remoteip' => $request->ip(),
-        // ]);
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $request->input('g-recaptcha-response'),
+            'remoteip' => $request->ip(),
+        ]);
 
-        // $result = $response->json();
+        $result = $response->json();
 
         if (!$result['success']) {
             return back()->with('failed', 'Gagal Verifikasi Captcha');
