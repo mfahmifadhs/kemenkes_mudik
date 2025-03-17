@@ -34,10 +34,10 @@ class AuthController extends Controller
 
         // $result = $response->json();
 
-        // if (!$result['success']) {
-        //     return back()->with('failed', 'Gagal Verifikasi Captcha');
-        // }
-s
+        if (!$result['success']) {
+            return back()->with('failed', 'Gagal Verifikasi Captcha');
+        }
+
         $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
