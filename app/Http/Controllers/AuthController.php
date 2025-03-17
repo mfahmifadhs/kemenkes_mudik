@@ -37,7 +37,7 @@ class AuthController extends Controller
         // if (!$result['success']) {
         //     return back()->with('failed', 'Gagal Verifikasi Captcha');
         // }
-
+s
         $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
