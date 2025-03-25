@@ -277,7 +277,13 @@
             exportOptions: {
                 columns: ':not(:nth-child(2))'
             },
-        }, ],
+        }, {
+            text: ' Cetak KK',
+            className: 'bg-primary',
+            action: function(e, dt, button, config) {
+                window.location.href = `{{ route('bus.pdfKk', $bus) }}`;
+            }
+        }],
         "bDestroy": true
     }).buttons().container().appendTo('#table-download_wrapper .col-md-6:eq(0)');
 </script>
