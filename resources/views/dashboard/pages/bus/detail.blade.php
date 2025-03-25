@@ -182,11 +182,15 @@
                                         <th style="width: 10%;">ID</th>
                                         <th style="width: 10%;">Tujuan</th>
                                         <th style="width: 20%;">Nama</th>
+                                        <th style="width: 10%;">Telpon</th>
                                         <th style="width: 10%;">Usia</th>
                                         <th style="width: 10%;">NIK</th>
                                         <th style="width: 12%size ;">Kursi</th>
                                     </tr>
                                 </thead>
+                                @php
+                                $shownBookings = [];
+                                @endphp
                                 <tbody>
                                     @foreach ($peserta as $row)
                                     <tr>
@@ -204,6 +208,14 @@
                                             {{ $row->booking->tujuan->nama_kota }}
                                         </td>
                                         <td class="text-left">{{ $row->nama_peserta }}</td>
+                                        @if (!in_array($row->booking_id, $shownBookings))
+                                        <td>{{ $row->booking->no_telp }}</td>
+                                        @php
+                                        $shownBookings[] = $row->booking_id;
+                                        @endphp
+                                        @else
+                                        <td>-</td> {{-- Kosongkan jika sudah ditampilkan --}}
+                                        @endif
                                         <td>{{ $row->usia }} tahun</td>
                                         <td>{{ $row->nik }}</td>
                                         <td>{{ $row->kode_seat }}</td>
