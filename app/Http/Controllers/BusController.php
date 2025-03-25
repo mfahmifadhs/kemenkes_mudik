@@ -38,7 +38,7 @@ class BusController extends Controller
             $peserta = $data->get();
         }
 
-        return view('dashboard.pages.bus.detail', compact('seatCek', 'bus', 'peserta'));
+        return view('dashboard.pages.bus.detail', compact('id', 'seatCek', 'bus', 'peserta'));
     }
 
     public function export($id)

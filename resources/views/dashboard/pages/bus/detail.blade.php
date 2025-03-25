@@ -23,7 +23,6 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4">
-
                     @foreach ($bus as $key => $row)
                     @php $bus = $row->id_bus; @endphp
                     <div class="row container text-center">
@@ -126,33 +125,33 @@
                         @if ($row->total_kursi == 36 || $row->total_kursi == 50)
                         <div class="col-md-12 my-2">
                             @for ($i = 1; $i <= $row->seat_belakang; $i++)
-                            <center>
-                                <div class="row">
-                                    @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
-                                    @php $seatCode = '12' . $kode . $bus; @endphp
-                                    @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
-                                    <div class="col-md-2">
-                                        <label class="bg-warning text-white rounded border border-dark p-2 w-100" for="seat{{ '12' . $kode . $row }}">
-                                            {{ '12' . $kode }}
-                                        </label>
+                                <center>
+                                    <div class="row">
+                                        @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
+                                        @php $seatCode = '12' . $kode . $bus; @endphp
+                                        @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
+                                        <div class="col-md-2">
+                                            <label class="bg-warning text-white rounded border border-dark p-2 w-100" for="seat{{ '12' . $kode . $row }}">
+                                                {{ '12' . $kode }}
+                                            </label>
+                                        </div>
+                                        @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
+                                        <div class="col-md-2">
+                                            <label class="bg-danger text-white rounded border border-dark p-2 w-100" for="seat{{ '12' . $kode . $row }}">
+                                                {{ '12' . $kode }}
+                                            </label>
+                                        </div>
+                                        @else
+                                        <div class="col-md-2">
+                                            <label class="bg-success text-white rounded border border-dark p-2 w-100" for="seat{{ '12' . $kode . $row }}">
+                                                {{ '12' . $kode }}
+                                            </label>
+                                        </div>
+                                        @endif
+                                        @endforeach
                                     </div>
-                                    @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
-                                    <div class="col-md-2">
-                                        <label class="bg-danger text-white rounded border border-dark p-2 w-100" for="seat{{ '12' . $kode . $row }}">
-                                            {{ '12' . $kode }}
-                                        </label>
-                                    </div>
-                                    @else
-                                    <div class="col-md-2">
-                                        <label class="bg-success text-white rounded border border-dark p-2 w-100" for="seat{{ '12' . $kode . $row }}">
-                                            {{ '12' . $kode }}
-                                        </label>
-                                    </div>
-                                    @endif
-                                    @endforeach
-                                </div>
-                            </center>
-                            @endfor
+                                </center>
+                                @endfor
                         </div>
                         <!-- <div class="col-md-2"></div>
                         <div class="col-md-5">
@@ -165,27 +164,27 @@
                     @endforeach
                 </div>
                 <div class="col-md-8">
-                    @if (Auth::user()->role_id == 2)
+                    <!-- @if (Auth::user()->role_id == 2)
                     <a href="{{ route('bus.pdfSeat', $bus) }}" class="btn btn-danger btn-sm my-2" target="__blank">
                         <i class="fas fa-print"></i> Cetak Kursi
                     </a>
                     <a href="{{ route('bus.pdfKk', $bus) }}" class="btn btn-danger btn-sm my-2" target="__blank">
                         <i class="fas fa-print"></i> Cetak Pegawai
                     </a>
-                    @endif
-
+                    @endif -->
                     <div class="card">
                         <div class="card-body">
-                            <table id="table" class="table text-center text-sm">
+                            <table id="table-download" class="table text-center text-sm">
                                 <thead>
                                     <tr>
                                         <th style="width: 0%;">No</th>
                                         <th style="width: auto;">Unit Kerja</th>
-                                        <th style="width: 10%;">Tiket</th>
+                                        <th style="width: 10%;">ID</th>
+                                        <th style="width: 10%;">Tujuan</th>
                                         <th style="width: 20%;">Nama</th>
                                         <th style="width: 10%;">Usia</th>
                                         <th style="width: 10%;">NIK</th>
-                                        <th style="width: 12%size ;">No. Kursi</th>
+                                        <th style="width: 12%size ;">Kursi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -201,6 +200,9 @@
                                             {{ $row->booking->uker->nama_unit_kerja }}
                                         </td>
                                         <td>{{ $row->booking->kode_booking  }}</td>
+                                        <td class="text-left">
+                                            {{ $row->booking->tujuan->nama_kota }}
+                                        </td>
                                         <td class="text-left">{{ $row->nama_peserta }}</td>
                                         <td>{{ $row->usia }} tahun</td>
                                         <td>{{ $row->nik }}</td>
@@ -235,6 +237,37 @@
             }
         });
     }
+</script>
+
+<script>
+    $("#uker").select2()
+    $("#table-download").DataTable({
+        "responsive": false,
+        "lengthChange": true,
+        "autoWidth": false,
+        "info": true,
+        "paging": true,
+        "searching": true,
+        buttons: [{
+            extend: 'pdf',
+            text: ' PDF',
+            pageSize: 'A4',
+            className: 'bg-danger',
+            title: 'Bus - ' + `{{ $id }}`,
+            exportOptions: {
+                columns: [0, 1, 2, 3, 4, 7],
+            },
+        }, {
+            extend: 'excel',
+            text: ' Excel',
+            className: 'bg-success',
+            title: 'Bus - ' + `{{ $id }}`,
+            exportOptions: {
+                columns: ':not(:nth-child(2))'
+            },
+        }, ],
+        "bDestroy": true
+    }).buttons().container().appendTo('#table-download_wrapper .col-md-6:eq(0)');
 </script>
 @endsection
 
