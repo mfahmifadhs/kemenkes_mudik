@@ -370,4 +370,35 @@ class BookingController extends Controller
 
         return redirect()->route('book.validation', $request->id)->with('success', 'Berhasil menambahkan');
     }
+
+    public function deletePeserta($id)
+    {
+        Peserta::where('id_peserta', $id)->delete();
+
+        return back()->with('success', 'Berhasil menghapus');
+    }
+
+    public function updatePeserta(Request $request, $id)
+    {
+        $peserta = Peserta::where('bus_id', $request->bus)
+            ->where('kode_seat', $request->seat)
+            ->whereNot('status', 'cancel')
+            ->whereNot('id_peserta', $id)
+            ->first();
+
+        if ($peserta) {
+            return redirect()->route('book.validation', $request->id)->with('failed', 'Kursi tidak tersedia');
+        }
+
+        Peserta::where('id_peserta', $id)->update([
+            'booking_id'   => $request->id,
+            'bus_id'       => $request->bus,
+            'kode_seat'    => $request->seat,
+            'nama_peserta' => $request->nama,
+            'nik'          => $request->nik,
+            'usia'         => $request->usia
+        ]);
+
+        return redirect()->route('book.validation', $request->id)->with('success', 'Berhasil menyimpan');
+    }
 }

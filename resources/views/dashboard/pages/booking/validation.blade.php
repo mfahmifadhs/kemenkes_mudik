@@ -117,6 +117,7 @@
                             <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
+                                    <th class="align-middle">Aksi</th>
                                     <th class="align-middle">Nama Peserta</th>
                                     <th class="align-middle">Usia</th>
                                     <th class="align-middle">NIK</th>
@@ -127,7 +128,97 @@
                             <tbody>
                                 @foreach ($book->detail as $row)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        {{ $loop->iteration }}
+                                    </td>
+                                    <td>
+                                        <button type="button"
+                                            class="btn btn-sm btn-outline-danger btn-round shadow-sm"
+                                            onclick="confirmDelete(event, `{{ route('peserta.delete', $row->id_peserta) }}`)"
+                                            data-toggle="tooltip"
+                                            title="Hapus Peserta">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+
+                                        <a type="button"
+                                            class="btn btn-sm btn-outline-warning btn-round shadow-sm"
+                                            data-toggle="modal" data-target="#modalEdit-{{ $row->id_peserta }}"
+                                            data-toggle="tooltip"
+                                            title="Edit Peserta">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+
+                                        <div class="modal fade" id="modalEdit-{{ $row->id_peserta }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered shadow-lg" role="document">
+                                                <div class="modal-content border-0 rounded-lg">
+
+                                                    <div class="modal-header bg-light border-0 py-3">
+                                                        <h5 class="modal-title font-weight-bold text-primary" id="modalLabel">
+                                                            <i class="fas fa-user-plus mr-2"></i>Tambah Peserta Baru
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true" class="text-danger">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <form id="form-edit-{{ $row->id_peserta }}" action="{{ route('peserta.update', $row->id_peserta) }}" method="POST">
+                                                        @csrf
+                                                        <div class="modal-body p-4">
+                                                            <input type="hidden" name="id" value="{{ $book->id_booking }}">
+
+                                                            <div class="form-group">
+                                                                <label class="small font-weight-bold text-muted">NAMA LENGKAP</label>
+                                                                <div class="input-group">
+                                                                    <input type="text" name="nama" class="form-control rounded-right shadow-sm" value="{{ $row->nama_peserta }}" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-7 form-group">
+                                                                    <label class="small font-weight-bold text-muted">NIK</label>
+                                                                    <input type="number" name="nik" class="form-control rounded shadow-sm" value="{{ $row->nik }}" required>
+                                                                </div>
+                                                                <div class="col-md-5 form-group">
+                                                                    <label class="small font-weight-bold text-muted">USIA</label>
+                                                                    <div class="input-group">
+                                                                        <input type="number" name="usia" class="form-control rounded shadow-sm" value="{{ $row->usia }}" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-7 form-group">
+                                                                    <label class="small font-weight-bold text-muted text-uppercase">Pilih Bus</label>
+                                                                    <select name="bus" id="select-bus" class="form-control rounded shadow-sm custom-select" required>
+                                                                        <option value="">-- Pilih Bus --</option>
+                                                                        @foreach($bus as $b)
+                                                                        <option value="{{ $b->id_bus }}" <?= $b->id_bus == $row->bus_id ? 'selected' : ''; ?>>
+                                                                            {{ $b->no_bus }}
+                                                                        </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="col-md-5 form-group">
+                                                                    <label class="small font-weight-bold text-muted">Pilih Seat</label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" name="seat" class="form-control rounded shadow-sm" value="{{ $row->kode_seat }}" maxlength="3" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="modal-footer bg-light border-0 p-3">
+                                                            <button type="button" class="btn btn-link text-muted font-weight-bold" data-dismiss="modal">Batal</button>
+                                                            <button type="button" id="btnSimpanPeserta" onclick="confirmSubmit(event, `form-edit-{{ $row->id_peserta }}`)" class="btn btn-primary px-4 rounded-pill shadow">
+                                                                <i class="fas fa-save mr-1"></i> Simpan Data
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>{{ $row->nama_peserta }}</td>
                                     <td>{{ (int) $row->usia.' Tahun' }}</td>
                                     <td>{{ $row->nik }}</td>
@@ -259,7 +350,7 @@
 
                 <div class="modal-footer bg-light border-0 p-3">
                     <button type="button" class="btn btn-link text-muted font-weight-bold" data-dismiss="modal">Batal</button>
-                    <button type="button" id="btnSimpanPeserta" onclick="confirmSubmit()" class="btn btn-primary px-4 rounded-pill shadow">
+                    <button type="button" id="btnSimpanPeserta" onclick="confirmSubmit(event, 'formTambahPeserta')" class="btn btn-primary px-4 rounded-pill shadow">
                         <i class="fas fa-save mr-1"></i> Simpan Data
                     </button>
                 </div>
@@ -463,7 +554,7 @@
 </script>
 
 <script>
-    function confirmSubmit() {
+    function confirmSubmit(event, form) {
         Swal.fire({
             title: 'Simpan Data?',
             text: "Pastikan data peserta sudah benar.",
@@ -492,7 +583,7 @@
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Menyimpan...';
 
                 // 3. Submit form secara programatik
-                document.getElementById('formTambahPeserta').submit();
+                document.getElementById(form).submit();
             }
         });
     }
@@ -533,6 +624,40 @@
             }
         });
     });
+</script>
+
+<script>
+    function confirmDelete(event, url) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Hapus Peserta?',
+            text: "Data ini akan dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#e74a3b', // Warna merah ala Bootstrap Danger
+            cancelButtonColor: '#858796', // Warna abu-abu ala Secondary
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal',
+            reverseButtons: true,
+            focusCancel: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Animasi Loading Modern
+                Swal.fire({
+                    title: 'Memproses...',
+                    html: 'Sedang menghapus data.',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                // Redirect ke route delete
+                window.location.href = url;
+            }
+        });
+    }
 </script>
 @endsection
 @endsection

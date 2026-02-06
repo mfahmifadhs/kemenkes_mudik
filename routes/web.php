@@ -46,6 +46,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('peserta', [BookingController::class, 'index'])->name('peserta');
     Route::get('peserta/cari', [BookingController::class, 'filter'])->name('peserta.filter');
+    Route::get('peserta/delete/{id}', [BookingController::class, 'deletePeserta'])->name('peserta.delete');
+    Route::post('peserta/update/{id}', [BookingController::class, 'updatePeserta'])->name('peserta.update');
     Route::post('peserta/store', [BookingController::class, 'store'])->name('peserta.store');
 
     Route::get('bus/{id}', [BusController::class, 'detail'])->name('bus.detail');
