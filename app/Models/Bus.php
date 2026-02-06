@@ -17,6 +17,7 @@ class Bus extends Model
 
     protected $fillable = [
         'trayek_id',
+        'no_bus',
         'no_plat',
         'deskripsi',
         'total_kursi',
@@ -24,7 +25,8 @@ class Bus extends Model
         'seat_kiri',
         'seat_belakang',
         'kd_seat_kiri',
-        'kd_seat_kanan'
+        'kd_seat_kanan',
+        'status'
     ];
 
     public function trayek() {

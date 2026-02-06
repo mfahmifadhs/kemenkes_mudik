@@ -160,35 +160,112 @@
                     @endif
                     @endif
 
-                    @if ($book->status == 'true')
-                    <div class="card-footer text-right font-weight-bold">
-                        <a id="download" class="btn btn-success btn-sm" data-url="{{ route('tiket.cetak', $book->id_booking) }}" target="_blank">
-                            <i class="fas fa-paper-plane"></i> <b>Kirm Email</b>
-                        </a>
-                    </div>
-                    @endif
-                    @if (Auth::user()->role_id == 2 && !$book->approval_roum && $book->approval_uker == 'true')
-                    <div class="card-footer text-right font-weight-bold">
-                        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#tolak">
-                            <i class="fas fa-times-circle"></i> Tolak
-                        </a>
-                        <a href="{{ route('book.true', $book->id_booking) }}" class="btn btn-success" onclick="confirmTrue(event)">
-                            <i class="fas fa-check-circle"></i> Setuju
-                        </a>
-                    </div>
-                    @endif
+                    <div class="card-footer d-flex justify-content-end align-items-center flex-wrap" style="gap: 8px;">
 
-                    @if ($book->approval_roum == 'true' && Auth::user()->role_id == 2 || Auth::user()->role_id == 1)
-                    <div class="card-footer text-right font-weight-bold">
-                        <a id="download" class="btn btn-success btn-sm" data-url="{{ route('tiket.email', $book->id_booking) }}" target="_blank">
+                        <button type="button" class="btn btn-outline-primary btn-sm shadow-sm px-3 rounded-pill" data-toggle="modal" data-target="#modalTambahPeserta">
+                            <i class="fas fa-plus-circle mr-1"></i> <b>Tambah Peserta</b>
+                        </button>
+
+                        {{-- Kondisi untuk Tombol Kirim Email --}}
+                        @if ($book->status == 'true')
+                        <a id="download" class="btn btn-success btn-sm shadow-sm px-3" data-url="{{ route('tiket.cetak', $book->id_booking) }}" target="_blank">
+                            <i class="fas fa-paper-plane mr-1"></i> <b>Kirim Email</b>
+                        </a>
+                        @endif
+
+                        {{-- Kondisi untuk Tombol Setuju/Tolak --}}
+                        @if (Auth::user()->role_id == 2 && !$book->approval_roum && $book->approval_uker == 'true')
+                        <div class="btn-group shadow-sm" role="group">
+                            <a class="btn btn-danger btn-sm px-3" href="#" data-toggle="modal" data-target="#tolak">
+                                <i class="fas fa-times-circle mr-1"></i> Tolak
+                            </a>
+                            <a href="{{ route('book.true', $book->id_booking) }}" class="btn btn-success btn-sm px-3" onclick="confirmTrue(event)">
+                                <i class="fas fa-check-circle mr-1"></i> Setuju
+                            </a>
+                        </div>
+                        @endif
+
+
+                        @if ($book->approval_roum == 'true' && Auth::user()->role_id == 2 || Auth::user()->role_id == 1)
+                        <a id="download" class="btn btn-outline-success rounded-pill btn-sm" data-url="{{ route('tiket.email', $book->id_booking) }}" target="_blank">
                             <i class="fas fa-paper-plane"></i> <b>Kirm Email</b>
                         </a>
+                        @endif
+
                     </div>
-                    @endif
                 </div>
             </center>
         </div>
     </div><br>
+</div>
+
+<div class="modal fade" id="modalTambahPeserta" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered shadow-lg" role="document">
+        <div class="modal-content border-0 rounded-lg">
+
+            <div class="modal-header bg-light border-0 py-3">
+                <h5 class="modal-title font-weight-bold text-primary" id="modalLabel">
+                    <i class="fas fa-user-plus mr-2"></i>Tambah Peserta Baru
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-danger">&times;</span>
+                </button>
+            </div>
+
+            <form id="formTambahPeserta" action="{{ route('peserta.store') }}" method="POST">
+                @csrf
+                <div class="modal-body p-4">
+                    <input type="hidden" name="id" value="{{ $book->id_booking }}">
+
+                    <div class="form-group">
+                        <label class="small font-weight-bold text-muted">NAMA LENGKAP</label>
+                        <div class="input-group">
+                            <input type="text" name="nama" class="form-control rounded-right shadow-sm" placeholder="Contoh: John Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-7 form-group">
+                            <label class="small font-weight-bold text-muted">NIK</label>
+                            <input type="number" name="nik" class="form-control rounded shadow-sm" placeholder="16 Digit NIK" required>
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <label class="small font-weight-bold text-muted">USIA</label>
+                            <div class="input-group">
+                                <input type="number" name="usia" class="form-control rounded shadow-sm" placeholder="0" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-7 form-group">
+                            <label class="small font-weight-bold text-muted text-uppercase">Pilih Bus</label>
+                            <select name="bus" id="select-bus" class="form-control rounded shadow-sm custom-select" required>
+                                <option value="">-- Pilih Bus --</option>
+                                @foreach($bus as $b)
+                                <option value="{{ $b->id_bus }}">{{ $b->no_bus }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-5 form-group">
+                            <label class="small font-weight-bold text-muted">Pilih Seat</label>
+                            <div class="input-group">
+                                <input type="text" name="seat" class="form-control rounded shadow-sm" placeholder="Contoh : 1A/2B/3C" maxlength="3" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer bg-light border-0 p-3">
+                    <button type="button" class="btn btn-link text-muted font-weight-bold" data-dismiss="modal">Batal</button>
+                    <button type="button" id="btnSimpanPeserta" onclick="confirmSubmit()" class="btn btn-primary px-4 rounded-pill shadow">
+                        <i class="fas fa-save mr-1"></i> Simpan Data
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Tolak -->
@@ -381,6 +458,79 @@
                 Swal.showLoading();
                 window.location.href = url;
             },
+        });
+    });
+</script>
+
+<script>
+    function confirmSubmit() {
+        Swal.fire({
+            title: 'Simpan Data?',
+            text: "Pastikan data peserta sudah benar.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#aaa',
+            confirmButtonText: 'Ya, Simpan!',
+            cancelButtonText: 'Batal',
+            reverseButtons: true // Agar tombol Batal di kiri, Simpan di kanan
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 1. Tampilkan loading global (SweetAlert)
+                Swal.fire({
+                    title: 'Sedang Memproses...',
+                    text: 'Mohon tunggu sebentar.',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                // 2. Efek loading pada tombol manual
+                const btn = document.getElementById('btnSimpanPeserta');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Menyimpan...';
+
+                // 3. Submit form secara programatik
+                document.getElementById('formTambahPeserta').submit();
+            }
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#select-bus').on('change', function() {
+            var busId = $(this).val();
+            var seatDropdown = $('#select-seat');
+            var loading = $('#loading-seat');
+
+            if (busId) {
+                // Aktifkan loading, kosongkan seat
+                seatDropdown.empty().append('<option value="">-- Pilih Seat --</option>');
+                seatDropdown.prop('disabled', true);
+                loading.removeClass('d-none');
+
+                // Panggil API/Route untuk ambil seat
+                $.ajax({
+                    url: '/get-seats/' + busId, // Sesuaikan dengan route Anda
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        loading.addClass('d-none');
+                        seatDropdown.prop('disabled', false);
+
+                        $.each(data, function(key, value) {
+                            // Hanya tampilkan seat yang statusnya 'true' (tersedia)
+                            if (value.status == 'true') {
+                                seatDropdown.append('<option value="' + value.kode_seat + '">' + value.kode_seat + '</option>');
+                            }
+                        });
+                    }
+                });
+            } else {
+                seatDropdown.prop('disabled', true);
+            }
         });
     });
 </script>

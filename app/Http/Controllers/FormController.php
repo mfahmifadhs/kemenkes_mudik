@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
 use Mpdf\Mpdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FormController extends Controller
 {
@@ -224,7 +225,6 @@ class FormController extends Controller
         $mpdf = new Mpdf();
         $mpdf->WriteHTML(view('dashboard.pages.booking.ticket', $data)->render());
         $mpdf->Output('e-ticket.pdf', 'D');
-
     }
 
     public function check(Request $request)
@@ -252,7 +252,7 @@ class FormController extends Controller
             "text"  => "-- Pilih Kota Tujuan --"
         );
 
-        foreach($data as $row){
+        foreach ($data as $row) {
             $response[] = array(
                 "id"    =>  $row->id_detail,
                 "text"  =>  strtoupper($row->nama_kota)
@@ -272,7 +272,7 @@ class FormController extends Controller
             "text"  => "-- Pilih Unit Kerja --"
         );
 
-        foreach($data as $row){
+        foreach ($data as $row) {
             $response[] = array(
                 "id"    =>  $row->id_unit_kerja,
                 "text"  =>  $row->nama_unit_kerja
@@ -280,5 +280,32 @@ class FormController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function ticketPdf($id)
+    {
+        $book = Booking::with(['uker', 'tujuan', 'rute'])->findOrFail($id);
+        $detail = Peserta::where('booking_id', $id)->get();
+
+        // Persiapkan Logo (Base64)
+        $path = public_path('dist/img/logo-kemenkes.png');
+        $logoBase64 = 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path));
+
+        // Render View ke HTML
+        $html = view('form.ticket', compact('book', 'detail', 'logoBase64'))->render();
+
+        // Konfigurasi mPDF
+        $mpdf = new Mpdf([
+            'margin_left' => 10,
+            'margin_right' => 10,
+            'margin_top' => 10,
+            'margin_bottom' => 10,
+            'format' => 'A4'
+        ]);
+
+        $mpdf->WriteHTML($html);
+
+        // Tampilkan di browser (I) atau langsung download (D)
+        return $mpdf->Output('etiket_' . $book->kode_booking . '.pdf', 'I');
     }
 }

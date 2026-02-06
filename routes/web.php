@@ -34,6 +34,9 @@ Route::get('form/konfirmasi/{id}', [FormController::class, 'confirm'])->name('fo
 Route::get('tiket/cetak/{rand}/{id}', [FormController::class, 'ticket'])->name('tiket');
 Route::post('form/konfirmasi/cek', [FormController::class, 'check'])->name('form.confirm.check');
 
+
+Route::get('ticket/download/{id}', [FormController::class, 'ticketPdf'])->name('ticket.download');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('bus', [BusController::class, 'index'])->name('bus');
@@ -43,6 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('peserta', [BookingController::class, 'index'])->name('peserta');
     Route::get('peserta/cari', [BookingController::class, 'filter'])->name('peserta.filter');
+    Route::post('peserta/store', [BookingController::class, 'store'])->name('peserta.store');
 
     Route::get('bus/{id}', [BusController::class, 'detail'])->name('bus.detail');
     Route::get('bus/export/{id}', [BusController::class, 'export'])->name('bus.export');

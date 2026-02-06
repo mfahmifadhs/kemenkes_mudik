@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Mpdf\Mpdf;
+use Carbon\Carbon;
 
 class BookingController extends Controller
 {
@@ -132,6 +133,7 @@ class BookingController extends Controller
     public function validation($id)
     {
         $book = Booking::where('id_booking', $id)->first();
+        $bus  = Bus::where('status', 'true')->where('trayek_id', $book->trayek_id)->where('status', 'true')->get();
 
         if (Auth::user()->role_id == 4) {
             if ($book->uker->unit_utama_id == '46593' && $book->uker_id != Auth::user()->uker_id) {
@@ -141,7 +143,7 @@ class BookingController extends Controller
             }
         }
 
-        return view('dashboard.pages.booking.validation', compact('book'));
+        return view('dashboard.pages.booking.validation', compact('bus', 'book'));
     }
 
     public function storeValidation(Request $request, $id)
@@ -341,5 +343,31 @@ class BookingController extends Controller
 
         session()->forget('success');
         return redirect()->route('book.validation', $book->id_booking)->with('success', 'Email Terkirim');
+    }
+
+    public function store(Request $request)
+    {
+        $peserta = Peserta::where('bus_id', $request->bus)
+            ->where('kode_seat', $request->seat)
+            ->whereNot('status', 'cancel')
+            ->first();
+
+        if ($peserta) {
+            return redirect()->route('book.validation', $request->id)->with('failed', 'Kursi tidak tersedia');
+        }
+
+        $idPeserta = Peserta::withTrashed()->count();
+        $detail = new Peserta();
+        $detail->id_peserta   = $idPeserta + 1;
+        $detail->booking_id   = $request->id;
+        $detail->bus_id       = $request->bus;
+        $detail->kode_seat    = $request->seat;
+        $detail->nama_peserta = $request->nama;
+        $detail->nik          = $request->nik;
+        $detail->usia         = $request->usia;
+        $detail->created_at   = Carbon::now();
+        $detail->save();
+
+        return redirect()->route('book.validation', $request->id)->with('success', 'Berhasil menambahkan');
     }
 }

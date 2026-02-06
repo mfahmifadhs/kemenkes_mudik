@@ -76,7 +76,6 @@ class BusController extends Controller
                    ->where('bus_id', $id)->where('approval_uker', 'true')->where('approval_roum', 'true')
                    ->get();
         return view('dashboard.pages.bus.pdf_kk', compact('bus','peserta'));
-
     }
 }
 
