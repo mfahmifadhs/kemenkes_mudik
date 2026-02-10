@@ -194,14 +194,22 @@ class FormController extends Controller
             return redirect()->route('form.create', compact('rute', 'step', 'full', 'data', 'peserta', 'id_book'))->with('failed', 'Bangku Penuh');
         }
 
+        Booking::where('id_booking', $id_book)->update([
+            'payment_limit' => now()->addDays(3)
+        ]);
+
         return redirect()->route('form.confirm', $id_book)->with('success', 'Berhasil Registrasi');
     }
 
-    public function confirm($id)
+    public function confirm(Request $request, $id)
     {
-        $book = Booking::where('id_booking', $id)->first();
-        $detail = Peserta::where('booking_id', $id)->get();
-        return view('form.confirm', compact('book', 'detail'));
+        if ($id == 'check') {
+            $id = $request->kode;
+        }
+
+        $book = Booking::where('id_booking', $id)->orWhere('kode_booking', $id)->first();
+
+        return view('form.confirm', compact('book'));
     }
 
     public function ticket($rand, $id)

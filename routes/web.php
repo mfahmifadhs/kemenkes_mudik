@@ -53,6 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bus/{id}', [BusController::class, 'detail'])->name('bus.detail');
     Route::get('bus/export/{id}', [BusController::class, 'export'])->name('bus.export');
 
+    Route::post('payment/upload/{id}', [BookingController::class, 'paymentUpload'])->name('payment.upload');
+
     // select
     Route::get('tiket/{id}', [BookingController::class, 'emailTicket'])->name('tiket.email');
     Route::get('book/validation/{id}', [BookingController::class, 'validation'])->name('book.validation');

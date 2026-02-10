@@ -154,7 +154,7 @@
 
                                                     <div class="modal-header bg-light border-0 py-3">
                                                         <h5 class="modal-title font-weight-bold text-primary" id="modalLabel">
-                                                            <i class="fas fa-user-plus mr-2"></i>Tambah Peserta Baru
+                                                            <i class="fas fa-user-plus mr-2"></i>Edit Peserta Baru
                                                         </h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true" class="text-danger">&times;</span>

@@ -28,6 +28,12 @@ class Booking extends Model
         'email',
         'foto_kk',
         'foto_ktp',
+        'payment_limit',
+        'payment_file',
+        'payment_status',
+        'approval_uker',
+        'approval_roum',
+        'catatan'
     ];
 
     public function bus() {

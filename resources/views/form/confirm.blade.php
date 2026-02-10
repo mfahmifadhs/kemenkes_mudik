@@ -136,6 +136,34 @@
                                     @endif
                                 </div>
 
+                                @if (!$book->payment_status || $book->payment_status == 'proses' || $book->payment_status == 'ditolak')
+                                <div class="text-md-right mt-3">
+                                    <div class="info-label small text-muted text-uppercase fw-bold mb-1">Batas Waktu Deposit</div>
+                                    <h3 id="countdown" class="text-primary font-weight-bold">
+                                    </h3>
+
+                                    <div class="mt-3">
+                                        @if($book->payment_status == 'ditolak')
+                                        <div class="badge badge-danger mb-2">Pembayaran Ditolak: Mohon Upload Ulang</div>
+                                        @elseif($book->payment_status == 'proses')
+                                        <div class="badge badge-warning mb-2">Pembayaran Sedang Diverifikasi</div>
+                                        @endif
+
+                                        <br>
+                                        <button type="button" class="btn btn-primary rounded-pill px-4 shadow-sm" data-toggle="modal" data-target="#modalUploadBukti">
+                                            <i class="fas fa-upload mr-1"></i> Upload Bukti Transaksi
+                                        </button>
+                                    </div>
+                                </div>
+                                @else
+                                <div class="text-md-right mt-3">
+                                    <div class="badge badge-success p-2 px-3 rounded-pill">
+                                        <i class="fas fa-check-circle mr-1"></i> Pembayaran Diterima
+                                    </div>
+                                </div>
+                                @endif
+
+                                @if($book->approval_uker == 'true' && $book->approval_roum == 'true')
                                 <div class="text-md-right">
                                     <div class="info-label small text-muted text-uppercase fw-bold mb-1">Opsi Tiket</div>
                                     <a href="javascript:void(0)"
@@ -146,6 +174,7 @@
                                         <span>Download E-Tiket</span>
                                     </a>
                                 </div>
+                                @endif
 
                             </div>
                         </div>
@@ -196,7 +225,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($detail as $row)
+                                @foreach ($book->detail as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td class="font-weight-bold">{{ $row->nama_peserta }}</td>
@@ -216,7 +245,6 @@
                         <ul class="small text-muted pl-3 mb-0">
                             <li>Simpan Kode Booking ini untuk pengecekan berkala.</li>
                             <li>E-Tiket otomatis dikirim ke email <strong>{{ $book->email }}</strong> setelah verifikasi akhir.</li>
-                            <li>Cek hasil verifikasi secara mandiri <a href="{{ route('tiket.check') }}" class="text-primary">di sini</a>.</li>
                         </ul>
                     </div>
 
@@ -241,6 +269,36 @@
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="modalUploadBukti" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow-lg rounded-lg">
+            <div class="modal-header bg-light border-0">
+                <h5 class="modal-title font-weight-bold">Upload Bukti Transaksi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('payment.upload', $book->id_booking) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="id_booking" value="{{ $book->id_booking }}">
+                <div class="modal-body p-4 text-left">
+                    <div class="alert alert-info small">
+                        Pastikan foto bukti transfer terlihat jelas (Nama pengirim, Nominal, dan Tanggal).
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold small">PILIH FILE (JPG/PNG/PDF)</label>
+                        <input type="file" name="bukti_pembayaran" class="form-control-file shadow-sm p-2 border rounded" required>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light border-0">
+                    <button type="button" class="btn btn-link text-muted" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary px-4 rounded-pill shadow">Kirim Sekarang</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @section('js')
 <script>
@@ -291,6 +349,33 @@
                 });
             });
     }
+</script>
+
+<script>
+    // Ambil data limit dari server (format: YYYY-MM-DD HH:mm:ss)
+    const paymentLimit = new Date("{{ $book->payment_limit }}").getTime();
+
+    const x = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = paymentLimit - now;
+
+        // Hitung hari, jam, menit, dan detik
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Tampilkan hasil di elemen id="countdown"
+        const display = document.getElementById("countdown");
+
+        if (distance > 0) {
+            display.innerHTML = days + "h " + hours + "j " + minutes + "m " + seconds + "s ";
+        } else {
+            clearInterval(x);
+            display.innerHTML = "WAKTU HABIS";
+            display.classList.replace("text-primary", "text-danger");
+        }
+    }, 1000);
 </script>
 @endsection
 @endsection

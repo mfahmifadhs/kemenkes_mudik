@@ -16,7 +16,7 @@
                     </p>
                 </div>
                 <div class="custom-block custom-block-full col-md-5 mx-auto">
-                    <form id="form" action="{{ route('form.confirm.check') }}" method="POST">
+                    <form id="form" action="{{ route('form.confirm', 'check') }}" method="GET">
                         @csrf
                         <div class="form-group text-center">
                             <label>Masukkan Kode Pendaftaran</label>

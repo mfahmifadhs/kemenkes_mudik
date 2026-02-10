@@ -95,19 +95,19 @@
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-lg-12">
-                <h1 class="hero-title">Mudik Bersama Kemenkes 2025</span></h1>
+                <h1 class="hero-title">Mudik Bersama Kemenkes 2026</span></h1>
 
                 <div class="info-card mb-4">
                     <div class="d-flex flex-column flex-md-row gap-md-5 align-items-center">
                         <div>
                             <small class="text-white-50 d-block mb-1">Periode Pendaftaran</small>
-                            <h5 class="mb-0 fw-bold"><i class="bi-calendar-check me-2"></i>05 - 14 Maret 2025</h5>
+                            <h5 class="mb-0 fw-bold"><i class="bi-calendar-check me-2"></i>Soon</h5>
                         </div>
                         <div class="vr d-none d-md-block opacity-25"></div>
                         <hr class="d-md-none w-100 opacity-25">
                         <div>
                             <small class="text-white-50 d-block mb-1">Jadwal Keberangkatan</small>
-                            <h5 class="text-warning mb-0 fw-bold"><i class="bi-bus-front me-2"></i>26 Maret 2025</h5>
+                            <h5 class="text-warning mb-0 fw-bold"><i class="bi-bus-front me-2"></i>Soon</h5>
                         </div>
                     </div>
                 </div>
@@ -169,10 +169,6 @@
                 <div class="d-flex mb-3">
                     <i class="bi-check-circle-fill text-success me-3 mt-1"></i>
                     <p class="mb-0 text-muted">Membawa KTP asli dan Kartu Keluarga saat keberangkatan.</p>
-                </div>
-                <div class="d-flex mb-3">
-                    <i class="bi-check-circle-fill text-success me-3 mt-1"></i>
-                    <p class="mb-0 text-muted">Sudah melakukan Vaksinasi Booster (sesuai data PeduliLindungi/SatuSehat).</p>
                 </div>
                 <div class="d-flex">
                     <i class="bi-check-circle-fill text-success me-3 mt-1"></i>
