@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Bus;
 use App\Models\Peserta;
+use App\Models\SyaratKetentuan;
 use App\Models\Trayek;
 use App\Models\TrayekDetail;
 use App\Models\UnitKerja;
@@ -33,6 +34,7 @@ class FormController extends Controller
         $trayek = Trayek::get();
         $seatFull = $request->get('full', '');
         $bookId   = $request->get('id_book', '');
+        $sk = SyaratKetentuan::get();
 
         if ($rute) {
             $seatCek = Peserta::select(DB::RAW('concat(kode_seat, bus_id) as seat_booked'), 'status')->get();
@@ -61,7 +63,7 @@ class FormController extends Controller
             $data = json_decode($request->data);
         }
 
-        return view('form.create', compact('rute', 'utama', 'trayek', 'step', 'data', 'bus', 'seat', 'seatCek', 'dest', 'seatTotal', 'seatFull', 'peserta', 'bookId'));
+        return view('form.create', compact('sk', 'rute', 'utama', 'trayek', 'step', 'data', 'bus', 'seat', 'seatCek', 'dest', 'seatTotal', 'seatFull', 'peserta', 'bookId'));
     }
 
     public function store(Request $request)

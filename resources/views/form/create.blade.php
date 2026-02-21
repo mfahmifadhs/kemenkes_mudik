@@ -558,23 +558,11 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body text-sm" style="text-align: left;">
-                                                        <p class="mb-2">Syarat dan Ketentuan Peserta Bus Mudik Kemenkes Tahun 2024:</p>
+                                                        <p class="mb-2">Syarat dan Ketentuan Peserta Bus Mudik Kemenkes Tahun 2026:</p>
                                                         <ol type="1">
-                                                            <li>Peserta yang terdaftar adalah Aparatur Sipil Negara (PNS dan PPPK), Pegawai Pemerintah Non Pegawai Negeri, Pegawai Alih Daya, dan/atau Pegawai Bank Mitra di lingkungan Kantor Pusat Kementerian Kesehatan</li>
-                                                            <li>Peserta di luar pegawai Kantor Pusat Kementerian Kesehatan merupakan kerabat dalam satu Kartu Keluarga (KK) dan/atau satu alamat rumah yang sama dengan peserta pada point 1</li>
-                                                            <li>Peserta dalam kondisi sehat dan tidak memiliki riwayat atau sedang dalam masa penularan penyakit menular yang berpotensi terhadap penyebaran penyakit di dalam Bus.</li>
-                                                            <li>Obat-obatan pribadi merupakan tanggung jawab masing-masing peserta.</li>
-                                                            <li>Dokumen yang dilampirkan sebagai data pelengkap dalam formular ini adalah benar.</li>
-                                                            <li>Peserta tidak diperbolehkan untuk melakukan pemindahan nomor kursi tanpa persetujuan panitia.</li>
-                                                            <li>Dilarang keras membawa obat-obatan terlarang, senjata tajam atau api, dan/atau hal lain yang dapat mengancam keamaan perjalanan.</li>
-                                                            <li>Dilarang melakukan penjualan nomor kursi kepada pihak lain.</li>
-                                                            <li>Apabila ditemukan hal-hal di luar ketentuan makan akan diterapkan sanksi sesuai dengan ketentuan.</li>
-                                                            <li><b>Peserta wajib</b> menyetorkan uang jaminan senilai Rp200.000, sebagai penjamin kepastian keberangkatan peserta.</li>
-                                                            <li>Uang jaminan menjadi penjamin penumpang dapat mengikuti perjalanan.</li>
-                                                            <li>Uang jaminan tidak dapat dikembalikan, apabila salah satu atau lebih peserta <b>dan/atau</b> keluarga peserta membatalkan keberangkatan. <br>
-                                                                Contoh : Pegawai atas nama A, mendaftarkan 3 anggota keluarganya, namun salah satu anggota keluarganya membatalkan keberangkatan. Maka uang jaminan tidak dapat dikembalikan.
-                                                            </li>
-                                                            <li>Uang jaminan akan dikembalikan 100%, sebelum keberangkatan dengan menunjukan e-ticket ke panitia.</li>
+                                                            @foreach ($sk as $row)
+                                                            <li>{{ $row->syarat_ketentuan }}</li>
+                                                            @endforeach
                                                         </ol>
                                                         <p class="mt-4 text-justify">
                                                             <label style="text-align: justify;">
