@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Bus;
 use App\Models\Peserta;
+use App\Models\SyaratKetentuan;
 use App\Models\Trayek;
 use App\Models\TrayekDetail;
 use App\Models\UnitKerja;
@@ -14,6 +15,7 @@ use Carbon\Carbon;
 use DB;
 use Mpdf\Mpdf;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
 
 class FormController extends Controller
 {
@@ -32,6 +34,7 @@ class FormController extends Controller
         $trayek = Trayek::get();
         $seatFull = $request->get('full', '');
         $bookId   = $request->get('id_book', '');
+        $sk = SyaratKetentuan::get();
 
         if ($rute) {
             $seatCek = Peserta::select(DB::RAW('concat(kode_seat, bus_id) as seat_booked'), 'status')->get();
@@ -60,7 +63,7 @@ class FormController extends Controller
             $data = json_decode($request->data);
         }
 
-        return view('form.create', compact('rute', 'utama', 'trayek', 'step', 'data', 'bus', 'seat', 'seatCek', 'dest', 'seatTotal', 'seatFull', 'peserta', 'bookId'));
+        return view('form.create', compact('sk', 'rute', 'utama', 'trayek', 'step', 'data', 'bus', 'seat', 'seatCek', 'dest', 'seatTotal', 'seatFull', 'peserta', 'bookId'));
     }
 
     public function store(Request $request)
@@ -110,7 +113,7 @@ class FormController extends Controller
 
         $data = json_decode($request->data);
         $id_book = Booking::withTrashed()->count() + 1;
-        $kode_book = Carbon::now()->format('ymdHis') . $id_book;
+        $kode_book = strtoupper(Str::random(7));
 
         $tambah  = new Booking();
         $tambah->id_booking   = $id_book;
@@ -205,11 +208,26 @@ class FormController extends Controller
     {
         if ($id == 'check') {
             $id = $request->kode;
+            $book = Booking::where('kode_booking', $id)->first();
+        } else {
+            $book = Booking::where('id_booking', $id)->first();
         }
 
-        $book = Booking::where('id_booking', $id)->orWhere('kode_booking', $id)->first();
+        if ($book->payment_status !== 'true' && now()->greaterThan($book->payment_limit)) {
+            $book->update(['payment_status' => 'false']);
 
-        return view('form.confirm', compact('book'));
+            Peserta::where('booking_id', $book->id_booking)->delete();
+
+            
+            return redirect()->route('home')->with('failed', 'Batas waktu pembayaran telah habis. Silakan lakukan pendaftaran ulang.');
+        }
+
+        $pic = $book->uker->pic_nama . ' (' . $book->uker->pic_nohp . ')';
+        $pic = new \stdClass();
+        $pic->nama = $book->uker->pic_nama;
+        $pic->nohp = $book->uker->pic_nohp;
+        
+        return view('form.confirm', compact('book', 'pic'));
     }
 
     public function ticket($rand, $id)

@@ -20,7 +20,7 @@
                         @csrf
                         <div class="form-group text-center">
                             <label>Masukkan Kode Pendaftaran</label>
-                            <input type="number" class="form-control form-control-lg text-center rounded border border-dark number" maxlength="18" name="kode" required>
+                            <input type="text" class="form-control form-control-lg text-center rounded border border-dark" maxlength="10" name="kode" required>
                         </div>
                         <div class="form-group mt-4 text-center">
                             <button type="submit" class="btn custom-btn smoothscroll mt-3 text-center" onclick="confirmSubmit(event, 'Cek', 'Cek Kode Boking')">

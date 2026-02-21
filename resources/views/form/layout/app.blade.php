@@ -11,6 +11,7 @@
     <title>Mudik Bersama - Kemenkes</title>
 
     <!-- CSS FILES -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -116,6 +117,57 @@
                 }
             });
             window.location.href = url;
+        }
+    </script>
+
+    <script>
+        function confirmSubmit(event, formId) {
+            event.preventDefault();
+
+            const form = document.getElementById(formId);
+            const requiredInputs = form.querySelectorAll('input[required]:not(:disabled), select[required]:not(:disabled), textarea[required]:not(:disabled)');
+
+            let allInputsValid = true;
+
+            requiredInputs.forEach(input => {
+                if (input.value.trim() === '') {
+                    input.style.borderColor = 'red';
+                    allInputsValid = false;
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+
+            if (allInputsValid) {
+                Swal.fire({
+                    title: 'Proses',
+                    text: '',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Batal',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Proses...',
+                            text: 'Mohon menunggu.',
+                            icon: 'info',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        form.submit();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ada input yang diperlukan yang belum diisi.',
+                    icon: 'error'
+                });
+            }
         }
     </script>
 </body>

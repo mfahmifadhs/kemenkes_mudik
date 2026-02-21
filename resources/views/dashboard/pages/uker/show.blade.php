@@ -16,19 +16,14 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <h1 class="m-0">
-                        <small>Daftar Pengguna</small>
+                        <small>Daftar Unit Kerja</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Beranda</a></li>
-                        <li class="breadcrumb-item active">Daftar Pengguna</li>
+                        <li class="breadcrumb-item active">Daftar Unit Kerja</li>
                     </ol>
-                </div>
-                <div class="col-sm-6 text-right mt-4">
-                    <a href="{{ route('user.create') }}" class="btn btn-default border-dark">
-                        <i class="fas fa-circle-plus"></i> Tambah
-                    </a>
                 </div>
             </div>
         </div>
@@ -38,7 +33,7 @@
         <div class="container-fluid">
             <div class="card w-100">
                 <div class="card-header">
-                    <label>Tabel Daftar Pengguna</label>
+                    <label>Tabel Daftar Unit Kerja</label>
                 </div>
                 <div class="card-header">
                     <div class="">
@@ -46,29 +41,23 @@
                             <thead class="text-sm">
                                 <tr>
                                     <th>No</th>
+                                    <th>Unit Utama</th>
                                     <th>Unit Kerja</th>
-                                    <th>Nama</th>
-                                    <th>PIC</th>
-                                    <th>Username</th>
-                                    <th>Password</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
+                                    <th>Nama PIC</th>
+                                    <th>No HP PIC</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="text-sm">
-                                @foreach($user as $row)
+                                @foreach($uker as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td class="text-left">{{ $row->uker->nama_unit_kerja }}</td>
-                                    <td class="text-left">{{ $row->name }}</td>
+                                    <td class="text-left">{{ $row->unitUtama->nama_unit_utama }}</td>
+                                    <td class="text-left">{{ $row->nama_unit_kerja }}</td>
                                     <td class="text-left">{{ $row->pic_nama }}</td>
-                                    <td>{{ $row->username }}</td>
-                                    <td>{{ $row->password_teks }}</td>
-                                    <td>{{ $row->role->role }}</td>
-                                    <td>{{ $row->status }}</td>
+                                    <td class="text-left">{{ $row->pic_nohp }}</td>
                                     <td>
-                                        <a href="{{ route('user.edit', $row->id) }}" class="btn btn-warning">
+                                        <a href="{{ route('uker.edit', $row->id_unit_kerja) }}" class="btn btn-warning">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     </td>

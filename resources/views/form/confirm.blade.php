@@ -118,64 +118,86 @@
             <div class="ticket-card">
                 <div class="ticket-header p-4">
                     <div class="row align-items-center">
-                        <div class="col-6 col-md-4 mb-3 mb-md-0">
+                        <div class="col-6 col-md-3 mb-3 mb-md-0">
                             <img src="{{ asset('dist/img/logo-kemenkes.png') }}" alt="kemenkes" width="140" class="img-fluid">
                         </div>
 
-                        <div class="col-12 col-md-8">
-                            <div class="d-flex flex-column flex-md-row justify-content-md-end align-items-md-center gap-3">
+                        <div class="col-12 col-md-9">
+                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-4">
 
-                                <div class="text-md-right me-md-4 mb-3 mb-md-0">
-                                    <div class="info-label small text-muted text-uppercase fw-bold mb-1">Status Verifikasi</div>
-                                    @if ($book->approval_uker == 'false' || $book->approval_roum == 'false')
-                                    <span class="badge rounded-pill bg-danger px-3 py-2">Ditolak</span>
-                                    @elseif ($book->approval_uker == 'true' && $book->approval_roum == 'true')
-                                    <span class="badge rounded-pill bg-success px-3 py-2">Terverifikasi</span>
-                                    @else
-                                    <span class="badge rounded-pill bg-warning text-dark px-3 py-2">Proses Verifikasi</span>
-                                    @endif
-                                </div>
-
-                                @if (!$book->payment_status || $book->payment_status == 'proses' || $book->payment_status == 'ditolak')
-                                <div class="text-md-right mt-3">
+                                <div class="action-section text-md-end ms-md-auto">
+                                    @if (!$book->payment_status || $book->payment_status == 'proses' || $book->payment_status == 'ditolak')
                                     <div class="info-label small text-muted text-uppercase fw-bold mb-1">Batas Waktu Deposit</div>
-                                    <h3 id="countdown" class="text-primary font-weight-bold">
-                                    </h3>
+                                    <h3 id="countdown" class="text-primary fw-bold mb-3">0d 0h 0m 0s</h3>
 
-                                    <div class="mt-3">
+                                    <div class="d-flex flex-column align-items-md-end gap-2">
                                         @if($book->payment_status == 'ditolak')
-                                        <div class="badge badge-danger mb-2">Pembayaran Ditolak: Mohon Upload Ulang</div>
+                                        <span class="badge bg-danger">Pembayaran Ditolak: Mohon Upload Ulang</span>
                                         @elseif($book->payment_status == 'proses')
-                                        <div class="badge badge-warning mb-2">Pembayaran Sedang Diverifikasi</div>
+                                        <span class="badge bg-warning text-dark">Pembayaran Sedang Diverifikasi</span>
                                         @endif
 
-                                        <br>
-                                        <button type="button" class="btn btn-primary rounded-pill px-4 shadow-sm" data-toggle="modal" data-target="#modalUploadBukti">
-                                            <i class="fas fa-upload mr-1"></i> Upload Bukti Transaksi
-                                        </button>
-                                    </div>
-                                </div>
-                                @else
-                                <div class="text-md-right mt-3">
-                                    <div class="badge badge-success p-2 px-3 rounded-pill">
-                                        <i class="fas fa-check-circle mr-1"></i> Pembayaran Diterima
-                                    </div>
-                                </div>
-                                @endif
+                                        @php
+                                        $nomor_bersih = preg_replace('/[^0-9]/', '', $pic->nohp);
 
-                                @if($book->approval_uker == 'true' && $book->approval_roum == 'true')
-                                <div class="text-md-right">
-                                    <div class="info-label small text-muted text-uppercase fw-bold mb-1">Opsi Tiket</div>
-                                    <a href="javascript:void(0)"
-                                        onclick="handleDownload('<?php echo route('ticket.download', $book->id_booking); ?>')"
-                                        class="badge rounded-pill bg-main px-3 py-2 shadow-sm d-flex align-items-center gap-2 px-3 py-2"
-                                        style="border-radius: 8px;">
-                                        <i class="fas fa-download"></i>
-                                        <span>Download E-Tiket</span>
-                                    </a>
-                                </div>
-                                @endif
+                                        if (strpos($nomor_bersih, '0') === 0) {
+                                        $nomor_bersih = '62' . substr($nomor_bersih, 1);
+                                        }
 
+                                        $pesan = "Saya " . $book->nama_pegawai . " dari unit kerja " . $book->uker->nama_unit_kerja . " ingin konfirmasi pendaftaran dan melakukan deposit";
+
+                                        $url_wa = "https://wa.me/" . $nomor_bersih . "?text=" . rawurlencode($pesan);
+                                        @endphp
+
+                                        @if($pic->nohp)
+                                        <a href="{{  $url_wa}}"
+                                            target="_blank"
+                                            class="btn btn-success rounded-pill px-4 shadow-sm d-inline-flex align-items-center">
+                                            <i class="fas fa-phone"></i> &nbsp; Hubungi PIC
+                                        </a>
+                                        @endif
+                                    </div>
+                                    @else
+                                    <div class="d-flex gap-3">
+                                        <div class="status-section text-md-start w-50">
+                                            <div class="info-label small text-muted text-uppercase fw-bold mb-2">Status Deposit</div>
+                                            <div class="badge badge-success p-2 px-3 rounded-pill">
+                                                <i class="fas fa-check-circle me-1"></i> Pembayaran Diterima
+                                            </div>
+                                        </div>
+                                        <div class="status-section text-md-start w-50">
+                                            <div class="info-label small text-muted text-uppercase fw-bold mb-2">Pendaftaran</div>
+                                            @if ($book->approval_uker == 'false' || $book->approval_roum == 'false')
+                                            <div class="badge badge-success bg-danger p-2 px-3 rounded-pill">
+                                                <i class="fas fa-times-circle me-1"></i> Ditolak
+                                            </div>
+                                            @elseif ($book->approval_uker == 'true' && $book->approval_roum == 'true')
+                                            <div class="badge badge-success bg-success p-2 px-3 rounded-pill">
+                                                <i class="fas fa-check-circle me-1"></i> Terverifikasi
+                                            </div>
+                                            @else
+                                            <div class="badge badge-success bg-warning p-2 px-3 rounded-pill">
+                                                <i class="fas fa-refresh me-1"></i> Proses Verifikasi
+                                            </div>
+                                            @endif
+                                        </div>
+
+                                        @if($book->approval_uker == 'true' && $book->approval_roum == 'true')
+                                        <div class="status-section text-md-start w-50">
+                                            <div class="info-label small text-muted text-uppercase fw-bold mb-2">Tiket</div>
+                                            <a href="javascript:void(0)"
+                                                onclick="handleDownload(`{{ route('ticket.download', $book->id_booking) }}`)"
+                                                class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-sm d-inline-flex align-items-center gap-2">
+                                                <i class="fas fa-download"></i>
+                                                <span>Download</span>
+                                            </a>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    @endif
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -279,7 +301,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('payment.upload', $book->id_booking) }}" method="POST" enctype="multipart/form-data">
+            <form id="form-upload" action="{{ route('payment.upload', $book->id_booking) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id_booking" value="{{ $book->id_booking }}">
                 <div class="modal-body p-4 text-left">
@@ -293,7 +315,9 @@
                 </div>
                 <div class="modal-footer bg-light border-0">
                     <button type="button" class="btn btn-link text-muted" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary px-4 rounded-pill shadow">Kirim Sekarang</button>
+                    <button type="submit" class="btn btn-primary px-4 rounded-pill shadow" onclick="confirmSubmit(event, 'form-upload')">
+                        Kirim Sekarang
+                    </button>
                 </div>
             </form>
         </div>

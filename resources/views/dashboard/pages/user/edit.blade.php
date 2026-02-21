@@ -92,6 +92,18 @@
                                     </select>
                                 </div>
                             </div>
+                            <label class="col-md-3 col-form-label">Nama PIC</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="pic_nama" placeholder="Nama PIC" value="{{ $user->pic_nama }}" required>
+                                </div>
+                            </div>
+                            <label class="col-md-3 col-form-label">No. Hp PIC</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="pic_nohp" placeholder="No. Hp PIC" value="{{ $user->pic_no_hp }}" required>
+                                </div>
+                            </div>
                             @endif
                         </div>
                     </div>

@@ -5,11 +5,14 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\UkerController;
 use App\Http\Controllers\UserController;
+use App\Models\SyaratKetentuan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $sk = SyaratKetentuan::get();
+    return view('welcome', compact('sk'));
 })->name('home');
 
 Route::get('/login', function () {
@@ -22,7 +25,8 @@ Route::get('/tiket/cek', function () {
 
 
 Route::get('keluar', [AuthController::class, 'keluar'])->name('keluar');
-Route::post('login', [AuthController::class, 'postLogin'])->name('post.login')->middleware('validate.host.referer');;
+Route::post('login', [AuthController::class, 'postLogin'])->name('post.login');
+// Route::post('login', [AuthController::class, 'postLogin'])->name('post.login')->middleware('validate.host.referer');
 
 Route::get('form/daftar', [FormController::class, 'create'])->name('form.create');
 Route::post('form/daftar', [FormController::class, 'store'])->name('form.store');
@@ -36,6 +40,7 @@ Route::post('form/konfirmasi/cek', [FormController::class, 'check'])->name('form
 
 
 Route::get('ticket/download/{id}', [FormController::class, 'ticketPdf'])->name('ticket.download');
+Route::post('payment/upload/{id}', [BookingController::class, 'paymentUpload'])->name('payment.upload');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -53,7 +58,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bus/{id}', [BusController::class, 'detail'])->name('bus.detail');
     Route::get('bus/export/{id}', [BusController::class, 'export'])->name('bus.export');
 
-    Route::post('payment/upload/{id}', [BookingController::class, 'paymentUpload'])->name('payment.upload');
+    
+    Route::get('payment/delete/{id}', [BookingController::class, 'paymentDelete'])->name('payment.delete');
+    Route::post('payment/store/{id}', [BookingController::class, 'paymentStore'])->name('payment.store');
+    Route::post('payment/update/{id}', [BookingController::class, 'paymentUpdate'])->name('payment.update');
 
     // select
     Route::get('tiket/{id}', [BookingController::class, 'emailTicket'])->name('tiket.email');
@@ -72,4 +80,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
     Route::post('user/update/{id}', [UserController::class, 'update'])->name('user.update');
     Route::post('user/tambah', [UserController::class, 'store'])->name('user.store');
+
+    Route::get('uker', [UkerController::class, 'index'])->name('uker');
+    Route::get('uker/detail/{id}', [UkerController::class, 'detail'])->name('uker.detail');
+    Route::get('uker/edit/{id}', [UkerController::class, 'edit'])->name('uker.edit');
+    Route::post('uker/update/{id}', [UkerController::class, 'update'])->name('uker.update');
 });

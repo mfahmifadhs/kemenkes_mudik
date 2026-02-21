@@ -48,6 +48,7 @@
                                             <th style="width: 30%;">Pegawai</th>
                                             <th style="width: 25%;">Rute</th>
                                             <th style="width: 10%;">Tujuan</th>
+                                            <th style="width: 10%;">Deposit</th>
                                             <th style="width: 10%;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -81,6 +82,25 @@
                                                 {{ $row->rute->rute }}
                                             </td>
                                             <td>{{ strtoupper($row->tujuan->nama_kota) }}</td>
+                                            <td>
+                                                @php $payment = $row->payment->first(); @endphp
+
+                                                @if($payment && $row->payment_status)
+                                                <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2 mb-2 text-capitalize">
+                                                    <i class="bi bi-check-circle me-1"></i>Sudah Bayar {{ $payment->payment_method }}
+                                                </span>
+                                                <br>
+                                                @if ($payment->payment_method == 'transfer')
+                                                <a href="{{ asset('storage/' . $payment->payment_file) }}" target="_blank" class="btn btn-link btn-sm p-0 text-decoration-none">
+                                                    <i class="bi bi-image me-1"></i>Lihat Bukti
+                                                </a>
+                                                @endif
+                                                @else
+                                                <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">
+                                                    <i class="bi bi-x-circle me-1"></i>Belum Bayar
+                                                </span>
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if ($row->approval_uker == true)
                                                 <label class="mb-1 btn-xs border-dark text-xs text-success">

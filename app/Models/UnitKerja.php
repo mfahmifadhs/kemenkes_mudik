@@ -18,7 +18,9 @@ class UnitKerja extends Model
     protected $fillable = [
         'id_unit_kerja',
         'unit_utama_id',
-        'nama_unit_kerja'
+        'nama_unit_kerja',
+        'pic_nama',
+        'pic_no_hp'
     ];
 
     public function unitUtama() {
