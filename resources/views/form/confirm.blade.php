@@ -262,12 +262,12 @@
                             $nomor_bersih = '62' . substr($nomor_bersih, 1);
                             }
 
-                            $pesan = "Saya " . $book->nama_pegawai . " dari unit kerja " . $book->uker->nama_unit_kerja . " ingin konfirmasi pendaftaran dan melakukan deposit";
+                            $pesan = "Saya " . $book->nama_pegawai . " dari unit kerja " . $book->uker->nama_unit_kerja . " ingin konfirmasi pendaftaran Mudik Kemenkes 2026 dan melakukan deposit";
 
                             $url_wa = "https://wa.me/" . $nomor_bersih . "?text=" . rawurlencode($pesan);
                             @endphp
 
-                            @if ($book->uker->pic_nohp)
+                            @if ($pic)
                             <a href="{{ $url_wa }}" target="_blank" class="btn btn-print btn-sm btn-action bg-success shadow-sm rounded-pill">
                                 <i class="fa-brands fa-whatsapp mr-2"></i> Hubungi PIC
                             </a>

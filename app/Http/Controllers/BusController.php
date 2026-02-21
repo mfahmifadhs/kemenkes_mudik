@@ -6,6 +6,7 @@ use App\Exports\BusExport;
 use App\Models\Booking;
 use App\Models\Bus;
 use App\Models\Peserta;
+use App\Models\Trayek;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
@@ -16,7 +17,8 @@ class BusController extends Controller
     public function index()
     {
         $bus = Bus::get();
-        return view('dashboard.pages.bus.show', compact('bus'));
+        $trayek = Trayek::get();
+        return view('dashboard.pages.bus.show', compact('bus', 'trayek'));
     }
 
     public function detail($id)
@@ -76,6 +78,25 @@ class BusController extends Controller
                    ->where('bus_id', $id)->where('approval_uker', 'true')->where('approval_roum', 'true')
                    ->get();
         return view('dashboard.pages.bus.pdf_kk', compact('bus','peserta'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        Bus::where('id_bus', $id)->update([
+            'no_plat' => $request->no_plat,
+            'deskripsi' => $request->deskripsi,
+            'seat_kiri' => $request->seat_kiri,
+            'kd_seat_kiri' => $request->kode_seat_kiri,
+            'seat_kanan' => $request->seat_kanan,
+            'kd_seat_kanan' => $request->kode_seat_kanan,
+            'seat_belakang' => $request->seat_belakang,
+            'kd_seat_belakang' => $request->kode_seat_belakang,
+            'keterangan' => $request->keterangan,
+            'trayek_id' => $request->trayek,
+            'status' => $request->status
+        ]);
+
+        return redirect()->route('bus')->with('success', 'Data bus berhasil diperbarui.');
     }
 }
 

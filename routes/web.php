@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('bus/{id}', [BusController::class, 'detail'])->name('bus.detail');
     Route::get('bus/export/{id}', [BusController::class, 'export'])->name('bus.export');
+    Route::post('bus/update/{id}', [BusController::class, 'update'])->name('bus.update');
 
 
     Route::get('payment/delete/{id}', [BookingController::class, 'paymentDelete'])->name('payment.delete');
