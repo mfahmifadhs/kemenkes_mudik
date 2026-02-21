@@ -182,7 +182,6 @@
                                             title="Hapus Peserta">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
-                                        @endif
 
                                         <a type="button"
                                             class="btn btn-sm btn-outline-warning btn-round shadow-sm"
@@ -191,6 +190,7 @@
                                             title="Edit Peserta">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        @endif
 
                                         <div class="modal fade" id="modalEdit-{{ $row->id_peserta }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered shadow-lg" role="document">
