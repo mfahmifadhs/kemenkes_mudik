@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-right">
-                        <button type="submit" class="btn btn-primary" onclick="confirmSubmit(event)">
+                        <button type="submit" class="btn btn-primary" onclick="confirmSubmit(event, 'form')">
                             <i class="fas fa-circle-plus"></i> Tambah
                         </button>
                     </div>
