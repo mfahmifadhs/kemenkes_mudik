@@ -28,7 +28,9 @@ Route::get('keluar', [AuthController::class, 'keluar'])->name('keluar');
 Route::post('login', [AuthController::class, 'postLogin'])->name('post.login');
 // Route::post('login', [AuthController::class, 'postLogin'])->name('post.login')->middleware('validate.host.referer');
 
+
 Route::get('form/daftar', [FormController::class, 'create'])->name('form.create');
+Route::post('form/post', [FormController::class, 'create'])->name('form.post');
 Route::post('form/daftar', [FormController::class, 'store'])->name('form.store');
 
 Route::get('tujuan/select/{id}', [FormController::class, 'selectDest']);
@@ -58,7 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bus/{id}', [BusController::class, 'detail'])->name('bus.detail');
     Route::get('bus/export/{id}', [BusController::class, 'export'])->name('bus.export');
 
-    
+
     Route::get('payment/delete/{id}', [BookingController::class, 'paymentDelete'])->name('payment.delete');
     Route::post('payment/store/{id}', [BookingController::class, 'paymentStore'])->name('payment.store');
     Route::post('payment/update/{id}', [BookingController::class, 'paymentUpdate'])->name('payment.update');

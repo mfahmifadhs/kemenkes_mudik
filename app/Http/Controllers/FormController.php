@@ -218,7 +218,7 @@ class FormController extends Controller
 
             Peserta::where('booking_id', $book->id_booking)->delete();
 
-            
+
             return redirect()->route('home')->with('failed', 'Batas waktu pembayaran telah habis. Silakan lakukan pendaftaran ulang.');
         }
 
@@ -226,7 +226,7 @@ class FormController extends Controller
         $pic = new \stdClass();
         $pic->nama = $book->uker->pic_nama;
         $pic->nohp = $book->uker->pic_nohp;
-        
+
         return view('form.confirm', compact('book', 'pic'));
     }
 

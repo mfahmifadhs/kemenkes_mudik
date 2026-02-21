@@ -203,7 +203,7 @@
                 <div class="custom-block custom-block-full col-md-8 mx-auto mb-5">
                     @if (!$step )
                     <div id="identitas">
-                        <form id="form" action="{{ route('form.create') }}" method="GET" enctype="multipart/form-data">
+                        <form id="form" action="{{ route('form.post') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="step" value="1">
 
@@ -306,8 +306,8 @@
                         </div>
 
                         @php
-                        $formAction = !$seatFull ? route('form.create') : route('form.store');
-                        $formMethod = !$seatFull ? 'GET' : 'POST';
+                        $formAction = !$seatFull ? route('form.post') : route('form.store');
+                        $formMethod = !$seatFull ? 'POST' : 'POST';
                         @endphp
 
                         <form id="form" action="{{ $formAction }}" method="{{ $formMethod }}" enctype="multipart/form-data">
