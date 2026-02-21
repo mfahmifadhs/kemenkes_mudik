@@ -97,44 +97,41 @@
 
                                     <div class="col-md-2">Bukti Pembayaran</div>
                                     <div class="col-md-9">:
-                                        @if($book->payment && $book->payment->first()->payment_method == 'transfer')
+                                        @if($book->payment && $book->payment->isNotEmpty())
                                         @php
-                                        $extension = pathinfo($book->payment_file, PATHINFO_EXTENSION);
-                                        $filePath = asset('storage/' . $book->payment_file);
+                                        $paymentData = $book->payment->first();
+                                        $extension = pathinfo($paymentData->payment_file, PATHINFO_EXTENSION);
+                                        $filePath = asset('storage/' . $paymentData->payment_file);
                                         @endphp
 
+                                        @if($paymentData->payment_method == 'transfer')
                                         @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
-                                        <a href="{{ $filePath }}" target="_blank">
-                                            ({{ $book->payment->first()->payment_method }}) Lihat bukti pembayaran
+                                        <a href="{{ $filePath }}" target="_blank" class="btn btn-sm btn-outline-info">
+                                            <i class="fas fa-image"></i> (Transfer) Lihat Bukti
                                         </a>
                                         @elseif(strtolower($extension) == 'pdf')
-                                        <div class="d-flex align-items-center">
-                                            <i class="fas fa-file-pdf text-danger fa-3x mr-3"></i>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-file-pdf text-danger fa-2x mr-2"></i>
                                             <div>
-                                                <span class="d-block mb-1">Dokumen Pembayaran (PDF)</span>
-                                                <a href="{{ $filePath }}" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill">
-                                                    <i class="fas fa-external-link-alt"></i> Buka PDF
-                                                </a>
+                                                <small class="d-block">Dokumen PDF</small>
+                                                <a href="{{ $filePath }}" target="_blank" class="btn btn-xs btn-danger">Buka</a>
                                             </div>
                                         </div>
                                         @endif
-                                        <a type="button" data-toggle="modal" data-target="#editPembayaran">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
+                                        @elseif($paymentData->payment_method == 'cash')
+                                        <span class="badge badge-success">
+                                            <i class="fas fa-money-bill-wave"></i> Tunai (Lunas)
+                                        </span>
+                                        @endif
+                                        <div class="mt-2">
+                                            <a href="javascript:void(0)" class="text-primary mr-2" data-toggle="modal" data-target="#editPembayaran">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <a href="#" class="text-danger" onclick="confirmLink(event, `{{ route('payment.delete', $book->id_booking) }}`)">
+                                                <i class="fas fa-trash-alt"></i> Hapus
+                                            </a>
+                                        </div>
 
-                                        <a href="#" class="text-danger btn-xs" onclick="confirmLink(event, `{{ route('payment.delete', $book->id_booking) }}`)">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
-                                        @elseif ($book->payment->first() && $book->payment->first()->payment_method == 'cash')
-                                        ({{ $book->payment->first()->payment_method }}) &nbsp;
-                                        <span class="badge badge-success"><i class="fas fa-check-circle"></i> Lunas</span>
-                                        <a type="button" data-toggle="modal" data-target="#editPembayaran">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-
-                                        <a href="#" class="text-danger btn-xs" onclick="confirmLink(event, `{{ route('payment.delete', $book->id_booking) }}`)">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
                                         @else
                                         <span class="text-muted italic">Belum melakukan pembayaran</span>
                                         @endif
