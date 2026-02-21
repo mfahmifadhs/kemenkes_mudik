@@ -8,11 +8,16 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\UkerController;
 use App\Http\Controllers\UserController;
 use App\Models\SyaratKetentuan;
+use App\Models\Trayek;
+use App\Models\TrayekDetail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $sk = SyaratKetentuan::get();
-    return view('welcome', compact('sk'));
+    $data = new \stdClass();
+    $data->sk     = SyaratKetentuan::get();
+    $data->trayek = Trayek::get();
+
+    return view('welcome', compact('data'));
 })->name('home');
 
 Route::get('/login', function () {

@@ -262,7 +262,7 @@
                                         @foreach($trayek as $row)
                                         @php
                                         // Hitung nilai untuk setiap baris
-                                        $kursi = $row->bus->sum('total_kursi');
+                                        $kursi = $row->bus->where('status', 'true')->sum('total_kursi');
                                         $tersedia = $kursi - $row->book->flatMap->detail->where('status', '!=', 'cancel')->count();
                                         $dipesan = $row->book->flatMap->detail->where('status', 'book')->count();
                                         $terisi = $row->book->flatMap->detail->where('status', 'full')->count();

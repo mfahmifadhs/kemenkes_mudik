@@ -110,7 +110,7 @@
 <section class="hero-section">
     <div class="container">
         <div class="text-center mb-5">
-            <h1 class="text-white font-weight-bold">Mudik Bersama Kemenkes 2025</h1>
+            <h1 class="text-white font-weight-bold">Mudik Bersama Kemenkes 2026</h1>
             <p class="text-white-50">Detail Konfirmasi Pendaftaran</p>
         </div>
 
@@ -135,26 +135,6 @@
                                         <span class="badge bg-danger">Pembayaran Ditolak: Mohon Upload Ulang</span>
                                         @elseif($book->payment_status == 'proses')
                                         <span class="badge bg-warning text-dark">Pembayaran Sedang Diverifikasi</span>
-                                        @endif
-
-                                        @php
-                                        $nomor_bersih = preg_replace('/[^0-9]/', '', $pic->nohp);
-
-                                        if (strpos($nomor_bersih, '0') === 0) {
-                                        $nomor_bersih = '62' . substr($nomor_bersih, 1);
-                                        }
-
-                                        $pesan = "Saya " . $book->nama_pegawai . " dari unit kerja " . $book->uker->nama_unit_kerja . " ingin konfirmasi pendaftaran dan melakukan deposit";
-
-                                        $url_wa = "https://wa.me/" . $nomor_bersih . "?text=" . rawurlencode($pesan);
-                                        @endphp
-
-                                        @if($pic->nohp)
-                                        <a href="{{  $url_wa}}"
-                                            target="_blank"
-                                            class="btn btn-success rounded-pill px-4 shadow-sm d-inline-flex align-items-center">
-                                            <i class="fas fa-phone"></i> &nbsp; Hubungi PIC
-                                        </a>
                                         @endif
                                     </div>
                                     @else
@@ -275,9 +255,21 @@
                             <i class="fas fa-arrow-left mr-1"></i> Kembali ke Beranda
                         </a>
                         <div>
-                            @if ($book->approval_uker == 'true' && $book->approval_roum == 'true')
-                            <a href="#" onclick="confirmLink(event, `{{ route('tiket', ['rand' => 'tiket', 'id' => $book->id_booking]) }}`)" class="btn btn-print btn-action shadow-sm">
-                                <i class="fas fa-ticket-alt mr-2"></i> Cetak Tiket
+                            @php
+                            $nomor_bersih = preg_replace('/[^0-9]/', '', $pic->nohp);
+
+                            if (strpos($nomor_bersih, '0') === 0) {
+                            $nomor_bersih = '62' . substr($nomor_bersih, 1);
+                            }
+
+                            $pesan = "Saya " . $book->nama_pegawai . " dari unit kerja " . $book->uker->nama_unit_kerja . " ingin konfirmasi pendaftaran dan melakukan deposit";
+
+                            $url_wa = "https://wa.me/" . $nomor_bersih . "?text=" . rawurlencode($pesan);
+                            @endphp
+
+                            @if ($book->uker->pic_nohp)
+                            <a href="{{ $url_wa }}" target="_blank" class="btn btn-print btn-sm btn-action bg-success shadow-sm rounded-pill">
+                                <i class="fa-brands fa-whatsapp mr-2"></i> Hubungi PIC
                             </a>
                             @endif
                         </div>

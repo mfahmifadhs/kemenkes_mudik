@@ -225,7 +225,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @foreach ($sk as $row)
+                @foreach ($data->sk as $row)
                 <div class="d-flex mb-3">
                     <i class="bi-check-circle-fill text-success me-3 mt-1"></i>
                     <p class="mb-0 text-muted">{{ $row->syarat_ketentuan }}.</p>
@@ -237,7 +237,7 @@
 </div>
 
 <div class="modal fade" id="modalRute" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content shadow-lg">
             <div class="modal-header bg-light">
                 <h5 class="modal-title fw-bold text-dark"><i class="bi-map text-primary me-2"></i>Rute & Jalur Mudik</h5>
@@ -248,27 +248,19 @@
                     <table class="table table-borderless align-middle">
                         <thead class="text-muted small text-uppercase">
                             <tr>
-                                <th>Destinasi</th>
+                                <th style="width: 20%;">Destinasi</th>
                                 <th>Jalur Utama</th>
-                                <th>Status</th>
+                                <th>Bus</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($data->trayek as $row)
                             <tr class="border-bottom">
-                                <td><strong>Jawa Tengah</strong></td>
-                                <td>Tol Trans Jawa (Via Solo/Yogya)</td>
-                                <td><span class="badge bg-success-subtle text-success px-3">Tersedia</span></td>
+                                <td><strong>{{ $row->jurusan }}</strong></td>
+                                <td>{{ $row->rute }}</td>
+                                <td class="text-center">{{ $row->bus->where('status', 'true')->count() }}</td>
                             </tr>
-                            <tr class="border-bottom">
-                                <td><strong>Sumatera Selatan</strong></td>
-                                <td>Tol Trans Sumatera (Via Palembang)</td>
-                                <td><span class="badge bg-success-subtle text-success px-3">Tersedia</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Jawa Timur</strong></td>
-                                <td>Tol Trans Jawa (Via Surabaya)</td>
-                                <td><span class="badge bg-danger-subtle text-danger px-3">Penuh</span></td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
