@@ -11,7 +11,7 @@
                     </a>
 
                     <p class="text-white h4">
-                        Pendaftaran 05 Maret - 14 Maret 2025 <br>
+                        Pendaftaran 24 Februari - 06 Maret 2026 <br>
                         <small class="h6">*Selama Kuota Masih Tersedia</small>
                     </p>
                 </div>
