@@ -757,11 +757,11 @@
     $(document).ready(function() {
         $('.seat-checkbox').change(function() {
             var checkedCount = $('.seat-checkbox:checked').length;
-            if (checkedCount > 4) {
+            if (checkedCount > 5) {
                 $(this).prop('checked', false);
 
                 Swal.fire({
-                    text: "Anda hanya dapat memilih maksimal 4 kursi.",
+                    text: "Anda hanya dapat memilih maksimal 5 kursi.",
                     icon: 'error',
                 });
             } else {
