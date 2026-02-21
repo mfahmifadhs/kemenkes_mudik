@@ -29,7 +29,8 @@
     }
 
     .custom-btn-main {
-        background: #ffcc00; /* Warna kuning peringatan yang kontras */
+        background: #ffcc00;
+        /* Warna kuning peringatan yang kontras */
         color: #003366;
         font-weight: 700;
         border: none;
@@ -41,7 +42,7 @@
     .custom-btn-main:hover {
         background: #ffd633;
         transform: scale(1.05);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
     .btn-glass {
@@ -72,7 +73,7 @@
 
     .custom-block-overlay:hover {
         transform: translateY(-15px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
     .badge-destinasi {
@@ -86,9 +87,63 @@
     }
 
     /* Modal Styling */
-    .modal-content { border-radius: 28px; border: none; overflow: hidden; }
-    .modal-header { border-bottom: none; padding: 25px 30px 10px; }
-    .modal-body { padding: 10px 30px 30px; }
+    .modal-content {
+        border-radius: 28px;
+        border: none;
+        overflow: hidden;
+    }
+
+    .modal-header {
+        border-bottom: none;
+        padding: 25px 30px 10px;
+    }
+
+    .modal-body {
+        padding: 10px 30px 30px;
+    }
+
+    .whatsapp-float {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: #25d366;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        z-index: 9999;
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .whatsapp-float i {
+        font-size: 24px;
+    }
+
+    .whatsapp-float:hover {
+        background-color: #128c7e;
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Sembunyikan teks di layar kecil agar jadi lingkaran saja */
+    @media (max-width: 768px) {
+        .wa-text {
+            display: none;
+        }
+
+        .whatsapp-float {
+            padding: 15px;
+            bottom: 20px;
+            right: 20px;
+        }
+    }
 </style>
 
 <section class="hero-section">
@@ -126,14 +181,14 @@
 
                 <div class="owl-carousel owl-theme">
                     @php
-                        $cities = [
-                            ['name' => 'Solo', 'img' => 'solo.jpg', 'trips' => '1'],
-                            ['name' => 'Palembang', 'img' => 'palembang.jpg', 'trips' => '1'],
-                            ['name' => 'Padang', 'img' => 'padang.jpg', 'trips' => '1'],
-                            ['name' => 'Purworejo', 'img' => 'purworejo.jpg', 'trips' => '2'],
-                            ['name' => 'Yogyakarta', 'img' => 'yogyakarta.jpg', 'trips' => '3'],
-                            ['name' => 'Surabaya', 'img' => 'surabaya.jpg', 'trips' => '2'],
-                        ];
+                    $cities = [
+                    ['name' => 'Solo', 'img' => 'solo.jpg', 'trips' => '1'],
+                    ['name' => 'Palembang', 'img' => 'palembang.jpg', 'trips' => '1'],
+                    ['name' => 'Padang', 'img' => 'padang.jpg', 'trips' => '1'],
+                    ['name' => 'Purworejo', 'img' => 'purworejo.jpg', 'trips' => '2'],
+                    ['name' => 'Yogyakarta', 'img' => 'yogyakarta.jpg', 'trips' => '3'],
+                    ['name' => 'Surabaya', 'img' => 'surabaya.jpg', 'trips' => '2'],
+                    ];
                     @endphp
 
                     @foreach($cities as $city)
@@ -154,26 +209,28 @@
     </div>
 </section>
 
+<a href="https://wa.me/6281211121365?text=Halo%20Admin%20Mudik%20Kemenkes%2C%20saya%20ingin%20bertanya..."
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener noreferrer">
+    <i class="bi bi-whatsapp"></i>
+    <span class="wa-text">Hubungi Admin</span>
+</a>
+
 <div class="modal fade" id="modalSyarat" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content shadow-lg">
             <div class="modal-header bg-light">
                 <h5 class="modal-title fw-bold text-dark"><i class="bi-info-circle text-primary me-2"></i>Syarat & Ketentuan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                @foreach ($sk as $row)
                 <div class="d-flex mb-3">
                     <i class="bi-check-circle-fill text-success me-3 mt-1"></i>
-                    <p class="mb-0 text-muted">Khusus untuk Pegawai Kemenkes dan Keluarga Inti.</p>
+                    <p class="mb-0 text-muted">{{ $row->syarat_ketentuan }}.</p>
                 </div>
-                <div class="d-flex mb-3">
-                    <i class="bi-check-circle-fill text-success me-3 mt-1"></i>
-                    <p class="mb-0 text-muted">Membawa KTP asli dan Kartu Keluarga saat keberangkatan.</p>
-                </div>
-                <div class="d-flex">
-                    <i class="bi-check-circle-fill text-success me-3 mt-1"></i>
-                    <p class="mb-0 text-muted">Dilarang membawa barang bawaan berlebih atau barang berbahaya.</p>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

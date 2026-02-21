@@ -42,7 +42,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+                <div class="collapse navbar-collapse">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
@@ -58,6 +58,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li class="nav-item">
                             <a href="{{ route('user') }}" class="nav-link {{ Str::startsWith(request()->path(), 'user') ? 'active' : '' }}">Pengguna</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('uker') }}" class="nav-link {{ Str::startsWith(request()->path(), 'uker') ? 'active' : '' }}">Uker</a>
+                        </li>
+
                         @endif
                 </div>
 
@@ -196,6 +200,86 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 success: function(response) {
                     $('#timestamp').html(response);
                 },
+            });
+        }
+    </script>
+
+    <script>
+        function confirmSubmit(event, formId) {
+            event.preventDefault();
+
+            const form = document.getElementById(formId);
+            const requiredInputs = form.querySelectorAll('input[required]:not(:disabled), select[required]:not(:disabled), textarea[required]:not(:disabled)');
+
+            let allInputsValid = true;
+
+            requiredInputs.forEach(input => {
+                if (input.value.trim() === '') {
+                    input.style.borderColor = 'red';
+                    allInputsValid = false;
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+
+            if (allInputsValid) {
+                Swal.fire({
+                    title: 'Proses',
+                    text: '',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Batal',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Proses...',
+                            text: 'Mohon menunggu.',
+                            icon: 'info',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        form.submit();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ada input yang diperlukan yang belum diisi.',
+                    icon: 'error'
+                });
+            }
+        }
+    </script>
+
+    <script>
+        function confirmLink(event, url) {
+            event.preventDefault();
+
+            Swal.fire({
+                title: 'Hapus',
+                text: 'Menghapus data ini ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Proses...',
+                        text: 'Mohon menunggu.',
+                        icon: 'info',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    window.location.href = url;
+                }
             });
         }
     </script>

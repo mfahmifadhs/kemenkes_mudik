@@ -48,6 +48,7 @@
                                             <th style="width: 30%;">Pegawai</th>
                                             <th style="width: 25%;">Rute</th>
                                             <th style="width: 10%;">Tujuan</th>
+                                            <th style="width: 10%;">Deposit</th>
                                             <th style="width: 10%;">Aksi</th>
                                         </tr>
                                     </thead>
@@ -55,32 +56,52 @@
                                         @foreach($book as $row)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ Carbon\Carbon::parse($row->created_at)->isoFormat('DD MMM Y | HH:mm:ss') }}</td>
-                                            <td class="text-left">
-                                                <div class="row">
-                                                    <div class="col-md-4">Kode Boking</div>
-                                                    <div class="col-md-7">: {{ $row->kode_booking }}</div>
-                                                    <div class="col-md-4">Nama</div>
-                                                    <div class="col-md-7">: {{ $row->nama_pegawai }}</div>
-                                                    <div class="col-md-4">NIP/NIK</div>
-                                                    <div class="col-md-7">: {{ $row->nip_nik }}</div>
-                                                    <div class="col-md-4">No. Telp</div>
-                                                    <div class="col-md-7">: {{ $row->no_telp }}</div>
-                                                    <div class="col-md-4">Jumlah</div>
-                                                    <div class="col-md-7">: {{ $row->detail->count() }} orang</div>
-                                                    <div class="col-md-4">Unit Kerja</div>
-                                                    <div class="col-md-7">: {{ $row->uker->nama_unit_kerja }}</div>
-                                                    @if ($row->nama_upt)
-                                                    <div class="col-md-4">Nama UPT</div>
-                                                    <div class="col-md-7">: {{ $row->nama_upt }}</div>
-                                                    @endif
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <span class="fw-bold text-dark">{{ Carbon\Carbon::parse($row->created_at)->isoFormat('DD MMM Y') }}</span>
+                                                    <small class="text-muted">{{ Carbon\Carbon::parse($row->created_at)->format('H:i:s') }}</small>
                                                 </div>
                                             </td>
                                             <td class="text-left">
-                                                {{ $row->rute->jurusan }} <br>
-                                                {{ $row->rute->rute }}
+
+                                                <div class="d-flex flex-column gap-1">
+                                                    <div><span class="text-primary text-xs fw-bold mb-1 ml-0"><b>{{ $row->kode_booking }}</b></span></div>
+                                                    <div class="fw-bold text-dark" style="font-size: 0.95rem;">{{ $row->nama_pegawai }}</div>
+                                                    <div class="small">
+                                                        <i class="fas fa-id-card me-1"></i> {{ $row->nip_nik }} |
+                                                        <i class="fas fa-phone me-2"></i> {{ $row->no_telp }} |
+                                                        <i class="fas fa-users me-1"></i> {{ $row->detail->count() }} orang
+                                                    </div>
+                                                    <div class="small italic">
+                                                        <i class="fas fa-city me-1"></i> {{ $row->uker->nama_unit_kerja }}
+                                                        @if($row->nama_upt) <br><span class="ms-3">— {{ $row->nama_upt }}</span> @endif
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">
+                                                <h6 style="font-size: 0.9rem;" class="d-block text-bold">{{ $row->rute->jurusan }}</h5>
+                                                <h6 style="font-size: 0.8rem;">{{ $row->rute->rute }}</h5>
                                             </td>
                                             <td>{{ strtoupper($row->tujuan->nama_kota) }}</td>
+                                            <td>
+                                                @php $payment = $row->payment->first(); @endphp
+
+                                                @if($payment && $row->payment_status)
+                                                <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2 mb-2 text-capitalize">
+                                                    <i class="bi bi-check-circle me-1"></i>Sudah Bayar {{ $payment->payment_method }}
+                                                </span>
+                                                <br>
+                                                @if ($payment->payment_method == 'transfer')
+                                                <a href="{{ asset('storage/' . $payment->payment_file) }}" target="_blank" class="btn btn-link btn-sm p-0 text-decoration-none">
+                                                    <i class="bi bi-image me-1"></i>Lihat Bukti
+                                                </a>
+                                                @endif
+                                                @else
+                                                <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">
+                                                    <i class="bi bi-x-circle me-1"></i>Belum Bayar
+                                                </span>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a href="{{ route('book.validation', $row->id_booking) }}" class="btn btn-warning btn-xs border-dark text-xs">
                                                     <i class="fa-solid fa-file-signature fa-1x"></i>

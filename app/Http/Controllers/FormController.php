@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use DB;
 use Mpdf\Mpdf;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
 
 class FormController extends Controller
 {
@@ -110,7 +111,7 @@ class FormController extends Controller
 
         $data = json_decode($request->data);
         $id_book = Booking::withTrashed()->count() + 1;
-        $kode_book = Carbon::now()->format('ymdHis') . $id_book;
+        $kode_book = strtoupper(Str::random(7));
 
         $tambah  = new Booking();
         $tambah->id_booking   = $id_book;
@@ -205,11 +206,26 @@ class FormController extends Controller
     {
         if ($id == 'check') {
             $id = $request->kode;
+            $book = Booking::where('kode_booking', $id)->first();
+        } else {
+            $book = Booking::where('id_booking', $id)->first();
         }
 
-        $book = Booking::where('id_booking', $id)->orWhere('kode_booking', $id)->first();
+        if ($book->payment_status !== 'true' && now()->greaterThan($book->payment_limit)) {
+            $book->update(['payment_status' => 'false']);
 
-        return view('form.confirm', compact('book'));
+            Peserta::where('booking_id', $book->id_booking)->delete();
+
+            
+            return redirect()->route('home')->with('failed', 'Batas waktu pembayaran telah habis. Silakan lakukan pendaftaran ulang.');
+        }
+
+        $pic = $book->uker->pic_nama . ' (' . $book->uker->pic_nohp . ')';
+        $pic = new \stdClass();
+        $pic->nama = $book->uker->pic_nama;
+        $pic->nohp = $book->uker->pic_nohp;
+        
+        return view('form.confirm', compact('book', 'pic'));
     }
 
     public function ticket($rand, $id)

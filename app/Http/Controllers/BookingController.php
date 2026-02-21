@@ -7,6 +7,7 @@ use App\Exports\PesertaExport;
 use App\Mail\SendEmail;
 use App\Mail\SendPdfMail;
 use App\Models\Booking;
+use App\Models\BookingPayment;
 use App\Models\Bus;
 use App\Models\Peserta;
 use App\Models\Trayek;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Mpdf\Mpdf;
 use Carbon\Carbon;
+use Intervention\Image\Facades\Image;
 
 class BookingController extends Controller
 {
@@ -155,6 +157,7 @@ class BookingController extends Controller
         Booking::where('id_booking', $id)->update([
             'approval_uker'  => $book->approval_uker ? $book->approval_uker : $status,
             'approval_roum'  => $book->approval_uker ? $status : null,
+            'payment_status' => $status == 'true' ? 'true' : 'false',
             'catatan' => $catatan
         ]);
 
@@ -400,5 +403,150 @@ class BookingController extends Controller
         ]);
 
         return redirect()->route('book.validation', $request->id)->with('success', 'Berhasil menyimpan');
+    }
+
+    public function paymentUpload(Request $request, $id)
+    {
+        $book = Booking::where('id_booking', $id)->first();
+
+        $file      = $request->file('bukti_pembayaran');
+        $filename  = 'payment_' . now()->timestamp . '_' . $file->getClientOriginalName();
+        $path      = $file->storeAs('public/files/payment/' . $filename);
+        $payment   = $filename;
+
+        if ($book->bukti_bayar) {
+            Storage::delete('public/files/payment/' . $book->bukti_bayar);
+        }
+
+        $detail = new BookingPayment();
+        $detail->booking_id   = $book->id_booking;
+        $detail->payment_file = $payment;
+        $detail->created_at = Carbon::now();
+        $detail->save();
+
+        return redirect()->route('form.confirm', $id)->with('success', 'Berhasil mengupload bukti pembayaran');
+    }
+
+    public function paymentStore(Request $request, $id)
+    {
+        // 1. Validasi tipe file dan input lainnya
+        $request->validate([
+            'payment_method' => 'required',
+            'payment_date'   => 'required|date',
+            'payment_file'   => 'nullable|mimes:jpg,jpeg,png,pdf|max:10240', // Limit awal 10MB sebelum kompres
+            'payment_notes'  => 'nullable|string',
+        ]);
+
+        $book = Booking::findOrFail($id); // Sesuaikan dengan Model Anda
+
+        $data = [
+            'payment_method' => $request->payment_method,
+            'payment_date'   => $request->payment_date,
+            'payment_notes'  => $request->payment_notes,
+        ];
+
+        if ($request->hasFile('payment_file')) {
+            $file = $request->file('payment_file');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = 'PAY-' . time() . '.' . $extension;
+            $path = 'payments/' . $fileName;
+
+            // 2. Logic Kompresi (Hanya untuk Foto JPG/PNG, PDF tidak bisa dikompres via library ini)
+            if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png']) && $file->getSize() > 2048000) {
+                // Proses Kompresi
+                $img = Image::make($file->getRealPath());
+
+                // Resize jika terlalu lebar (opsional, untuk menghemat space)
+                $img->resize(1200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+
+                // Simpan dengan kualitas 60% untuk mengurangi size secara drastis
+                $content = $img->stream($extension, 60);
+                Storage::disk('public')->put($path, $content);
+            } else {
+                // Jika file PDF atau ukuran < 2MB, simpan biasa
+                $file->storeAs('payments', $fileName, 'public');
+            }
+
+            $data['payment_file'] = $path;
+        }
+
+        // 3. Update data ke database
+        // Sesuaikan dengan nama tabel/relasi Anda
+        $book->payment()->updateOrCreate(['booking_id' => $id], $data);
+        $book::where('id_booking', $id)->update([
+            'payment_file'   => $path ?? null,
+            'payment_status' => 'true'
+        ]);
+
+        return redirect()->back()->with('success', 'Pembayaran berhasil diproses!');
+    }
+
+    public function paymentUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'payment_method' => 'required',
+            'payment_date'   => 'required|date',
+            'payment_file'   => 'nullable|mimes:jpg,jpeg,png,pdf|max:10240',
+            'payment_notes'  => 'nullable|string',
+        ]);
+
+        $payment = BookingPayment::findOrFail($id);
+        $path = $payment->payment_file;
+
+        if ($request->hasFile('payment_file')) {
+            $file = $request->file('payment_file');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = 'PAY-UPD-' . time() . '.' . $extension;
+            $newPath = 'payments/' . $fileName;
+
+            if ($payment->payment_file && Storage::disk('public')->exists($payment->payment_file)) {
+                Storage::disk('public')->delete($payment->payment_file);
+            }
+
+            if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png']) && $file->getSize() > 2048000) {
+                $img = Image::make($file->getRealPath());
+                $img->resize(1200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+                $content = $img->stream($extension, 60);
+                Storage::disk('public')->put($newPath, $content);
+            } else {
+                $file->storeAs('payments', $fileName, 'public');
+            }
+
+            $path = $newPath;
+        }
+
+        $payment->update([
+            'payment_method' => $request->payment_method,
+            'payment_date'   => $request->payment_date,
+            'payment_notes'  => $request->payment_notes,
+            'payment_file'   => $path ?? null,
+        ]);
+
+        Booking::where('id_booking', $payment->booking_id)->update([
+            'payment_file'   => $path ?? null,
+        ]);
+
+        $payment->booking->update(['payment_status' => 'true']);
+
+        return redirect()->back()->with('success', 'Data pembayaran berhasil diperbarui!');
+    }
+
+    public function paymentDelete($id)
+    {
+        BookingPayment::where('booking_id', $id)->update([
+            'payment_file' => null
+        ]);
+
+        Booking::where('id_booking', $id)->update([
+            'payment_file' => null
+        ]);
+
+        return redirect()->route('book.validation', $id)->with('success', 'Data pembayaran berhasil diperbarui!');
     }
 }

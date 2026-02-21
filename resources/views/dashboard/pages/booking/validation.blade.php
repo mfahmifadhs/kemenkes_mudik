@@ -94,6 +94,51 @@
                                     <div class="col-md-9">:
                                         {{ ucwords(strtolower($book->rute->jurusan)) }} <br> <span class="ml-1">{{ $book->rute->rute }}</span>
                                     </div>
+
+                                    <div class="col-md-2">Bukti Pembayaran</div>
+                                    <div class="col-md-9">:
+                                        @if($book->payment && $book->payment->first()->payment_method == 'transfer')
+                                        @php
+                                        $extension = pathinfo($book->payment_file, PATHINFO_EXTENSION);
+                                        $filePath = asset('storage/' . $book->payment_file);
+                                        @endphp
+
+                                        @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
+                                        <a href="{{ $filePath }}" target="_blank">
+                                            ({{ $book->payment->first()->payment_method }}) Lihat bukti pembayaran
+                                        </a>
+                                        @elseif(strtolower($extension) == 'pdf')
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-file-pdf text-danger fa-3x mr-3"></i>
+                                            <div>
+                                                <span class="d-block mb-1">Dokumen Pembayaran (PDF)</span>
+                                                <a href="{{ $filePath }}" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill">
+                                                    <i class="fas fa-external-link-alt"></i> Buka PDF
+                                                </a>
+                                            </div>
+                                        </div>
+                                        @endif
+                                        <a type="button" data-toggle="modal" data-target="#editPembayaran">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+
+                                        <a href="#" class="text-danger btn-xs" onclick="confirmLink(event, `{{ route('payment.delete', $book->id_booking) }}`)">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                        @elseif ($book->payment->first() && $book->payment->first()->payment_method == 'cash')
+                                        ({{ $book->payment->first()->payment_method }}) &nbsp;
+                                        <span class="badge badge-success"><i class="fas fa-check-circle"></i> Lunas</span>
+                                        <a type="button" data-toggle="modal" data-target="#editPembayaran">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+
+                                        <a href="#" class="text-danger btn-xs" onclick="confirmLink(event, `{{ route('payment.delete', $book->id_booking) }}`)">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                        @else
+                                        <span class="text-muted italic">Belum melakukan pembayaran</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-2 text-center">
@@ -132,6 +177,7 @@
                                         {{ $loop->iteration }}
                                     </td>
                                     <td>
+                                        @if (Auth::user()->role_id != 4)
                                         <button type="button"
                                             class="btn btn-sm btn-outline-danger btn-round shadow-sm"
                                             onclick="confirmDelete(event, `{{ route('peserta.delete', $row->id_peserta) }}`)"
@@ -139,6 +185,7 @@
                                             title="Hapus Peserta">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
+                                        @endif
 
                                         <a type="button"
                                             class="btn btn-sm btn-outline-warning btn-round shadow-sm"
@@ -229,7 +276,7 @@
                             </tbody>
                         </table>
                     </div>
-                    @if (!$book->status && !$book->approval_uker && Auth::user()->role_id == 4)
+                    @if ((!$book->status && !$book->approval_uker && Auth::user()->role_id == 4) && $book->payment_status == 'true')
                     @if ($book->uker->unit_utama_id == '46593' && $book->uker_id == Auth::user()->uker_id)
                     <div class="card-footer text-right font-weight-bold">
                         <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#tolak">
@@ -249,13 +296,74 @@
                         </a>
                     </div>
                     @endif
+                    @elseif (Auth::user()->role_id == 4 && !$book->payment_status)
+                    <div class="card-footer text-right text-bold">
+                        <button type="button" class="btn btn-primary rounded-pill px-4 shadow-sm" data-toggle="modal" data-target="#modalPembayaran">
+                            <i class="fas fa-hand-holding-usd"></i> Proses Pembayaran
+                        </button>
+                    </div>
+
+                    <!-- Modal Tambah Pembayaran -->
+                    <div class="modal fade" id="modalPembayaran" aria-labelledby="modalPembayaranLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 shadow-lg">
+                                <div class="modal-header bg-primary text-white">
+                                    <h5 class="modal-title" id="modalPembayaranLabel font-weight-bold">
+                                        <i class="fas fa-wallet mr-2"></i> Konfirmasi Pembayaran
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('payment.store', $book->id_booking) }}" method="POST" enctype="multipart/form-data" id="formPembayaran">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label font-weight-bold">Metode Pembayaran</label>
+                                            <select name="payment_method" id="metode_pembayaran" class="form-select custom-select" required>
+                                                <option value="" selected disabled>-- Pilih Metode --</option>
+                                                <option value="cash">💵 Tunai (Cash)</option>
+                                                <option value="transfer">📱 Transfer Bank</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label class="form-label font-weight-bold">Tanggal Pembayaran</label>
+                                            <input type="date" name="payment_date" class="form-control" value="{{ date('Y-m-d') }}" required>
+                                        </div>
+
+                                        <div id="input_transfer" style="display: none;">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label font-weight-bold">Upload Bukti Pembayaran</label>
+                                                <div class="custom-file">
+                                                    <input type="file" name="payment_file" class="form-control" id="bukti_pembayaran" accept="image/*">
+                                                    <small class="text-muted">Format: JPG, PNG, PDF (Maks 2MB)</small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-0">
+                                            <label class="form-label font-weight-bold">Keterangan</label>
+                                            <textarea name="payment_notes" class="form-control" rows="3" placeholder="Tambahkan catatan jika ada..."></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer bg-light">
+                                        <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-primary rounded-pill px-4" onclick="confirmSubmit(event, 'formPembayaran');">
+                                            <i class="fas fa-check-circle mr-1"></i> Simpan Data
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     @endif
 
                     <div class="card-footer d-flex justify-content-end align-items-center flex-wrap" style="gap: 8px;">
 
+                        @if (Auth::user()->role_id != 4)
                         <button type="button" class="btn btn-outline-primary btn-sm shadow-sm px-3 rounded-pill" data-toggle="modal" data-target="#modalTambahPeserta">
                             <i class="fas fa-plus-circle mr-1"></i> <b>Tambah Peserta</b>
                         </button>
+                        @endif
 
                         {{-- Kondisi untuk Tombol Kirim Email --}}
                         @if ($book->status == 'true')
@@ -267,10 +375,12 @@
                         {{-- Kondisi untuk Tombol Setuju/Tolak --}}
                         @if (Auth::user()->role_id == 2 && !$book->approval_roum && $book->approval_uker == 'true')
                         <div class="btn-group shadow-sm" role="group">
-                            <a class="btn btn-danger btn-sm px-3" href="#" data-toggle="modal" data-target="#tolak">
+                            <a class="btn btn-outline-danger btn-sm shadow-sm px-3 rounded-pill" href="#" data-toggle="modal" data-target="#tolak">
                                 <i class="fas fa-times-circle mr-1"></i> Tolak
                             </a>
-                            <a href="{{ route('book.true', $book->id_booking) }}" class="btn btn-success btn-sm px-3" onclick="confirmTrue(event)">
+                        </div>
+                        <div class="btn-group shadow-sm" role="group">
+                            <a href="{{ route('book.true', $book->id_booking) }}" class="btn btn-outline-success btn-sm shadow-sm px-3 rounded-pill" onclick="confirmTrue(event)">
                                 <i class="fas fa-check-circle mr-1"></i> Setuju
                             </a>
                         </div>
@@ -419,55 +529,73 @@
     </div>
 </div>
 
-<!-- Modal Sertifikas Vaksin -->
-@foreach ($book->detail as $i => $row)
-@php $key = $i + 1; @endphp
-<div class="modal fade" id="vaksin1{{ $row->id_peserta }}" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="mt-2 font-weight-bold">Sertifikat Vaksin 1</h5>
+<!-- Modal Edit Pembayaran -->
+<div class="modal fade" id="editPembayaran" aria-labelledby="modalPembayaranLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-light border-0 py-3">
+                <h5 class="modal-title font-weight-bold text-primary" id="modalLabel">
+                    <i class="fas fa-edit mr-2"></i>Edit Pembayaran
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="text-danger">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <img src="{{ asset('storage/files/vaksin_1/' . $row->foto_vaksin_1) }}" class="img-fluid mt-3" alt="">
-            </div>
+
+            @if($book->payment->first())
+            <form action="{{ route('payment.update', $book->payment->first()->id) }}" method="POST" enctype="multipart/form-data" id="formEditPembayaran">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group mb-3">
+                        <label class="form-label font-weight-bold">Metode Pembayaran</label>
+                        <select name="payment_method" id="edit_metode_pembayaran" class="form-select custom-select" required>
+                            <option value="cash" {{ $book->payment->first()->payment_method == 'cash' ? 'selected' : '' }}>
+                                💵 Tunai (Cash)
+                            </option>
+                            <option value="transfer" {{ $book->payment->first()->payment_method == 'transfer' ? 'selected' : '' }}>
+                                📱 Transfer Bank
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label font-weight-bold">Tanggal Pembayaran</label>
+                        <input type="date" name="payment_date" class="form-control"
+                            value="{{ $book->payment->first()->payment_date }}" required>
+                    </div>
+
+                    <div id="edit_input_transfer">
+                        <div class="form-group mb-3">
+                            <label class="form-label font-weight-bold">Upload Bukti Baru (Opsional)</label>
+                            <input type="file" name="payment_file" class="form-control" id="edit_bukti_pembayaran" accept="image/*,application/pdf">
+                            <small class="text-muted">Biarkan kosong jika tidak ingin mengubah bukti lama.</small>
+
+                            @if($book->payment->first()->payment_method == 'transfer' && $book->payment->first()->payment_file)
+                            <div class="mt-2">
+                                <a href="{{ asset('storage/' . $book->payment->first()->payment_file) }}" target="_blank" class="text-primary">
+                                    <i class="fas fa-paperclip"></i> Bukti saat ini sudah ada
+                                    </small>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-0">
+                        <label class="form-label font-weight-bold">Keterangan</label>
+                        <textarea name="payment_notes" class="form-control" rows="3">{{ $book->payment->first()->payment_notes }}</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4" onclick="confirmSubmit(event, 'formEditPembayaran')">
+                        <i class="fas fa-save mr-1"></i> Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+            @endif
         </div>
     </div>
 </div>
-<div class="modal fade" id="vaksin2{{ $row->id_peserta }}" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="mt-2 font-weight-bold">Sertifikat Vaksin 2</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img src="{{ asset('storage/files/vaksin_2/' . $row->foto_vaksin_2) }}" class="img-fluid mt-3" alt="">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="vaksin3{{ $row->id_peserta }}" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="mt-2 font-weight-bold">Sertifikat Vaksin 3</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img src="{{ asset('storage/files/vaksin_3/' . $row->foto_vaksin_3) }}" class="img-fluid mt-3" alt="">
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
 
 @section('js')
 <script>
@@ -554,42 +682,6 @@
 </script>
 
 <script>
-    function confirmSubmit(event, form) {
-        Swal.fire({
-            title: 'Simpan Data?',
-            text: "Pastikan data peserta sudah benar.",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#aaa',
-            confirmButtonText: 'Ya, Simpan!',
-            cancelButtonText: 'Batal',
-            reverseButtons: true // Agar tombol Batal di kiri, Simpan di kanan
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // 1. Tampilkan loading global (SweetAlert)
-                Swal.fire({
-                    title: 'Sedang Memproses...',
-                    text: 'Mohon tunggu sebentar.',
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
-
-                // 2. Efek loading pada tombol manual
-                const btn = document.getElementById('btnSimpanPeserta');
-                btn.disabled = true;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Menyimpan...';
-
-                // 3. Submit form secara programatik
-                document.getElementById(form).submit();
-            }
-        });
-    }
-</script>
-
-<script>
     $(document).ready(function() {
         $('#select-bus').on('change', function() {
             var busId = $(this).val();
@@ -658,6 +750,21 @@
             }
         });
     }
+</script>
+<script>
+    $(document).ready(function() {
+        $('#metode_pembayaran').on('change', function() {
+            const metode = $(this).val();
+
+            if (metode === 'transfer') {
+                $('#input_transfer').slideDown(400); // Efek smooth terbuka
+                $('#bukti_pembayaran').attr('required', true);
+            } else {
+                $('#input_transfer').slideUp(400); // Efek smooth tertutup
+                $('#bukti_pembayaran').attr('required', false);
+            }
+        });
+    });
 </script>
 @endsection
 @endsection

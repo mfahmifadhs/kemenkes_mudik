@@ -55,4 +55,8 @@ class Booking extends Model
     public function detail() {
         return $this->hasMany(Peserta::class, 'booking_id', 'id_booking');
     }
+    
+    public function payment() {
+        return $this->hasMany(BookingPayment::class, 'booking_id', 'id_booking');
+    }
 }

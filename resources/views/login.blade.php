@@ -10,7 +10,7 @@
                         <h1 class="text-white">Mudik Bersama Kemenkes</h1>
                     </a>
 
-                    <p class="text-white">Pendaftaran 05 Maret - 14 Maret 2025</p>
+                    <p class="text-white">Pendaftaran 24 Februari - 6 Maret 2026</p>
                 </div>
                 <div class="custom-block custom-block-full col-md-5 mx-auto">
                     <form id="form" action="{{ route('post.login') }}" method="POST">
