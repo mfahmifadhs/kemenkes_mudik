@@ -322,7 +322,7 @@
                             <input type="hidden" name="data" value="{{ json_encode($data) }}">
 
                             <ul class="nav nav-pills justify-content-center mb-5" id="tab" role="tablist">
-                                @foreach ($bus as $key => $row)
+                                @foreach ($bus->where('status', 'true') as $key => $row)
                                 <li class="nav-item px-2 my-2">
                                     <a class="nav-link {{ $key == 0 ? 'active' : '' }}" data-toggle="pill" href="#bus-{{ $row->id_bus }}">
                                         <div class="text-center">
