@@ -582,7 +582,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-6 col-6 text-center">
-                                        <button type="submit" id="submitBtn" class="btn btn-next w-100 rounded-pill p-2" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah di kirim tidak bisa diubah atau dihapus')">
+                                        <button type="submit" id="submitBtn" class="btn btn-next w-100 rounded-pill p-2" onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali, karena data yang sudah dikirim tidak bisa diubah atau dihapus')">
                                             <span id="buttonText">Selesai </span><i id="buttonIcon" class="fa-solid fa-circle-check"></i>
                                         </button>
                                     </div>
