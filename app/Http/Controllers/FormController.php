@@ -222,7 +222,12 @@ class FormController extends Controller
             return redirect()->route('home')->with('failed', 'Batas waktu pembayaran telah habis. Silakan lakukan pendaftaran ulang.');
         }
 
-        $checkPic = UnitKerja::where('unit_utama_id', $book->uker->unit_utama_id)->whereNotNull('pic_nohp')->first();
+        if ($book->uker->unit_utama_id == '46593') {
+            $checkPic = UnitKerja::where('id_unit_kerja', $book->uker_id)->first();
+        } else {
+            $checkPic = UnitKerja::where('unit_utama_id', $book->uker->unit_utama_id)->whereNotNull('pic_nohp')->first();
+        }
+
         $pic = $checkPic->pic_nama . ' (' . $checkPic->pic_nohp . ')';
         $pic = new \stdClass();
         $pic->nama = $checkPic->pic_nama;
