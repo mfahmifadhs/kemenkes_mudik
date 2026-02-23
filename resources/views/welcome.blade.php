@@ -169,7 +169,9 @@
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-lg-12">
-                <h1 class="hero-title">Mudik Bersama Kemenkes 2026</span></h1>
+                <h1 class="hero-title">
+                    <a href="{{ route('login') }}" class="text-white">Mudik Bersama Kemenkes 2026</a>
+                </h1>
                 <p class="text-white mb-4 fw-bold" style="font-size: 1.1rem;">
                     Siapkan dokumen untuk Pendaftaran <span class="text-warning fw-bold">(KTP dan KK Pendaftar)</span>
                 </p>
@@ -178,22 +180,24 @@
                     <div class="d-flex flex-column flex-md-row gap-md-5 align-items-center">
                         <div>
                             <small class="text-white-50 d-block mb-1">Periode Pendaftaran</small>
-                            <h5 class="mb-0 fw-bold"><i class="bi-calendar-check me-2"></i>Soon</h5>
+                            <h5 class="mb-0 fw-bold"><i class="bi-calendar-check me-2"></i>24 Februari - 6 Maret 2026</h5>
                         </div>
                         <div class="vr d-none d-md-block opacity-25"></div>
                         <hr class="d-md-none w-100 opacity-25">
                         <div>
                             <small class="text-white-50 d-block mb-1">Jadwal Keberangkatan</small>
-                            <h5 class="text-warning mb-0 fw-bold"><i class="bi-bus-front me-2"></i>Soon</h5>
+                            <h5 class="text-warning mb-0 fw-bold"><i class="bi-bus-front me-2"></i>13 Maret 2026</h5>
                         </div>
                     </div>
                 </div>
 
-                <!-- <div class="mb-4">
+                @if(now()->greaterThanOrEqualTo(\Carbon\Carbon::parse('2026-02-24 07:30:00')))
+                <div class="mb-4">
                     <a href="{{ route('form.create') }}" class="btn custom-btn-main shadow">
                         <i class="bi-hand-index me-2"></i> Daftar Sekarang
                     </a>
-                </div> -->
+                </div>
+                @endif
 
                 <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
                     <a href="{{ route('tiket.check') }}" class="btn btn-glass shadow">
