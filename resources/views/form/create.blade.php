@@ -281,11 +281,11 @@
 
                             <div class="doc-reminder my-4">
                                 <p class="mb-2" style="font-weight: 600; color: #d63031;">
-                                    <i class="fa fa-file-invoice"></i> Persiapan Dokumen (Step Berikutnya):
+                                    <i class="fa fa-file-invoice"></i> Agar mempersiapkan Dokumen Berikut Untuk Tahap Berikutnya:
                                 </p>
                                 <ul class="mb-0" style="font-size: 0.85rem; color: #444;">
-                                    <li>Foto KTP (Format JPG/PNG)</li>
-                                    <li>Foto Kartu Keluarga</li>
+                                    <li>Foto KTP (Format JPG/PNG) Maks. 5 mb </li>
+                                    <li>Foto Kartu Keluarga (Format JPG/PNG) Maks. 5 mb </li>
                                 </ul>
                             </div>
 
@@ -489,11 +489,11 @@
 
                                     <div class="row">
                                         <div class="col-12 col-md-6 mb-3">
-                                            <label class="small fw-bold mb-1">Foto KTP <small class="text-muted">(Maks. 5MB)</small></label>
+                                            <label class="small fw-bold mb-1">Foto KTP <small class="text-muted">(JPG/PNG) (Maks. 5MB)</small></label>
                                             <input type="file" name="foto_ktp" class="form-control form-control-sm border-info" required accept=".jpg, .jpeg, .png">
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
-                                            <label class="small fw-bold mb-1">Kartu Keluarga <small class="text-muted">(Maks. 5MB)</small></label>
+                                            <label class="small fw-bold mb-1">Kartu Keluarga <small class="text-muted">(JPG/PNG) (Maks. 5MB)</small></label>
                                             <input type="file" name="foto_kk" class="form-control form-control-sm border-info" required accept=".jpg, .jpeg, .png">
                                         </div>
                                     </div>

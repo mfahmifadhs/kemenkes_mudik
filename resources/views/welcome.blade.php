@@ -151,6 +151,9 @@
         <div class="row justify-content-center text-center">
             <div class="col-lg-12">
                 <h1 class="hero-title">Mudik Bersama Kemenkes 2026</span></h1>
+                <p class="text-white mb-4 fw-bold" style="font-size: 1.1rem;">
+                    Siapkan dokumen untuk Pendaftaran <span class="text-warning fw-bold">(KTP dan KK Pendaftar)</span>
+                </p>
 
                 <div class="info-card mb-4">
                     <div class="d-flex flex-column flex-md-row gap-md-5 align-items-center">
