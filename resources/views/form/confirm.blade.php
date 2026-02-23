@@ -241,11 +241,23 @@
                             </tbody>
                         </table>
                     </div>
+                    @php
+                    $nomor_bersih = preg_replace('/[^0-9]/', '', $pic->nohp);
+
+                    if (strpos($nomor_bersih, '0') === 0) {
+                    $nomor_bersih = '62' . substr($nomor_bersih, 1);
+                    }
+
+                    $pesan = "Saya " . $book->nama_pegawai . " dari unit kerja " . $book->uker->nama_unit_kerja . " ingin konfirmasi pendaftaran Mudik Kemenkes 2026 dan melakukan deposit";
+
+                    $url_wa = "https://wa.me/" . $nomor_bersih . "?text=" . rawurlencode($pesan);
+                    @endphp
 
                     <div class="bg-light p-3 rounded mt-4">
                         <h6 class="small font-weight-bold text-uppercase mb-2"><i class="fas fa-info-circle mr-1"></i> Informasi Penting</h6>
                         <ul class="small text-muted pl-3 mb-0">
                             <li>Simpan Kode Booking ini untuk pengecekan berkala.</li>
+                            <li>Silahkan hubungi PIC untuk melakukan verifikasi, klik <a href="{{ $url_wa }}" class="fw-bold" target="_blank">disini</a></li>
                             <li>E-Tiket otomatis dikirim ke email <strong>{{ $book->email }}</strong> setelah verifikasi akhir.</li>
                         </ul>
                     </div>
@@ -255,17 +267,6 @@
                             <i class="fas fa-arrow-left mr-1"></i> Kembali ke Beranda
                         </a>
                         <div>
-                            @php
-                            $nomor_bersih = preg_replace('/[^0-9]/', '', $pic->nohp);
-
-                            if (strpos($nomor_bersih, '0') === 0) {
-                            $nomor_bersih = '62' . substr($nomor_bersih, 1);
-                            }
-
-                            $pesan = "Saya " . $book->nama_pegawai . " dari unit kerja " . $book->uker->nama_unit_kerja . " ingin konfirmasi pendaftaran Mudik Kemenkes 2026 dan melakukan deposit";
-
-                            $url_wa = "https://wa.me/" . $nomor_bersih . "?text=" . rawurlencode($pesan);
-                            @endphp
 
                             @if ($pic)
                             <a href="{{ $url_wa }}" target="_blank" class="btn btn-print btn-sm btn-action bg-success shadow-sm rounded-pill">

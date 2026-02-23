@@ -540,9 +540,9 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                        <p class="text-right text-primary underline ">
-                                            <a href="#" data-toggle="modal" data-target="#skModal">
-                                                <b><u>Syarat dan ketentuan</u></b>
+                                        <p class="text-right underline" >
+                                            <a href="#" data-toggle="modal" data-target="#skModal" style="color: red;">
+                                                <b><u>*Syarat dan ketentuan</u></b>
                                             </a>
                                         </p>
 
@@ -551,7 +551,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="skLabel">
-                                                            <a href="#">Syarat dan Ketentuan</a>
+                                                            <a href="#" style="color: red;">Syarat dan Ketentuan</a>
                                                         </h5>
                                                         <button type="button" class="close btn custom-btn smoothscroll" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true"><i class="fas fa-times"></i></span>

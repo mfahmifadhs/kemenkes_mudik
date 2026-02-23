@@ -144,6 +144,25 @@
             right: 20px;
         }
     }
+
+    .btn-register {
+        background: linear-gradient(135deg, #00a79d 0%, #00529b 100%);
+        color: white;
+        font-weight: 800;
+        font-size: 1.2rem;
+        padding: 18px 45px;
+        border-radius: 50px;
+        border: none;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .btn-register:hover {
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 167, 157, 0.4);
+    }
 </style>
 
 <section class="hero-section">
@@ -170,14 +189,20 @@
                     </div>
                 </div>
 
+                <!-- <div class="mb-4">
+                    <a href="{{ route('form.create') }}" class="btn custom-btn-main shadow">
+                        <i class="bi-hand-index me-2"></i> Daftar Sekarang
+                    </a>
+                </div> -->
+
                 <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
-                    <a href="{{ route('tiket.check') }}" class="btn custom-btn-main shadow">
+                    <a href="{{ route('tiket.check') }}" class="btn btn-glass shadow">
                         <i class="bi-search me-2"></i> Cek Status Pendaftaran
                     </a>
-                    <button class="btn btn-glass" data-bs-toggle="modal" data-bs-target="#modalSyarat">
+                    <button class="btn btn-glass shadow" data-bs-toggle="modal" data-bs-target="#modalSyarat">
                         <i class="bi-file-earmark-text me-2"></i> Syarat & Ketentuan
                     </button>
-                    <button class="btn btn-glass" data-bs-toggle="modal" data-bs-target="#modalRute">
+                    <button class="btn btn-glass shadow" data-bs-toggle="modal" data-bs-target="#modalRute">
                         <i class="bi-geo-alt me-2"></i> Rute Perjalanan
                     </button>
                 </div>
