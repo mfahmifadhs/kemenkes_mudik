@@ -34,9 +34,9 @@ Route::post('login', [AuthController::class, 'postLogin'])->name('post.login');
 // Route::post('login', [AuthController::class, 'postLogin'])->name('post.login')->middleware('validate.host.referer');
 
 
-Route::get('form/daftar', [FormController::class, 'create'])->name('form.create');
+Route::get('form/pendaftaran-mudik', [FormController::class, 'create'])->name('form.create');
 Route::post('form/post', [FormController::class, 'create'])->name('form.post');
-Route::post('form/daftar', [FormController::class, 'store'])->name('form.store');
+Route::post('form/pendaftaran-mudik', [FormController::class, 'store'])->name('form.store');
 
 Route::get('tujuan/select/{id}', [FormController::class, 'selectDest']);
 Route::get('uker/select/{id}', [FormController::class, 'selectUker']);
