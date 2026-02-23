@@ -210,12 +210,12 @@
                 <div class="owl-carousel owl-theme">
                     @php
                     $cities = [
-                    ['name' => 'Solo', 'img' => 'solo.jpg', 'trips' => '1'],
-                    ['name' => 'Palembang', 'img' => 'palembang.jpg', 'trips' => '1'],
-                    ['name' => 'Padang', 'img' => 'padang.jpg', 'trips' => '1'],
-                    ['name' => 'Purworejo', 'img' => 'purworejo.jpg', 'trips' => '2'],
-                    ['name' => 'Yogyakarta', 'img' => 'yogyakarta.jpg', 'trips' => '3'],
-                    ['name' => 'Surabaya', 'img' => 'surabaya.jpg', 'trips' => '2'],
+                    ['name' => 'Solo', 'img' => 'solo.jpg'],
+                    ['name' => 'Palembang', 'img' => 'palembang.jpg'],
+                    ['name' => 'Padang', 'img' => 'padang.jpg'],
+                    ['name' => 'Purworejo', 'img' => 'purworejo.jpg'],
+                    ['name' => 'Yogyakarta', 'img' => 'yogyakarta.jpg'],
+                    ['name' => 'Surabaya', 'img' => 'surabaya.jpg'],
                     ];
                     @endphp
 
@@ -225,7 +225,6 @@
                             <img src="{{ asset('dist/img/kota/'.$city['img']) }}" class="img-fluid" alt="{{ $city['name'] }}" style="height: 200px; width: 100%; object-fit: cover;">
                             <div class="p-4 text-start">
                                 <h5 class="text-dark fw-bold mb-2">{{ $city['name'] }}</h5>
-                                <span class="badge-destinasi">{{ $city['trips'] }} Perjalanan</span>
                             </div>
                         </div>
                     </div>
