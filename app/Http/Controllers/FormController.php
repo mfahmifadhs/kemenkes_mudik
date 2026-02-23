@@ -213,6 +213,10 @@ class FormController extends Controller
             $book = Booking::where('id_booking', $id)->first();
         }
 
+        if (!$book) {
+            return back()->with('failed', 'Kode booking tidak ditemukan');
+        }
+
         if ($book->payment_status !== 'true' && now()->greaterThan($book->payment_limit)) {
             $book->update(['payment_status' => 'false']);
 
