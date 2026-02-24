@@ -123,7 +123,8 @@
                                     <div class="col-2"></div>
                                     <div class="col-5">
                                         <div class="seat-special mb-3 text-center p-2 rounded-pill">
-                                            <i class="fas fa-steering-wheel"></i> DRV</div>
+                                            <i class="fas fa-steering-wheel"></i> DRV
+                                        </div>
                                     </div>
                                 </div>
 
@@ -170,19 +171,15 @@
                                 </div>
 
                                 @if ($row->total_kursi == 50)
-                                <div class="row mt-2">
-                                    <div class="col-5">
-                                        <div class="seat-special text-center p-2 rounded-pill">TOILET</div>
-                                    </div>
-                                    <div class="col-1"></div>
-                                    <div class="col-6">
-                                        <div class="row">
-                                            @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
-                                            <div class="col-4">
-                                                <div class="seat-item text-center p-2 rounded-pill">13{{ $kode }}</div>
-                                            </div>
-                                            @endforeach
-                                        </div>
+                                <div class="d-flex align-items-center mt-2" style="gap: 10px;">
+                                    <div style="flex: 4;" class="seat-special text-center p-2 rounded-pill">TOILET</div>
+
+                                    <div style="flex: 1;"></div>
+
+                                    <div style="flex: 3;" class="d-flex justify-content-between">
+                                        @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
+                                        <div class="seat-item text-center p-2 rounded-pill flex-fill mx-1">13{{ $kode }}</div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 @endif
