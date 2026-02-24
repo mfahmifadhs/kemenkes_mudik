@@ -403,14 +403,14 @@
                                         @if ($row->total_kursi == 40 || $row->total_kursi == 36 || $row->total_kursi == 50)
                                         <div class="row mt-3 g-2 align-items-center">
                                             <div class="col-4 text-center">
-                                                <div class="toilet-box fw-bold"><i class="fa fa-restroom"></i> TOILET</div>
+                                                <div class="toilet-box fw-bold p-3"><i class="fa fa-restroom"></i> TOILET</div>
                                             </div>
                                             <div class="col-8">
                                                 <div class="row g-1">
                                                     @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
                                                     <div class="col-3 text-center">
                                                         <label class="w-100">
-                                                            <input type="checkbox" class="seat-checkbox" value="{{ $row->id_bus.'-12'.$kode }}">
+                                                            <!-- <input type="checkbox" class="seat-checkbox" value="{{ $row->id_bus.'-12'.$kode }}"> -->
                                                             <span class="seat-label seat-full">12{{ $kode }}</span>
                                                         </label>
                                                     </div>
