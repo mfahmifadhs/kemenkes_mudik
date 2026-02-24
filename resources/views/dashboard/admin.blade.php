@@ -133,7 +133,7 @@
 
                     <label>Total Pemesanan</label>
                     @php
-                    $bookTotal  = $book->whereNull('approval_uker')->whereNull('approval_roum')->count();
+                    $bookTotal  = $book->where('approval_uker', '!=', 'false')->orWhere('approval_roum', '!=', 'false')->count();
                     $bookSetuju = $book->where('approval_roum', 'true')->count();
 
                     $bookProses = $book->where('approval_roum', null)
@@ -149,7 +149,7 @@
                             <div class="small-box bg-success">
                                 <div class="inner">
                                     <h3>{{ $bookTotal }} <small class="text-xs">pendaftar</small></h3>
-                                    <p><b>Belum Diproses</b></p>
+                                    <p><b>Total Pendaftar</b></p>
                                 </div>
                                 <div class="icon"><i class="fas fa-check-circle"></i></div>
                             </div>
