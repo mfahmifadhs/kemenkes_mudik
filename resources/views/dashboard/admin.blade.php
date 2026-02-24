@@ -176,10 +176,27 @@
 
                     <label>Total Kursi</label>
                     <div class="row">
+                        @php
+                        $totalKursiKapasitas = $bus->where('status', 'true')->sum('total_kursi');
+
+                        $seatVerifikasi = $book->where('approval_roum', null)
+                        ->where('approval_uker', '!=', 'false') // Tidak ditolak uker
+                        ->flatMap->detail
+                        ->where('deleted_at', null) // Pastikan peserta tidak di-soft delete
+                        ->count();
+
+                        $seatFull = $book->where('approval_roum', 'true')
+                        ->flatMap->detail
+                        ->where('deleted_at', null)
+                        ->count();
+
+                        $seatTersedia = $totalKursiKapasitas - ($seatVerifikasi + $seatFull);
+                        @endphp
+
                         <div class="col-md-3">
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3>{{ $bus->where('status', 'true')->sum('total_kursi') }} <small class="text-xs">kursi</small></h3>
+                                    <h3>{{ $totalKursiKapasitas }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Total Kursi</b></p>
                                 </div>
                                 <div class="icon">
@@ -187,14 +204,11 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-3">
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    @php
-                                    $seatUker = $book->where('approval_uker', null)->flatMap->detail->count();
-                                    $seatRoum = $book->where('approval_uker', 'true')->where('approval_roum', null)->flatMap->detail->count();
-                                    @endphp
-                                    <h3>{{ $seatUker + $seatRoum }} <small class="text-xs">kursi</small></h3>
+                                    <h3>{{ $seatVerifikasi }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Proses Verifikasi</b></p>
                                 </div>
                                 <div class="icon">
@@ -202,12 +216,10 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-3">
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    @php
-                                    $seatFull = $book->flatMap->detail->where('status', 'full')->where('kode_seat', '!=', null)->count();
-                                    @endphp
                                     <h3>{{ $seatFull }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Tidak Tersedia</b></p>
                                 </div>
@@ -216,10 +228,11 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-3">
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>{{ $bus->where('status', 'true')->sum('total_kursi') - ($seatUker + $seatRoum + $seatFull) }} <small class="text-xs">kursi</small></h3>
+                                    <h3>{{ $seatTersedia }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Tersedia</b></p>
                                 </div>
                                 <div class="icon">
