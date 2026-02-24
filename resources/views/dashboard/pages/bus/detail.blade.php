@@ -172,13 +172,13 @@
 
                                 @if ($row->total_kursi == 50)
                                 <div class="row mt-2">
-                                    <div class="col-5">
+                                    <div class="col-3">
                                         <div class="seat-special text-center p-2 rounded-pill" style="background-color: #e9ecef; font-size: 0.8rem;">TOILET</div>
                                     </div>
 
                                     <div class="col-2"></div>
 
-                                    <div class="col-5">
+                                    <div class="col-9">
                                         <div class="row">
                                             @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
                                             @php
@@ -189,7 +189,7 @@
                                             if($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty()) $statusClass = 'seat-full';
                                             @endphp
 
-                                            <div class="col-6 mb-2">
+                                            <div class="col-3 mb-2">
                                                 <div class="seat-item {{ $statusClass }} text-center">
                                                     13{{ $kode }}
                                                 </div>
