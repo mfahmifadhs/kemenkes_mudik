@@ -157,21 +157,21 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="small-box bg-success">
-                                <div class="inner">
-                                    <h3>{{ $bookSetuju }} <small class="text-xs">pendaftar</small></h3>
-                                    <p><b>Sudah Disetujui</b></p>
-                                </div>
-                                <div class="icon"><i class="fas fa-check-circle"></i></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
                             <div class="small-box bg-warning">
                                 <div class="inner">
                                     <h3>{{ $bookProses }} <small class="text-xs">pendaftar</small></h3>
                                     <p><b>Proses Verifikasi</b></p>
                                 </div>
                                 <div class="icon"><i class="fas fa-clock"></i></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{ $bookSetuju }} <small class="text-xs">pendaftar</small></h3>
+                                    <p><b>Sudah Disetujui</b></p>
+                                </div>
+                                <div class="icon"><i class="fas fa-check-circle"></i></div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -229,18 +229,6 @@
                         </div>
 
                         <div class="col-md-3">
-                            <div class="small-box bg-danger">
-                                <div class="inner">
-                                    <h3>{{ $seatFull }} <small class="text-xs">kursi</small></h3>
-                                    <p><b>Tidak Tersedia</b></p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-times-circle"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
                             <div class="small-box bg-success">
                                 <div class="inner">
                                     <h3>{{ $seatTersedia }} <small class="text-xs">kursi</small></h3>
@@ -248,6 +236,18 @@
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3>{{ $seatFull }} <small class="text-xs">kursi</small></h3>
+                                    <p><b>Tidak Tersedia</b></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-times-circle"></i>
                                 </div>
                             </div>
                         </div>
