@@ -74,6 +74,7 @@ Route::group(['middleware' => 'auth'], function () {
     // select
     Route::get('tiket/{id}', [BookingController::class, 'emailTicket'])->name('tiket.email');
     Route::get('book/validation/{id}', [BookingController::class, 'validation'])->name('book.validation');
+    Route::get('book/delete/{id}', [BookingController::class, 'delete'])->name('book.delete');
     Route::get('book/pdf/{id}', [BookingController::class, 'pdf'])->name('book.pdf');
     Route::get('book/edit/{id}', [BookingController::class, 'edit'])->name('book.edit');
     Route::get('file/delete/{file}/{id}', [BookingController::class, 'deleteFile'])->name('file.delete');

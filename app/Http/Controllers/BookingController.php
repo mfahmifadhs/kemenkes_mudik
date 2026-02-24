@@ -549,4 +549,12 @@ class BookingController extends Controller
 
         return redirect()->route('book.validation', $id)->with('success', 'Data pembayaran berhasil diperbarui!');
     }
+
+    public function delete($id)
+    {
+        Peserta::where('booking_id', $id)->delete();
+        Booking::where('id_booking', $id)->delete();
+
+        return redirect()->route('dashboard')->with('success', 'Berhasil membatalkan pendaftaran');
+    }
 }

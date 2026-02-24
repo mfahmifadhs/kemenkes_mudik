@@ -298,6 +298,9 @@
                         <button type="button" class="btn btn-primary rounded-pill px-4 shadow-sm" data-toggle="modal" data-target="#modalPembayaran">
                             <i class="fas fa-hand-holding-usd"></i> Proses Pembayaran
                         </button>
+                        <a href="#" class="btn btn-danger rounded-pill px-4 shadow-sm" onclick="confirmLink(event, `{{ route('book.delete', $book->id_booking) }}`)">
+                            <i class="fas fa-times-circle"></i> Batalkan
+                        </a>
                     </div>
 
                     <!-- Modal Tambah Pembayaran -->
