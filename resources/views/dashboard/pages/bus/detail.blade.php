@@ -171,15 +171,36 @@
                                 </div>
 
                                 @if ($row->total_kursi == 50)
-                                <div class="d-flex align-items-center mt-2" style="gap: 10px;">
-                                    <div style="flex: 4;" class="seat-special text-center p-2 rounded-pill">TOILET</div>
+                                <div class="row mt-2 align-items-center">
+                                    <div class="col-4">
+                                        <div class="seat-special text-center p-2 rounded-pill" style="background-color: #e9ecef;">TOILET</div>
+                                    </div>
 
-                                    <div style="flex: 1;"></div>
+                                    <div class="col-1"></div>
 
-                                    <div style="flex: 3;" class="d-flex justify-content-between">
-                                        @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
-                                        <div class="seat-item text-center p-2 rounded-pill flex-fill mx-1">13{{ $kode }}</div>
-                                        @endforeach
+                                    <div class="col-3">
+                                        <div class="row">
+                                            @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
+                                            @php
+                                            // Logika yang sama dengan baris atas
+                                            $seatCode = "13" . $kode . $busId;
+                                            $statusClass = 'seat-available';
+
+                                            if($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty()) {
+                                            $statusClass = 'seat-booked';
+                                            }
+                                            if($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty()) {
+                                            $statusClass = 'seat-full';
+                                            }
+                                            @endphp
+
+                                            <div class="col-4">
+                                                <div class="seat-item {{ $statusClass }} text-center p-2 rounded-pill">
+                                                    13{{ $kode }}
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
                                 @endif
