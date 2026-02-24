@@ -220,7 +220,7 @@
                                                 </div>
                                             </td>
                                             <td style="font-size: 0.85rem;">
-                                                <span class="font-weight-bold text-dark">{{ $row->booking->uker->nama_unit_kerja }}</span>
+                                                <span class="font-weight-bold text-dark">{{ $row->booking->uker->nama_unit_kerja ?? '' }}</span>
                                             </td>
                                             <td><code class="text-primary font-weight-bold">{{ $row->booking->kode_booking }}</code></td>
                                             <td>
