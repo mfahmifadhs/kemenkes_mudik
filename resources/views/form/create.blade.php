@@ -410,8 +410,10 @@
                                                     @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
                                                     <div class="col-3 text-center">
                                                         <label class="w-100">
-                                                            <!-- <input type="checkbox" class="seat-checkbox" value="{{ $row->id_bus.'-12'.$kode }}"> -->
-                                                            <span class="seat-label seat-full">12{{ $kode }}</span>
+                                                            @if ($row->total_kursi == 50)
+                                                            <input type="checkbox" class="seat-checkbox" value="{{ $row->id_bus.'-12'.$kode }}">
+                                                            <span class="seat-label seat-available">12{{ $kode }}</span>
+                                                            @endif
                                                         </label>
                                                     </div>
                                                     @endforeach
