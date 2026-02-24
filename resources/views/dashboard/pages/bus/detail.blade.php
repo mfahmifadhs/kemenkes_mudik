@@ -173,7 +173,7 @@
                                 @if ($row->total_kursi == 50)
                                 <div class="row mt-2">
                                     <div class="col-2">
-                                        <div class="seat-special text-center p-2 rounded-pill" style="background-color: #e9ecef; font-size: 0.8rem;">TOILET</div>
+                                        <div class="seat-special text-center p-2 rounded-pill text-dark" style="background-color: #e9ecef; font-size: 0.8rem;">TOILET</div>
                                     </div>
 
                                     <div class="col-1"></div>
