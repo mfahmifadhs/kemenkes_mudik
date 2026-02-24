@@ -169,7 +169,7 @@
                                     </div>
                                 </div>
 
-                                @if ($row->total_kursi == 40)
+                                @if ($row->total_kursi == 50)
                                 <div class="row mt-2">
                                     <div class="col-5">
                                         <div class="seat-special text-center p-2 rounded-pill">TOILET</div>
@@ -179,7 +179,7 @@
                                         <div class="row">
                                             @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
                                             <div class="col-4">
-                                                <div class="seat-special text-center p-2 rounded-pill">10{{ $kode }}</div>
+                                                <div class="seat-item text-center p-2 rounded-pill">13{{ $kode }}</div>
                                             </div>
                                             @endforeach
                                         </div>

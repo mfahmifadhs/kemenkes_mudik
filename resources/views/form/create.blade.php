@@ -412,7 +412,7 @@
                                                         <label class="w-100">
                                                             @if ($row->total_kursi == 50)
                                                             <input type="checkbox" class="seat-checkbox" value="{{ $row->id_bus.'-12'.$kode }}">
-                                                            <span class="seat-label seat-available">12{{ $kode }}</span>
+                                                            <span class="seat-label seat-available">13{{ $kode }}</span>
                                                             @endif
                                                         </label>
                                                     </div>
