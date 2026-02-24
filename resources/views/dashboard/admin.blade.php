@@ -179,7 +179,7 @@
                         <div class="col-md-3">
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3>{{ $bus->sum('total_kursi') }} <small class="text-xs">kursi</small></h3>
+                                    <h3>{{ $bus->where('status', 'true')->sum('total_kursi') }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Total Kursi</b></p>
                                 </div>
                                 <div class="icon">
@@ -219,7 +219,7 @@
                         <div class="col-md-3">
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>{{ $bus->sum('total_kursi') - ($seatUker + $seatRoum + $seatFull) }} <small class="text-xs">kursi</small></h3>
+                                    <h3>{{ $bus->where('status', 'true')->sum('total_kursi') - ($seatUker + $seatRoum + $seatFull) }} <small class="text-xs">kursi</small></h3>
                                     <p><b>Tersedia</b></p>
                                 </div>
                                 <div class="icon">
