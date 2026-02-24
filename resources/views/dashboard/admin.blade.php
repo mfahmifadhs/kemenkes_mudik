@@ -146,7 +146,7 @@
                     @endphp
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="small-box bg-success">
+                            <div class="small-box bg-info">
                                 <div class="inner">
                                     <h3>{{ $bookTotal }} <small class="text-xs">pendaftar</small></h3>
                                     <p><b>Total Pendaftar</b></p>
