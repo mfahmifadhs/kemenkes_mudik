@@ -133,7 +133,9 @@
 
                     <label>Total Pemesanan</label>
                     @php
-                    $bookTotal  = $book->where('approval_uker', '!=', 'false')->orWhere('approval_roum', '!=', 'false')->count();
+                    $bookTotal = $book->filter(function($item) {
+                    return $item->approval_uker !== 'false' || $item->approval_roum !== 'false';
+                    })->count();
                     $bookSetuju = $book->where('approval_roum', 'true')->count();
 
                     $bookProses = $book->where('approval_roum', null)
