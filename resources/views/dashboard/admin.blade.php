@@ -132,44 +132,43 @@
                     @endif
 
                     <label>Total Pemesanan</label>
+                    @php
+                    $bookSetuju = $book->where('approval_roum', 'true')->count();
+
+                    $bookProses = $book->where('approval_roum', null)
+                    ->where('approval_uker', '!=', 'false')
+                    ->count();
+
+                    $bookDitolak = $book->filter(function($item) {
+                    return $item->approval_uker === 'false' || $item->approval_roum === 'false';
+                    })->count();
+                    @endphp
                     <div class="row">
                         <div class="col-md-4">
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>{{ $book->where('approval_roum', 'true')->count() }} <small class="text-xs">pemesanan</small></h3>
+                                    <h3>{{ $bookSetuju }} <small class="text-xs">pemesanan</small></h3>
                                     <p><b>Sudah Disetujui</b></p>
                                 </div>
-                                <div class="icon">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
+                                <div class="icon"><i class="fas fa-check-circle"></i></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3>
-                                        {{ $book->where('approval_uker', null)->count() + $book->where('approval_uker', 'true')->where('approval_roum', null)->count() }}
-                                        <small class="text-xs">pemesanan</small>
-                                    </h3>
+                                    <h3>{{ $bookProses }} <small class="text-xs">pemesanan</small></h3>
                                     <p><b>Proses Verifikasi</b></p>
                                 </div>
-                                <div class="icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
+                                <div class="icon"><i class="fas fa-clock"></i></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>
-                                        {{ $book->where('approval_uker', 'false')->count() + $book->where('approval_roum', 'false')->count() }}
-                                        <small class="text-xs">pemesanan</small>
-                                    </h3>
+                                    <h3>{{ $bookDitolak }} <small class="text-xs">pemesanan</small></h3>
                                     <p><b>Tidak Disetujui</b></p>
                                 </div>
-                                <div class="icon">
-                                    <i class="fas fa-times-circle"></i>
-                                </div>
+                                <div class="icon"><i class="fas fa-times-circle"></i></div>
                             </div>
                         </div>
                     </div>
