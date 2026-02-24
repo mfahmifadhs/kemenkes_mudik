@@ -133,6 +133,7 @@
 
                     <label>Total Pemesanan</label>
                     @php
+                    $bookTotal  = $book->whereNull('approval_uker')->whereNull('approval_roum')->count();
                     $bookSetuju = $book->where('approval_roum', 'true')->count();
 
                     $bookProses = $book->where('approval_roum', null)
@@ -144,28 +145,37 @@
                     })->count();
                     @endphp
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>{{ $bookSetuju }} <small class="text-xs">pemesanan</small></h3>
+                                    <h3>{{ $bookTotal }} <small class="text-xs">pendaftar</small></h3>
+                                    <p><b>Belum Diproses</b></p>
+                                </div>
+                                <div class="icon"><i class="fas fa-check-circle"></i></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{ $bookSetuju }} <small class="text-xs">pendaftar</small></h3>
                                     <p><b>Sudah Disetujui</b></p>
                                 </div>
                                 <div class="icon"><i class="fas fa-check-circle"></i></div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3>{{ $bookProses }} <small class="text-xs">pemesanan</small></h3>
+                                    <h3>{{ $bookProses }} <small class="text-xs">pendaftar</small></h3>
                                     <p><b>Proses Verifikasi</b></p>
                                 </div>
                                 <div class="icon"><i class="fas fa-clock"></i></div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>{{ $bookDitolak }} <small class="text-xs">pemesanan</small></h3>
+                                    <h3>{{ $bookDitolak }} <small class="text-xs">pendaftar</small></h3>
                                     <p><b>Tidak Disetujui</b></p>
                                 </div>
                                 <div class="icon"><i class="fas fa-times-circle"></i></div>
