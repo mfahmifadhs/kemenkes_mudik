@@ -407,64 +407,74 @@
                                                 <div class="toilet-box fw-bold p-3"><i class="fa fa-restroom"></i> TOILET</div>
                                             </div>
                                             <div class="col-8">
-                                            @else
-                                            <div class="col-12">
-                                            @endif
-                                                <div class="row g-1">
-                                                    @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
-                                                    <div class="col-3 text-center">
-                                                        <label class="w-100">
-                                                            @if ($row->total_kursi == 50)
-                                                            <input type="checkbox" class="seat-checkbox" value="{{ $row->id_bus.'-12'.$kode }}">
-                                                            <span class="seat-label seat-available">13{{ $kode }}</span>
+                                                @else
+                                                <div class="col-12">
+                                                    @endif
+                                                    <div class="row g-1">
+                                                        @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
+                                                        @php
+                                                        // Menentukan nomor baris belakang (misal baris 10 untuk bus 40, baris 13 untuk bus 50)
+                                                        $rowNumber = ($row->total_kursi == 50) ? '13' : '10';
+                                                        $seatCode = $rowNumber . $kode . $row->id_bus;
+                                                        @endphp
+
+                                                        <div class="col-3 text-center">
+                                                            @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
+                                                            <span class="seat-label seat-booked">{{ $rowNumber . $kode }}</span>
+                                                            @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
+                                                            <span class="seat-label seat-full">{{ $rowNumber . $kode }}</span>
+                                                            @else
+                                                            <label class="w-100">
+                                                                <input name="seat[]" type="checkbox" class="seat-checkbox" value="{{ $row->id_bus . '-' . $rowNumber . $kode }}">
+                                                                <span class="seat-label seat-available">{{ $rowNumber . $kode }}</span>
+                                                            </label>
                                                             @endif
-                                                        </label>
+                                                        </div>
+                                                        @endforeach
                                                     </div>
-                                                    @endforeach
                                                 </div>
                                             </div>
+                                            @endif
                                         </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="d-flex justify-content-center gap-3 mt-4 text-sm small">
+                                    <div><span class="badge seat-available p-2">&nbsp;&nbsp;</span> Tersedia</div>
+                                    <div><span class="badge bg-success p-2">&nbsp;&nbsp;</span> Anda Pilih</div>
+                                    <div><span class="badge seat-booked p-2">&nbsp;&nbsp;</span> Booking</div>
+                                    <div><span class="badge seat-full p-2">&nbsp;&nbsp;</span> Terisi</div>
+                                </div>
+
+                                <div class="row mt-5">
+                                    <div class="col-md-12 text-center mb-3">
+                                        @if($seatFull)
+                                        <a href="#" class="text-primary text-decoration-none small fw-bold" data-toggle="modal" data-target="#skModal">
+                                            <u>Baca Syarat & Ketentuan</u>
+                                        </a>
                                         @endif
                                     </div>
-                                </div>
-                                @endforeach
-                            </div>
 
-                            <div class="d-flex justify-content-center gap-3 mt-4 text-sm small">
-                                <div><span class="badge seat-available p-2">&nbsp;&nbsp;</span> Tersedia</div>
-                                <div><span class="badge bg-success p-2">&nbsp;&nbsp;</span> Anda Pilih</div>
-                                <div><span class="badge seat-booked p-2">&nbsp;&nbsp;</span> Booking</div>
-                                <div><span class="badge seat-full p-2">&nbsp;&nbsp;</span> Terisi</div>
-                            </div>
-
-                            <div class="row mt-5">
-                                <div class="col-md-12 text-center mb-3">
-                                    @if($seatFull)
-                                    <a href="#" class="text-primary text-decoration-none small fw-bold" data-toggle="modal" data-target="#skModal">
-                                        <u>Baca Syarat & Ketentuan</u>
-                                    </a>
-                                    @endif
+                                    <div class="col-6">
+                                        @if (!$seatFull)
+                                        <button type="button" onclick="goBack()" class="btn btn-outline-secondary w-100 rounded-pill p-2">
+                                            <i class="fa fa-arrow-left me-2"></i> Sebelumnya
+                                        </button>
+                                        @else
+                                        <a href="{{ route('form.create') }}" class="btn btn-outline-danger w-100 rounded-pill p-2">
+                                            <i class="fa fa-times-circle me-2"></i> Batalkan
+                                        </a>
+                                        @endif
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="submit" id="submitBtn" class="btn btn-next w-100 rounded-pill p-2"
+                                            @if($seatFull) onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali data Anda.')" @endif>
+                                            <span>{{ !$seatFull ? 'Selanjutnya' : 'Selesai' }}</span>
+                                            <i class="fa {{ !$seatFull ? 'fa-arrow-right' : 'fa-check-circle' }} ms-2"></i>
+                                        </button>
+                                    </div>
                                 </div>
-
-                                <div class="col-6">
-                                    @if (!$seatFull)
-                                    <button type="button" onclick="goBack()" class="btn btn-outline-secondary w-100 rounded-pill p-2">
-                                        <i class="fa fa-arrow-left me-2"></i> Sebelumnya
-                                    </button>
-                                    @else
-                                    <a href="{{ route('form.create') }}" class="btn btn-outline-danger w-100 rounded-pill p-2">
-                                        <i class="fa fa-times-circle me-2"></i> Batalkan
-                                    </a>
-                                    @endif
-                                </div>
-                                <div class="col-6">
-                                    <button type="submit" id="submitBtn" class="btn btn-next w-100 rounded-pill p-2"
-                                        @if($seatFull) onclick="confirmBook(event, 'Selesai', 'Mohon periksa kembali data Anda.')" @endif>
-                                        <span>{{ !$seatFull ? 'Selanjutnya' : 'Selesai' }}</span>
-                                        <i class="fa {{ !$seatFull ? 'fa-arrow-right' : 'fa-check-circle' }} ms-2"></i>
-                                    </button>
-                                </div>
-                            </div>
                         </form>
                     </div>
                     @elseif ($step == 2)
@@ -546,7 +556,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                        <p class="text-right underline" >
+                                        <p class="text-right underline">
                                             <a href="#" data-toggle="modal" data-target="#skModal" style="color: red;">
                                                 <b><u>*Syarat dan ketentuan</u></b>
                                             </a>
