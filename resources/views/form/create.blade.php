@@ -402,10 +402,14 @@
 
                                         @if ($row->total_kursi == 40 || $row->total_kursi == 36 || $row->total_kursi == 50)
                                         <div class="row mt-3 g-2 align-items-center">
+                                            @if ($rute->id_trayek != 1)
                                             <div class="col-4 text-center">
                                                 <div class="toilet-box fw-bold p-3"><i class="fa fa-restroom"></i> TOILET</div>
                                             </div>
                                             <div class="col-8">
+                                            @else
+                                            <div class="col-12">
+                                            @endif
                                                 <div class="row g-1">
                                                     @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
                                                     <div class="col-3 text-center">
