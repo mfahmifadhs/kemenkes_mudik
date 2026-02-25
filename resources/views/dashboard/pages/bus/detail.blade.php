@@ -170,7 +170,7 @@
                                     </div>
                                 </div>
 
-                                @if ($row->total_kursi == 50)
+                                @if ($row->total_kursi == 50 || $row->total_kursi == 46)
                                 <div class="row mt-2">
                                     <div class="col-3">
                                         <div class="seat-special text-center p-2 rounded-pill text-dark" style="background-color: #e9ecef; font-size: 0.8rem;">TOILET</div>

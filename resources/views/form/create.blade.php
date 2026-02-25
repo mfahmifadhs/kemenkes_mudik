@@ -400,7 +400,7 @@
                                             </div>
                                         </div>
 
-                                        @if ($row->total_kursi == 40 || $row->total_kursi == 36 || $row->total_kursi == 50)
+                                        @if ($row->total_kursi == 40 || $row->total_kursi == 46 || $row->total_kursi == 50)
                                         <div class="row mt-3 g-2 align-items-center">
                                             @if ($rute->id_trayek != 1)
                                             <div class="col-4 text-center">
