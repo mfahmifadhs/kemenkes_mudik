@@ -214,6 +214,10 @@
                                         <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
+                                        <a href="#" class="btn btn-default btn-small border-dark mt-2" onclick="confirmLink(event, `{{ route('book.delete', $row->id_booking) }}`)">
+                                            <i class="fas fa-trash-alt"></i> Hapus
+                                        </a>
+
                                         @elseif (Auth::user()->role_id == 4 && Auth::user()->uker->unit_utama_id == $row->uker->unit_utama_id)
                                         <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
                                             <i class="fas fa-edit"></i> Edit
