@@ -414,7 +414,7 @@
                                                         @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
                                                         @php
                                                         // Menentukan nomor baris belakang (misal baris 10 untuk bus 40, baris 13 untuk bus 50)
-                                                        $rowNumber = ($row->total_kursi == 50) ? '13' : '10';
+                                                        $rowNumber = ($row->total_kursi == 50 ? '13' : $row->total_kursi == 46) ? '12' : '10';
                                                         $seatCode = $rowNumber . $kode . $row->id_bus;
                                                         @endphp
 
