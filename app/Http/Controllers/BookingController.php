@@ -555,7 +555,7 @@ class BookingController extends Controller
         Peserta::where('booking_id', $id)->delete();
         Booking::where('id_booking', $id)->delete();
 
-        if (Auth::user()->role_id == 1) {
+        if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2) {
             return redirect()->route('peserta')->with('success', 'Berhasil Menghapus');
         } else {
             return redirect()->route('dashboard')->with('success', 'Berhasil membatalkan pendaftaran');
