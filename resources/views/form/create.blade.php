@@ -420,7 +420,7 @@
 
                                                         <div class="col-3 text-center">
                                                             @if ($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty())
-                                                            <span class="seat-label seat-booked">{{ $rowNumber . $kode }}s a</span>
+                                                            <span class="seat-label seat-booked">{{ $rowNumber . $kode }}</span>
                                                             @elseif ($seatCek->where('seat_booked', $seatCode)->where('status', 'full')->isNotEmpty())
                                                             <span class="seat-label seat-full">{{ $rowNumber . $kode }}</span>
                                                             @else
