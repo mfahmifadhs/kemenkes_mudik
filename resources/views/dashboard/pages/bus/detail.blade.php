@@ -180,7 +180,8 @@
                                         <div class="row">
                                             @foreach (json_decode($row->kd_seat_belakang, true) as $kode)
                                             @php
-                                            $seatCode = "13" . $kode . $busId;
+                                            $rowNumber = ($row->total_kursi == 50) ? '13' : (($row->total_kursi == 46) ? '12' : '10');
+                                            $seatCode = $rowNumber . $kode . $busId;
                                             $statusClass = 'seat-available';
 
                                             if($seatCek->where('seat_booked', $seatCode)->where('status', 'book')->isNotEmpty()) $statusClass = 'seat-booked';
@@ -189,7 +190,7 @@
 
                                             <div class="col-3 mb-2">
                                                 <div class="seat-item {{ $statusClass }} text-center">
-                                                    13{{ $kode }}
+                                                    {{ $rowNumber . $kode }}
                                                 </div>
                                             </div>
                                             @endforeach
