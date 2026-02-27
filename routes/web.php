@@ -7,6 +7,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\UkerController;
 use App\Http\Controllers\UserController;
+use App\Models\Booking;
+use App\Models\Peserta;
 use App\Models\SyaratKetentuan;
 use App\Models\Trayek;
 use App\Models\TrayekDetail;
@@ -16,6 +18,24 @@ Route::get('/', function () {
     $data = new \stdClass();
     $data->sk     = SyaratKetentuan::get();
     $data->trayek = Trayek::get();
+
+    $book = Booking::where('payment_status', '=', null)
+        ->where('payment_limit', '<', now())
+        ->get();
+
+    if ($book->isNotEmpty()) {
+        foreach ($book as $row) {
+            Peserta::where('booking_id', $row->id_booking)->update([
+                'status' => 'cancel'
+            ]);
+
+            Booking::where('id_booking', $row->id_booking)->update([
+                'payment_status' => 'false',
+                'approval_uker'  => 'false',
+                'catatan'        => 'waktu habis'
+            ]);
+        }
+    }
 
     return view('welcome', compact('data'));
 })->name('home');
