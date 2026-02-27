@@ -65,6 +65,11 @@
                                             <td class="text-left">
 
                                                 <div class="d-flex flex-column gap-1">
+                                                    <div>
+                                                        <span class="text-danger text-xs fw-bold mb-1 ml-0">
+                                                            <b>Batas Waktu Deposit : {{ Carbon\Carbon::parse($row->payment_limit)->format('DD MMM Y | H:i:s') }}</b>
+                                                        </span>
+                                                    </div>
                                                     <div><span class="text-primary text-xs fw-bold mb-1 ml-0"><b>{{ $row->kode_booking }}</b></span></div>
                                                     <div class="fw-bold text-dark" style="font-size: 0.95rem;">{{ $row->nama_pegawai }}</div>
                                                     <div class="small">
