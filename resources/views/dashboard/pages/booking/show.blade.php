@@ -144,99 +144,105 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="row">
-                                            <div class="col-md-3">Kode Boking</div>
-                                            <div class="col-md-8">: {{ $row->kode_booking }}</div>
-                                            <div class="col-md-3">Nama</div>
-                                            <div class="col-md-8">: {{ $row->nama_pegawai }}</div>
-                                            <div class="col-md-3">NIK/NIP</div>
-                                            <div class="col-md-8">: {{ $row->nip_nik }}</div>
-                                            <div class="col-md-3">No. Telp</div>
-                                            <div class="col-md-8">: {{ $row->no_telp }}</div>
-                                            <div class="col-md-3">Alamat</div>
-                                            <div class="col-md-8">: {{ $row->alamat }}</div>
+                                        @if ($row->payment_limit < Carbon\Carbon::now())
+                                        <div class="col-md-3">Batas Deposit</div>
+                                        <div class="col-md-8 text-danger">
+                                            : <b>{{ \Carbon\Carbon::parse($row->payment_limit)->isoFormat('DD MMM Y | HH:mm:ss') }}</b>
                                         </div>
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="row">
-                                            <div class="col-md-4">Tujuan</div>
-                                            <div class="col-md-7">: {{ $row->tujuan->nama_kota }}</div>
-                                            <div class="col-md-4">Jurusan</div>
-                                            <div class="col-md-7">: {{ ucwords(strtolower($row->rute->jurusan)) }}</div>
-                                            <div class="col-md-12 mt-2">Rute :</div>
-                                            <div class="col-md-12">{{ $row->rute->rute }}</div>
-                                        </div>
-                                    </td>
-                                    <td class="text-left align-middle text-center">
-                                        {{ $row->detail->count() }} orang
-                                    </td>
-                                    <td class="text-left">
-                                        @if ($row->approval_uker || !$row->approval_uker)
-                                        @php $status = !$row->approval_uker ? 'text-warning' : ($row->approval_uker == 'true' ? 'text-success' : 'text-danger'); @endphp
-                                        <label class="mb-1 btn-xs border-dark text-xs {{ $status }}">
-                                            <span class="text-xs">
-                                                @if (!$row->approval_uker)
-                                                <i class="fas fa-clock"></i>
-                                                @elseif ($row->approval_uker == 'true')
-                                                <i class="fas fa-check-circle"></i>
-                                                @elseif ($row->approval_uker == 'false')
-                                                <i class="fas fa-times-circle"></i>
-                                                @endif
-                                                Unit Kerja
-                                            </span>
-                                        </label>
                                         @endif
-                                        @if ($row->approval_roum || !$row->approval_roum)
-                                        @php $status = !$row->approval_roum ? 'text-warning' : ($row->approval_roum == 'true' ? 'text-success' : 'text-danger'); @endphp
-                                        <label class="mb-1 btn-xs border-dark text-xs {{ $row->approval_uker == 'false' ? 'text-danger' : $status }}">
-                                            <span class="text-xs">
-                                                @if (!$row->approval_roum || !$row->approval_uker)
-                                                <i class="fas fa-clock"></i>
-                                                @elseif ($row->approval_roum == 'true')
-                                                <i class="fas fa-check-circle"></i>
-                                                @elseif ($row->approval_roum == 'false' || $row->approval_uker == 'false')
-                                                <i class="fas fa-times-circle"></i>
-                                                @endif
-                                                Biro Umum
-                                            </span>
-                                        </label>
-                                        @endif
-                                        @if ($row->catatan)
-                                        <label class="mb-1 btn-xs border-dark text-danger" style="font-size: 9px;">
-                                            {{ $row->catatan }}
-                                        </label>
-                                        @endif
-                                    </td>
-                                    <td class="text-left">
-                                        <a href="{{ route('book.validation', $row->id_booking) }}" class="btn btn-default btn-small border-dark">
-                                            <i class="fas fa-info-circle"></i> Detail
-                                        </a>
-                                        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                                        <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
-                                            <i class="fas fa-edit"></i> Edit
-                                        </a>
-                                        <a href="#" class="btn btn-default btn-small border-dark mt-2" onclick="confirmLink(event, `{{ route('book.delete', $row->id_booking) }}`)">
-                                            <i class="fas fa-trash-alt"></i> Hapus
-                                        </a>
-
-                                        @elseif (Auth::user()->role_id == 4 && Auth::user()->uker->unit_utama_id == $row->uker->unit_utama_id)
-                                        <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
-                                            <i class="fas fa-edit"></i> Edit
-                                        </a>
-                                        @elseif (Auth::user()->role_id == 4 && Auth::user()->uker->unit_utama_id == '46593' && Auth::user()->uker_id == $row->uker_id)
-                                        <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
-                                            <i class="fas fa-edit"></i> Edit
-                                        </a>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                        <div class="col-md-3">Kode Boking</div>
+                                        <div class="col-md-8">: {{ $row->kode_booking }}</div>
+                                        <div class="col-md-3">Nama</div>
+                                        <div class="col-md-8">: {{ $row->nama_pegawai }}</div>
+                                        <div class="col-md-3">NIK/NIP</div>
+                                        <div class="col-md-8">: {{ $row->nip_nik }}</div>
+                                        <div class="col-md-3">No. Telp</div>
+                                        <div class="col-md-8">: {{ $row->no_telp }}</div>
+                                        <div class="col-md-3">Alamat</div>
+                                        <div class="col-md-8">: {{ $row->alamat }}</div>
                     </div>
+                    </td>
+                    <td class="text-left">
+                        <div class="row">
+                            <div class="col-md-4">Tujuan</div>
+                            <div class="col-md-7">: {{ $row->tujuan->nama_kota }}</div>
+                            <div class="col-md-4">Jurusan</div>
+                            <div class="col-md-7">: {{ ucwords(strtolower($row->rute->jurusan)) }}</div>
+                            <div class="col-md-12 mt-2">Rute :</div>
+                            <div class="col-md-12">{{ $row->rute->rute }}</div>
+                        </div>
+                    </td>
+                    <td class="text-left align-middle text-center">
+                        {{ $row->detail->count() }} orang
+                    </td>
+                    <td class="text-left">
+                        @if ($row->approval_uker || !$row->approval_uker)
+                        @php $status = !$row->approval_uker ? 'text-warning' : ($row->approval_uker == 'true' ? 'text-success' : 'text-danger'); @endphp
+                        <label class="mb-1 btn-xs border-dark text-xs {{ $status }}">
+                            <span class="text-xs">
+                                @if (!$row->approval_uker)
+                                <i class="fas fa-clock"></i>
+                                @elseif ($row->approval_uker == 'true')
+                                <i class="fas fa-check-circle"></i>
+                                @elseif ($row->approval_uker == 'false')
+                                <i class="fas fa-times-circle"></i>
+                                @endif
+                                Unit Kerja
+                            </span>
+                        </label>
+                        @endif
+                        @if ($row->approval_roum || !$row->approval_roum)
+                        @php $status = !$row->approval_roum ? 'text-warning' : ($row->approval_roum == 'true' ? 'text-success' : 'text-danger'); @endphp
+                        <label class="mb-1 btn-xs border-dark text-xs {{ $row->approval_uker == 'false' ? 'text-danger' : $status }}">
+                            <span class="text-xs">
+                                @if (!$row->approval_roum || !$row->approval_uker)
+                                <i class="fas fa-clock"></i>
+                                @elseif ($row->approval_roum == 'true')
+                                <i class="fas fa-check-circle"></i>
+                                @elseif ($row->approval_roum == 'false' || $row->approval_uker == 'false')
+                                <i class="fas fa-times-circle"></i>
+                                @endif
+                                Biro Umum
+                            </span>
+                        </label>
+                        @endif
+                        @if ($row->catatan)
+                        <label class="mb-1 btn-xs border-dark text-danger" style="font-size: 9px;">
+                            {{ $row->catatan }}
+                        </label>
+                        @endif
+                    </td>
+                    <td class="text-left">
+                        <a href="{{ route('book.validation', $row->id_booking) }}" class="btn btn-default btn-small border-dark">
+                            <i class="fas fa-info-circle"></i> Detail
+                        </a>
+                        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                        <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a href="#" class="btn btn-default btn-small border-dark mt-2" onclick="confirmLink(event, `{{ route('book.delete', $row->id_booking) }}`)">
+                            <i class="fas fa-trash-alt"></i> Hapus
+                        </a>
+
+                        @elseif (Auth::user()->role_id == 4 && Auth::user()->uker->unit_utama_id == $row->uker->unit_utama_id)
+                        <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        @elseif (Auth::user()->role_id == 4 && Auth::user()->uker->unit_utama_id == '46593' && Auth::user()->uker_id == $row->uker_id)
+                        <a href="{{ route('book.edit', $row->id_booking) }}" class="btn btn-default btn-small border-dark mt-2">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        @endif
+                    </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </div><br>
+    </div>
+</div><br>
 </div>
 
 @section('js')
