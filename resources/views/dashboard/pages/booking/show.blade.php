@@ -144,7 +144,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="row">
-                                        @if ($row->payment_limit > Carbon\Carbon::now())
+                                        @if ($row->payment_limit > Carbon\Carbon::now() && !$row->approval_uker)
                                         <div class="col-md-3">Batas Deposit</div>
                                         <div class="col-md-8 text-danger">
                                             : <b>{{ \Carbon\Carbon::parse($row->payment_limit)->isoFormat('DD MMM Y | HH:mm:ss') }}</b>
