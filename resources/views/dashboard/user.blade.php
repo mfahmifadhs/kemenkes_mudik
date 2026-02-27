@@ -67,7 +67,7 @@
                                                 <div class="d-flex flex-column gap-1">
                                                     <div>
                                                         <span class="text-danger text-xs fw-bold mb-1 ml-0">
-                                                            <b>Batas Waktu Deposit : {{ Carbon\Carbon::parse($row->payment_limit)->isoFormat('DD MMM Y | H:M:S') }}</b>
+                                                            <b>Batas Waktu Deposit : {{ Carbon\Carbon::parse($row->payment_limit)->isoFormat('DD MMM Y | HH:mm:ss') }}</b>
                                                         </span>
                                                     </div>
                                                     <div><span class="text-primary text-xs fw-bold mb-1 ml-0"><b>{{ $row->kode_booking }}</b></span></div>
