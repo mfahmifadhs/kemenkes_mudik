@@ -296,7 +296,7 @@
                                 <td><strong>
                                     <div class="position-relative d-inline-block">
                                         @if ($total_seat - $total_full == 0)
-                                        <span class="badge badge-danger">Penuh</span>
+                                        <span class="badge badge-danger bg-red">Penuh</span>
                                         @endif
 
                                         @if ($total_seat - $total_full != 0)
