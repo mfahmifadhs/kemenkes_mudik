@@ -286,8 +286,30 @@
                         </thead>
                         <tbody>
                             @foreach($data->trayek as $row)
+                            @php
+                                $total_seat = $row->bus->sum('total_kursi');
+                                $total_full = $row->bus->sum(function($bus) {
+                                    return $bus->detail->where('status', 'full')->count();
+                                });
+                            @endphp
                             <tr class="border-bottom">
-                                <td><strong>{{ $row->jurusan }}</strong></td>
+                                <td><strong>
+                                    <div class="position-relative d-inline-block">
+                                        @if ($total_seat - $total_full == 0)
+                                        <span class="badge badge-danger">Penuh</span>
+                                        @endif
+
+                                        @if ($total_seat - $total_full != 0)
+                                        <span class="badge badge-success">Sisa {{ $total_seat - $total_full }}</span>
+                                        @endif
+
+                                        @if ($total_seat - $total_full != 0 && $row->id_trayek == 16)
+                                        <span class="badge badge-success">New</span>
+                                        @endif
+
+                                        {{ $row->jurusan }}
+                                        </div>
+                                    </strong></td>
                                 <td>{{ $row->rute }}</td>
                                 <td class="text-center">{{ $row->bus->where('status', 'true')->count() }}</td>
                             </tr>
