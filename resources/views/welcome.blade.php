@@ -296,15 +296,15 @@
                                 <td><strong>
                                     <div class="position-relative d-inline-block">
                                         @if ($total_seat - $total_full == 0)
-                                        <span class="badge badge-danger bg-red">Penuh</span>
+                                        <span class="badge badge-danger" style="background-color: red;">Penuh</span>
                                         @endif
 
                                         @if ($total_seat - $total_full != 0)
-                                        <span class="badge badge-success">Sisa {{ $total_seat - $total_full }}</span>
+                                        <span class="badge badge-success" style="background-color: green;">Sisa {{ $total_seat - $total_full }}</span>
                                         @endif
 
                                         @if ($total_seat - $total_full != 0 && $row->id_trayek == 16)
-                                        <span class="badge badge-success">New</span>
+                                        <span class="badge badge-success" style="background-color: orange;">New</span>
                                         @endif
 
                                         {{ $row->jurusan }}
