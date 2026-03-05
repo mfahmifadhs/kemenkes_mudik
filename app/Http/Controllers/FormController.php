@@ -198,7 +198,7 @@ class FormController extends Controller
         }
 
         Booking::where('id_booking', $id_book)->update([
-            'payment_limit' => now()->addDays(3)
+            'payment_limit' => Carbon::create(2026, 3, 6, 23, 59, 0)
         ]);
 
         return redirect()->route('form.confirm', $id_book)->with('success', 'Berhasil Registrasi');
