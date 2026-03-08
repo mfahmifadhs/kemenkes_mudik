@@ -180,7 +180,7 @@
                     <div class="d-flex flex-column flex-md-row gap-md-5 align-items-center">
                         <div>
                             <small class="text-white-50 d-block mb-1">Periode Pendaftaran</small>
-                            <h5 class="mb-0 fw-bold"><i class="bi-calendar-check me-2"></i>24 Februari - 6 Maret 2026</h5>
+                            <h5 class="mb-0 fw-bold"><i class="bi-calendar-check me-2"></i>24 Februari - 8 Maret 2026</h5>
                         </div>
                         <div class="vr d-none d-md-block opacity-25"></div>
                         <hr class="d-md-none w-100 opacity-25">
@@ -191,7 +191,7 @@
                     </div>
                 </div>
 
-                @if(now()->greaterThanOrEqualTo(\Carbon\Carbon::parse('2026-02-24 07:30:00')))
+                @if(now()->lessThan(\Carbon\Carbon::parse('2026-03-08 23:59:00')))
                 <div class="mb-4">
                     <a href="{{ route('form.create') }}" class="btn custom-btn-main shadow">
                         <i class="bi-hand-index me-2"></i> Daftar Sekarang
